@@ -5,8 +5,7 @@ const app = express();
 const PORT = 3030;
 
 /** REQUIRE ROUTERS */
-// TODO: CREATE API ROUTE HANDLER FOR SERVER
-// const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
+const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
 
 /** HANDLE PARSING REQUEST BODY FOR JSON AND URL */
 app.use(express.json());
@@ -16,8 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css')));
 
 /** DEFINE ROUTE HANDLERS */
-// (SEE 'REQUIRE ROUTERS' TO-DO)
-// app.use('/api', apiRouter)
+app.use('/api', apiRouter);
 
 /** ROUTE HANDLER TO RESPOND WITH MAIN APP */
 app.get('/', (request, response) => {
@@ -44,5 +42,6 @@ app.use((error, request, response, next) => {
 app.listen(PORT, () => {
   console.log(`Server connected -- listening on port ${PORT}`);
 });
+
 
 module.exports = app;
