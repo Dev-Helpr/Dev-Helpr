@@ -2,13 +2,11 @@
   "name": "dev-helpr",
   "version": "1.0.0",
   "description": "",
- "main": "index.js",
+  "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
     "build": "cross-env NODE_ENV=production webpack",
-    "dev": "concurrently \"cross-env NODE_ENV=development webpack serve --open\" \"cross-env nodemon Server/server.js\"",
-    "gulp-prod": "node_modules/.bin/gulp prod",
-    "gulp-dev": "node_modules/.bin/gulp dev"
+    "dev": "concurrently \"cross-env NODE_ENV=development webpack serve --open\" \"cross-env nodemon Server/server.js\""
   },
   "nodemonConfig": {
     "ignore": [
@@ -23,12 +21,13 @@
     "browserify": "^17.0.0",
     "dotenv": "^16.0.0",
     "express": "^4.12.3",
-    "gulp": "^4.0.2",
     "pg": "^8.7.3",
+    "postcss-loader": "^6.2.1",
     "prop-types": "^15.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-router-dom": "^6.2.2"
+    "react-router-dom": "^6.2.2",
+    "websocket": "^1.0.34"
   },
   "devDependencies": {
     "@babel/core": "^7.17.7",
@@ -52,4 +51,3 @@
     "webpack-dev-server": "^4.7.4"
   }
 }
-

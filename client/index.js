@@ -7,6 +7,9 @@ import styles from "./styles/app.css";
 
 //adsfsdfsdfsf   HEY dghghf dfgsdfgdsfgdfg
 //
+import App from "./App.jsx";
+import './stylesheets/styles.css';
+
 render(
   <BrowserRouter>
     <App />
