@@ -11,8 +11,4 @@ render(
   document.getElementById("root")
 );
 
-<<<<<<< HEAD
-// TESTING AGAIN
-=======
-//Jerald Test
->>>>>>> 09c28d666aab4a64be5c0e4fff03f85f7676b0ed
+// DELETED THE WEIRD CODES
