@@ -12,3 +12,5 @@ render(
   </BrowserRouter>,
   document.getElementById("root")
 );
+
+// DELETED THE WEIRD CODES
