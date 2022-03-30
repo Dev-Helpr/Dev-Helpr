@@ -13,4 +13,4 @@ render(
   document.getElementById("root")
 );
 
-// DELETED THE WEIRD CODES
+// TRYING THIS YET AGAIN. THERE SHOULD BE NO .IDEA FOLDER!
