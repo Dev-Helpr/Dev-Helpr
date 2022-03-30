@@ -3,7 +3,10 @@ import { render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import App from "./components/App.jsx";
 import styles from "./styles/app.css";
-//s
+
+
+//adsfsdfsdfsf   HEY dghghf dfgsdfgdsfgdfg
+//
 render(
   <BrowserRouter>
     <App />
@@ -11,5 +14,4 @@ render(
   document.getElementById("root")
 );
 
-//Jerald Test
-//Jerald Developer test
+// TRYING THIS YET AGAIN. THERE SHOULD BE NO .IDEA FOLDER!
