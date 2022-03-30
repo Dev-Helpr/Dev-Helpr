@@ -7,8 +7,6 @@
     "start": "node server/server.js",
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "concurrently \"cross-env NODE_ENV=development webpack serve --open\" \"cross-env nodemon Server/server.js\"",
-    "gulp-prod": "node_modules/.bin/gulp prod",
-    "gulp-dev": "node_modules/.bin/gulp dev"
   },
   "nodemonConfig": {
     "ignore": [
