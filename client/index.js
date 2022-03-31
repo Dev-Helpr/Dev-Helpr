@@ -1,12 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import App from "./components/App.jsx";
-import styles from "./styles/app.css";
-
-
-//adsfsdfsdfsf   HEY dghghf dfgsdfgdsfgdfg
-//
 import App from "./App.jsx";
 import './stylesheets/styles.css';
 
@@ -20,5 +14,4 @@ render(
 // TRYING THIS YET AGAIN. THERE SHOULD BE NO .IDEA FOLDER!
 //change
 
-
-//This is jerald testing from his local branch pushing to remote branch
+//Codesmith
