@@ -3,7 +3,6 @@ const express = require('express');
 
 const app = express();
 const PORT = 3030;
-
 /** REQUIRE ROUTERS */
 const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
 const users = require(path.resolve(__dirname, './routes/users'));
@@ -14,7 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 
 /** HANDLE REQUESTS FOR STATIC FILES */
 app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css')));
-
 /** DEFINE ROUTE HANDLERS */
 app.use('/api/users/', users);
 app.use('/api', apiRouter);
@@ -41,6 +39,7 @@ app.use((error, request, response, next) => {
 });
 
 /** START SERVER */
+
 app.listen(PORT, () => {
   console.log(`Server connected -- listening on port ${PORT}`);
 });

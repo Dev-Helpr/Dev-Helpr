@@ -17,3 +17,5 @@ router.get('/info', controller.testFunction, (req, res) => {
     // res.cookie (JWT auth)
     res.status(200).json({ message: 'getting account info' })
 })
+
+module.exports = router; 
