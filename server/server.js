@@ -17,10 +17,10 @@ app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css
 /** DEFINE ROUTE HANDLERS */
 app.use('/api', apiRouter);
 
-/** ROUTE HANDLER TO RESPOND WITH MAIN APP */
-app.get('/', (request, response) => {
-  return response.sendFile(path.resolve(__dirname, '../client/index.html'));
-});
+// /** ROUTE HANDLER TO RESPOND WITH MAIN APP */
+// app.get('/', (request, response) => {
+//   return response.sendFile(path.resolve(__dirname, '../client/index.html'));
+// });
 
 /** CATCH-ALL ROUTE HANDLER FOR ANY REQUESTS TO AN UNKNOWN ROUTE */
 app.use('*', (request, response) => {
