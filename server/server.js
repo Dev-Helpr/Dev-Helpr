@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 const path = require('path');
 const express = require('express');
 
@@ -46,3 +48,4 @@ app.listen(PORT, () => {
 
 
 module.exports = app;
+>>>>>>> c6313937875a367c64525c2dae1b01318ad9c7d4
