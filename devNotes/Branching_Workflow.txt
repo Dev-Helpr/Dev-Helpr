@@ -19,3 +19,136 @@ Once you've confirmed the branch was successfully created, to go into that branc
 
 Once you want to save any coding progress 
 
+    -view modified files
+
+        git status
+
+    -Move files that you want to commit to the staging area
+    -You can add individual files 
+
+        git add <file name> <file name> <file name>
+
+    - Or you can stage all (new, modified, deleted) files
+
+        git add -A
+
+    -if you need to remove individual files from staging area, you can 
+
+        git reset <file name> <file name>
+
+    - or you can remove all staged files back to un-staged with
+
+        git reset
+
+    - after adding files to staging area, verify that you have the correct files staged
+    - and are not staging any undesired file to commit, by checking the git status
+
+        git status
+
+    - After you've double checked your staged files, commit the files with a descriptive
+    - message of that changes you are committing 
+
+        git commit -m "this is a descriptive message of this commit"
+
+    -commit is only to a LOCAL BRANCH. This commit DOES NOT affect our local master/main branch nor 
+    - the remote repository.
+
+    - After commit, you can push your feature/branch to the remote repository for the first time.
+    - Remember, the typical name of our main REMOTE repository is 'origin'. So the command will look like:
+
+        git push -u origin <name of branch>
+
+    - The '-u' option tells git that we want to associate our local <feature branch> with the remote <feature branch> 
+    - that we are creating/pushing to. You can do this once with the initial push of the new branch and in the future, instead of
+    - doing 'git push -u origin <feature branch> we can just do 'git pull' and 'git push'
+
+        ** YOUT ONLY HAVE TO DO THE ABOVE CODE ONCE WHEN PUSHING LOCAL FEATURE BRANCH TO REMOTE REPO FOR FIRST TIME **
+
+    -Once you've done that step once and are working inside that same feature branch, you can just 
+
+        git pull
+        git push
+
+    -without all the extra syntax. Since the local and remote branch of that feature have that bond (from the -u option), you do not have to specify
+    -which branch you are pushing and pull to/from.
+
+    -Before PUSHING your commits (no matter what branch/feature), you will want to pull and update the Developer branch to make sure you have those latest changes. here are the steps:
+    --** ALWAYS PULL BEFORE PUSH **--
+
+    - locally switch to developer branch
+
+        git checkout developer
+
+
+    - pull latest updates of developer branch down to your local system
+
+        git pull origin developer
+
+
+    - switch back to your branch locally now that developer branch is updated
+
+        git checkout <your branch> 
+
+
+    - bring the latest updates you just pulled to developer branch into your local feature branch
+
+        git merge developer
+
+
+    - Resolve any conflicts at this time, once resolved or no conflict:
+    - push merged branch up to github
+
+        git push origin <your branch>
+
+    
+    - Now that you have saved your progress of your branch to the remote
+    - version of your branch, you can continue to work on your branch and 
+    - repeat these steps when ever you want to save to the remote repository.
+
+
+
+----------------------------------------------
+
+Merging a finish branch to Developer Branch
+
+    - Follow the above steps to have a fully updated and complete version of
+    - your feature/branch with the most recent version of the developer branch 
+    - within it. After you push that branch to origin, you will want to:
+
+        - Create a pull request in GitHub from <your branch> ==> developer
+        - slack team members that you just did a PR so that they are aware 
+        - can review the PR, resolve any issues or delegate any issues to be 
+        - resolved, and then merge your feature branch into the developer branch.
+
+
+-----------------------------------------------
+
+Deleting a completed feature/branch
+
+
+        -Once feature branch is complete and we are confident we can delete the branch:
+
+        - verify that the branch was successfully merged
+
+            git branch --merged
+
+        -delete the branch locally
+
+            git branch -d <your branch>
+
+        - view all branches to verify that local branch was deleted but that 
+        - the remote branch still exists
+
+            git branch -a
+
+        - to delete the remote branch on the repository:
+
+            git push origin --delete <your branch>
+
+        - again, verify that both local and remote branches have been deleted.
+
+            git branch -a
+
+
+
+
