@@ -4,47 +4,47 @@ const miniCSS = require("mini-css-extract-plugin");
 const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-  //
-  mode: process.env.NODE_ENV,
-
-  //indeicate where webpack should be building this
   entry: "./client/index.js",
+
   output: {
     path: path.resolve(__dirname, "build"),
     filename: "bundle.js",
     //clean the folder build before rebuilding a new file
     clean: true,
   },
-  //keep track of where the content came from and it can tell u where the original error comes from
+
   devtool: "inline-source-map",
+  mode: "development",
 
   devServer: {
-    // contentBase: path.resolve(__dirname, 'build'),
+    host: 'localhost',
+    port: 8084,
     static: {
       publicPath: "/build",
       directory: path.resolve(__dirname, "build"),
     },
-    port: 8080,
-    //launch the browser when you start web server. Also, opne default browser
     open: true,
     hot: true,
-    // watchContentBase: true,
     proxy: {
-      // "/signup": "http://localhost:3000",
-      "/api": "http://localhost:3000",
-    },
+      '/api/**': {
+        target: 'http://localhost:3010',
+        secure: false,
+      },
+      '/client/stylesheets/**': {
+        target: 'http://localhost:3010',
+        secure: false,
+      }
+    }
   },
 
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /.(js|jsx)$/,
         exclude: /node_modules/,
         use: [
           {
-            //bundle all file together
             loader: "babel-loader",
-            //Transform JS and react to ES5
             options: {
               presets: ["@babel/preset-env", "@babel/preset-react"],
             },
@@ -52,12 +52,9 @@ module.exports = {
         ],
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.(css|scss|sass)$/,
         exclude: /node_modules/,
-        //style-loader inject CSS into the DOM.
-        //css-loader - Translates CSS into CommonJS
-        //sass-loader - Compiles Sass to CSS
-        use: [miniCSS.loader, "css-loader", "sass-loader"],
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
         test: /\.(svg|webp|ico|png|jpe?g|gif)$/i,
@@ -65,6 +62,7 @@ module.exports = {
       },
     ],
   },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "client", "index.html"),
