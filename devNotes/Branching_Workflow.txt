@@ -1,0 +1,21 @@
+Creating a new Branch
+
+    git branch <name of branch>
+
+    -this branch will be created undeer the master/main tree
+
+Check if branch was created
+
+    git branch
+
+    - this will list all LOCAL branches. The * signifies what branch you are currently in.
+
+Once you've confirmed the branch was successfully created, to go into that branch-
+
+    git checkout <name of branch>
+
+
+--------------------------------------------------
+
+Once you want to save any coding progress 
+
