@@ -6,6 +6,7 @@ const PORT = 3030;
 
 /** REQUIRE ROUTERS */
 const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
+const users = require(path.resolve(__dirname, './routes/users'));
 
 /** HANDLE PARSING REQUEST BODY FOR JSON AND URL */
 app.use(express.json());
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css')));
 
 /** DEFINE ROUTE HANDLERS */
+app.use('/api/users/', users);
 app.use('/api', apiRouter);
 
 /** ROUTE HANDLER TO RESPOND WITH MAIN APP */
