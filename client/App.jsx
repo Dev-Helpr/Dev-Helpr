@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import './stylesheets/styles.css';
 
-/** MAIN APP LIVES HERE */
-
+class App extends Component {
+  render() {
+    return (
+      <>Dev Helpr</>
+    );
+  }
+}
 
 export default App;

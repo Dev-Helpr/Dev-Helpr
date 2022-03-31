@@ -17,6 +17,7 @@ app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css
 /** DEFINE ROUTE HANDLERS */
 app.use('/api', apiRouter);
 
+// DO NOT NEED THIS ANYMORE
 // /** ROUTE HANDLER TO RESPOND WITH MAIN APP */
 // app.get('/', (request, response) => {
 //   return response.sendFile(path.resolve(__dirname, '../client/index.html'));
