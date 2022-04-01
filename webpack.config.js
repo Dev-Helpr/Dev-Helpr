@@ -27,11 +27,11 @@ module.exports = {
     hot: true,
     proxy: {
       '/api/**': {
-        target: 'http://localhost:3010',
+        target: 'http://localhost:3030',
         secure: false,
       },
       '/client/stylesheets/**': {
-        target: 'http://localhost:3010',
+        target: 'http://localhost:3030',
         secure: false,
       }
     }
