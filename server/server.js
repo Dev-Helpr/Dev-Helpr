@@ -9,7 +9,7 @@ const PORT = 3030;
 
 /** REQUIRE ROUTERS */
 const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
-const {options} = require("pg/lib/defaults");
+const { options } = require("pg/lib/defaults");
 
 /** HANDLE PARSING REQUEST BODY FOR JSON AND URL */
 app.use(express.json());
@@ -47,6 +47,5 @@ app.use((error, request, response, next) => {
 app.listen(PORT, () => {
   console.log(`Server connected -- listening on port ${PORT}`);
 });
-
 
 module.exports = app;
