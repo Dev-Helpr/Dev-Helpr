@@ -5,22 +5,24 @@ const initialUserState = {
   email: '',
   password: '',
   isOnline: false,
-  ishelper: false,
+  status: '',
 }
 
 const userStateReducer = (state = initialUserState, action) => {
 
   switch (action.type) {
-
-    case types.SIGN_UP: {
-      return state;
+    case types.USER_INPUT: {
+      return {
+        ...state,
+        [action.payload[0]]: action.payload[1],
+      };
     }
 
     case types.LOG_IN: {
       return {
         ...state,
         [action.payload[0]]: action.payload[1],
-      }
+      };
     }
 
     default: {

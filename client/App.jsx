@@ -24,13 +24,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   // create functions that will dispatch action creators
-  signup: (e) => dispatch(actions.userSignup(e)),
+  userInput: (e) => dispatch(actions.userInput(e)),
   logIn: (e) => dispatch(actions.userLogin(e)),
 });
 
 /** MAIN APP LIVES HERE email={email} password={password} logIn={logIn}*/
 function App(props) {
-  console.log(props)
+  console.log(props);
   return (
     <div className="App">
       <Routes>
@@ -40,7 +40,7 @@ function App(props) {
             <Login
               email={props.email}
               password={props.password}
-              logIn={props.logIn}
+              userInput={props.userInput}
             />
           }
         />
@@ -48,7 +48,7 @@ function App(props) {
           path="/signup"
           element={
             <Signup
-              signup={props.signup}
+              userInput={props.userInput}
               username={props.username}
               email={props.email}
               password={props.password}

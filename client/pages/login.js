@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
-function Login({ email, password, logIn }) {
-
+function Login({ email, password, userInput }) {
   const handleChange = (e) => {
     // console.log(e.target.name, e.target.value);
-    logIn(e);
-  }
-  console.log(email)
+    userInput(e);
+  };
   return (
     <div>
       {/* <input type="email" placeholder="Email" onChange={handleChange} /> */}
