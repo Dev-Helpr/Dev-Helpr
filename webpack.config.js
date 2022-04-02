@@ -57,7 +57,7 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
-        test: /\.(svg|webp|ico|png|jpe?g|gif)$/i,
+        test: /\.(svg|webp|ico|png|jpg|jpe?g|gif)$/i,
         type: "asset/resource",
       },
     ],

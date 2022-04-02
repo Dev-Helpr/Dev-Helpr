@@ -5,9 +5,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 import App from "./App.jsx";
 import './stylesheets/styles.css';
-/*
+import './stylesheets/signup.css'
 
-*/
 render(
   <BrowserRouter>
   <Provider store={store}>

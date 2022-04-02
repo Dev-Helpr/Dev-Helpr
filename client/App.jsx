@@ -6,14 +6,8 @@ import * as actions from "./action/action.js";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import "./stylesheets/styles.css";
+// import ReactPlayer from "react-player";
 
-/*
- username: '',
-  email: '',
-  password: '',
-  isOnline: false,
-  ishelper: false,
-*/
 const mapStateToProps = (state) => ({
   userName: state.users.userName,
   email: state.users.email,
@@ -35,7 +29,7 @@ function App(props) {
     <div className="App">
       <Routes>
         <Route
-          path="/"
+          path="/login"
           element={
             <Login
               props={props}
@@ -44,7 +38,7 @@ function App(props) {
           }
         />
         <Route
-          path="/signup"
+          path="/"
           element={
             <Signup
               userInput={props.userInput}
@@ -55,5 +49,16 @@ function App(props) {
     </div>
   );
 }
+// function App() {
+
+//     return (
+//         <div className="App">
+//             <Routes>
+//                 {/* <Route path='/' element={<Login/>} /> */}
+//                 <Route path='/' element={<Signup/>} />
+//             </Routes>
+//         </div>
+//     )
+// }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
