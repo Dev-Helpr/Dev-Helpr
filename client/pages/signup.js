@@ -1,65 +1,17 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
-// import Axios from 'axios'
+import axios from 'axios'
 // import click1 from '../audioclips/click1.mp3';
 
-// function Signup({ userInput }) {
-//  const handleChange = (e) => {
-//     userInput(e);
-//   };
-//   return (
-//     <div>
-//       <form method="POST" action="/signup">
-//         <input
-//           name="userName"
-//           type="text"
-//           placeholder="username"
-//           onChange={handleChange}
-//         ></input>
-//         <input
-//           name="email"
-//           type="text"
-//           placeholder="email"
-//           onChange={handleChange}
-//         ></input>
-//         <input name="password" type="password" onChange={handleChange}></input>
-//         <input name="confirm password" type="confirm password"></input>
-//         <button>
-//           <input type="submit" value="Create User" />
-//         </button>
-//       </form>
-//     </div>
-//   );
-
-function Signup({ userInput }) {
-  const handleChange = (e) => {
-    userInput(e);
-  };
-  // Initial state
-  // const [username, setUsername] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-
+function Signup({ userInput, props }) {
   // // State for checking error
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
   const [toggle1, setToggle1] = useState(false);
 
   // Function for username change
-  const handleUsername = (e) => {
-    userInput(e);
-    setSubmitted(false);
-  };
-
-  // Function for email change
-  const handleEmail = (e) => {
-    userInput(e);
-    setSubmitted(false);
-  };
-
-  // Function for password change
-  const handlePassword = (e) => {
+  const handleChange = (e) => {
     userInput(e);
     setSubmitted(false);
   };
@@ -67,14 +19,18 @@ function Signup({ userInput }) {
   // Function for submit button
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (username === "" || email === "" || password === "") {
-      setError(true);
-    } else {
+    axios.post("/api", {
+      userName: props.userName,
+      email: props.email,
+      password: props.password,
+    }).then(res => {
+        console.log(res);
+    });
       setSubmitted(true);
+      setToggle1(true);
       setError(false);
-    }
     console.log(e.target.value);
-    console.log("Submitted:", submitted);
+    console.log("Submitted:", error);
   };
 
   const handleToggle1 = () => {
@@ -96,34 +52,35 @@ function Signup({ userInput }) {
         <div className="styledFormWrapper">
           <div className="form-box">
             <button className="signupButton">Please Login:</button>
-            <form method="POST" action="/signup">
+            <form method="POST" action="/signup" onSubmit={handleSubmit}>
               <input
-                onChange={handleUsername}
+                onChange={handleChange}
                 className="form-username"
                 name="userName"
                 type="text"
+                required
                 placeholder="Username:"
               ></input>
               <input
-                onChange={handleEmail}
+                onChange={handleChange}
                 className="form-email"
                 name="email"
                 type="email"
+                required
                 placeholder="Email:"
               ></input>
               <input
-                onChange={handlePassword}
+                onChange={handleChange}
                 className="form-password"
                 name="password"
                 type="password"
+                required
                 placeholder="Password:"
               ></input>
               <button
-                onChange={handleSubmit}
                 onClick={handleToggle1}
                 className="form-createUserButton"
-                type="button"
-                value="Create User"
+                type="submit"
               >
                 Submit
               </button>

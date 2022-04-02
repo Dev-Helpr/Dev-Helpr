@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
   logIn: (e) => dispatch(actions.userLogin(e)),
 });
 
-/** MAIN APP LIVES HERE email={email} password={password} logIn={logIn}*/
+
 function App(props) {
   console.log(props);
   return (
@@ -30,35 +30,15 @@ function App(props) {
       <Routes>
         <Route
           path="/login"
-          element={
-            <Login
-              props={props}
-              userInput={props.userInput}
-            />
-          }
+          element={<Login props={props} userInput={props.userInput} />}
         />
         <Route
           path="/"
-          element={
-            <Signup
-              userInput={props.userInput}
-            />
-          }
+          element={<Signup props={props} userInput={props.userInput} />}
         />
       </Routes>
     </div>
   );
 }
-// function App() {
-
-//     return (
-//         <div className="App">
-//             <Routes>
-//                 {/* <Route path='/' element={<Login/>} /> */}
-//                 <Route path='/' element={<Signup/>} />
-//             </Routes>
-//         </div>
-//     )
-// }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
