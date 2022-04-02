@@ -25,7 +25,6 @@ function Chatbox() {
         <textarea name='message' id='message' className="mb-3 form-control" placeholder="Message" onChange={handleChange} />
         <button id='send' className="btn btn-success" onClick={handleClick}>Send</button>
         <div id='chatBox' style={{ borderStyle: 'solid' }}>{messages}</div>
-        {/*{ sendMes ? messages.push(`${input.name}${input.message}`) : null }*/}
       </div>
     </div>
   )
