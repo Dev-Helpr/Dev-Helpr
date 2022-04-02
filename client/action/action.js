@@ -5,7 +5,7 @@ export const userInput = (e) => ({
   payload: [e.target.name, e.target.value],
 });
 
-export const userLogin = (e) => ({
+export const userLogin = (object) => ({
   type: types.LOG_IN,
-  payload: [e.target.name, e.target.value],
+  payload: object,
 });

@@ -1,10 +1,10 @@
 import * as types from './../constant/actionTypes.js';
 
 const initialUserState = {
-  username: '',
+  userName: '',
   email: '',
   password: '',
-  isOnline: false,
+  online: false,
   status: '',
 }
 
@@ -19,10 +19,9 @@ const userStateReducer = (state = initialUserState, action) => {
     }
 
     case types.LOG_IN: {
-      return {
-        ...state,
-        [action.payload[0]]: action.payload[1],
-      };
+      //axios get request
+      //
+      return;
     }
 
     default: {

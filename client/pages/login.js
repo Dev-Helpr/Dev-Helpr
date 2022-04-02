@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 
-function Login({ email, password, userInput }) {
+function Login({ userInput, props }) {
   const handleChange = (e) => {
     // console.log(e.target.name, e.target.value);
     userInput(e);
   };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    console.log({email: props.email});
+  }
   return (
     <div>
-      {/* <input type="email" placeholder="Email" onChange={handleChange} /> */}
-      {/* <form action="/login" onChange={(e) => console.log("please work")}> */}
-
+      <Link to="/signup">hello</Link>
       <input
         name="email"
         type="text"
@@ -18,9 +22,7 @@ function Login({ email, password, userInput }) {
         onChange={handleChange}
       />
       <input name="password" type="password" onChange={handleChange} />
-      <button>
-        <input type="submit" value="Login User" />
-      </button>
+      <button type="submit" onClick={handleClick}>Submit</button>
       {/*</form>*/}
     </div>
   );

@@ -15,11 +15,11 @@ import "./stylesheets/styles.css";
   ishelper: false,
 */
 const mapStateToProps = (state) => ({
-  username: state.users.username,
+  userName: state.users.userName,
   email: state.users.email,
   password: state.users.password,
-  isOnline: state.users.isOnline,
-  ishelper: state.users.ishelper,
+  ionline: state.users.online,
+  status: state.users.status,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -38,8 +38,7 @@ function App(props) {
           path="/"
           element={
             <Login
-              email={props.email}
-              password={props.password}
+              props={props}
               userInput={props.userInput}
             />
           }
@@ -49,9 +48,6 @@ function App(props) {
           element={
             <Signup
               userInput={props.userInput}
-              username={props.username}
-              email={props.email}
-              password={props.password}
             />
           }
         />
