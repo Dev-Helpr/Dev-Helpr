@@ -6,7 +6,7 @@ const userController = require('../controllers/userController');
 // inside route @ '/api/users/'
 
 // Create new user in database
-router.post('/', userController.handleNewUser);
+router.post('/', userController.userExistsInDB, userController.handleNewUser);
 
 //log in user 
 router.post('/signIn', (req, res) => {
