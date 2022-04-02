@@ -1,9 +1,9 @@
 
 const bcrypt = require('bcrypt');
-const jwt
+// const jwt
 
 const handleNewUser = async (req, res) => {
-    const { userName, email, pwd } = req.body;
+    const { userName, email, password } = req.body;
     if (!email || !pwd || !userName) return res.status(400).json({ 'message': 'please include all required fields'});
     //check if email is already registered in DB
         // * DB QUERY HERE*
