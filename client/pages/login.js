@@ -1,18 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import ReactDOM from "react-dom";
 
-function Login() {
-    return (
-        <div>
-            <form method='POST' action='/login'>
-                <input name="username" type="text" placeholder="username"></input>
-                <input name="password" type="password"></input>
-                <button>
-                    <input type='submit' value='Login User'/>
-                </button>
-            </form>
-        </div>
-    )
+function Login({ userInput, props }) {
+  const handleChange = (e) => {
+    // console.log(e.target.name, e.target.value);
+    userInput(e);
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    console.log({email: props.email});
+  }
+  return (
+    <div>
+      <Link to="/signup">hello</Link>
+      <input
+        name="email"
+        type="text"
+        placeholder="email"
+        onChange={handleChange}
+      />
+      <input name="password" type="password" onChange={handleChange} />
+      <button type="submit" onClick={handleClick}>Submit</button>
+      {/*</form>*/}
+    </div>
+  );
 }
 
 export default Login;
