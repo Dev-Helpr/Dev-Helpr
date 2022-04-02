@@ -52,8 +52,9 @@ module.exports = {
         ],
       },
       {
-        test: /\.(css|scss|sass)$/,
-        exclude: /node_modules/,
+        test: /\.(css|scss|sass)$/i,
+        // exclude: /node_modules/,
+        include: path.resolve(__dirname, 'node_modules/bootstrap/scss/bootstrap.scss'),
         use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
@@ -67,7 +68,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "client", "index.html"),
     }),
-    // new miniCSS(),
-    // new Dotenv(),
+    new miniCSS(),
+    new Dotenv(),
   ],
 };

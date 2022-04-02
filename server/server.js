@@ -1,8 +1,5 @@
 const path = require('path');
 const express = require('express');
-const io = require('socket.io')(httpServer, options);
-
-io.on('connection', socket => { /* /* ... */ });
 
 const app = express();
 const PORT = 3030;
