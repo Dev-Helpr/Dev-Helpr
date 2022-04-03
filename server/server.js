@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
-
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 3030;
 /** REQUIRE ROUTERS */
@@ -10,6 +11,7 @@ const users = require(path.resolve(__dirname, './routes/users'));
 /** HANDLE PARSING REQUEST BODY FOR JSON AND URL */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 /** HANDLE REQUESTS FOR STATIC FILES */
 app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css')));

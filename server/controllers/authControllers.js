@@ -18,8 +18,8 @@ const protect = async (req, res, next) => {
         const value = [decoded.id];
             //here we are storing our users._id, username and email in the req.user obj that we can access within other routes
         const userInfo = await db.query(text, value);
-        req.user = userInfo.rows
-        // console.log(req.user);
+        req.user = userInfo.rows[0]
+        console.log(req.user);
         return next();
         } catch (error) {
         console.log(error);
@@ -31,6 +31,16 @@ const protect = async (req, res, next) => {
         res.status(401);
         throw new Error('Not authorized')
     }
+}
+
+const handleRefreshToken = (req, res) => {
+    const cookies = req.cookies;
+    //check if cookies exist? if yest check to see if .jwt property exists on cookies, if that does not exist then respond with 401 unauthorized
+    if (!cookies?.jwt) return res.sendStatus(401);
+    console.log(cookies.jwt);
+    const refreshToken = cookies.jwt;
+
+   
 }
 
 module.exports = { protect };

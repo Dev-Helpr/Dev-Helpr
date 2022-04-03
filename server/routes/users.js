@@ -15,7 +15,12 @@ router.post('/signIn', userController.userExistsInDB, userController.handleSignI
 //get user info
 router.get('/info', protect, (req, res) => {
     // res.cookie (JWT auth)
-    res.status(200).json({ message: 'getting account info' })
+    const userInfo = {
+        id: req.user._id,
+        email: req.user.email,
+        name: req.user.username
+    }
+    res.status(200).json(userInfo)
 })
 
 //test

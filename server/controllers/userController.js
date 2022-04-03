@@ -72,6 +72,9 @@ const handleSignIn = async (req, res) => {
         const refreshToken = generateRefreshToken(user.rows[0]._id);
         //store refresh token in cookies httpOnly for 1 day maxAge
         res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        //save refresh token to DB for matching and/or option to log out and denying access until sign in again
+        db.query(`UPDATE users SET refreshtoken = '${refreshToken}' WHERE users._id = ${user.rows[0]._id};`);
+
         return res.status(200).json({
             id: user.rows[0]._id,
             userName: user.rows[0].username,
