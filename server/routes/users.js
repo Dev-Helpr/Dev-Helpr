@@ -9,10 +9,7 @@ const userController = require('../controllers/userController');
 router.post('/', userController.userExistsInDB, userController.handleNewUser);
 
 //log in user 
-router.post('/signIn', (req, res) => {
-    // res.cookie (JWT auth)
-    res.status(200).json({ message: 'logging in user' })
-})
+router.post('/signIn', userController.userExistsInDB, userController.handleSignIn);
 
 //get user info
 router.get('/info', (req, res) => {

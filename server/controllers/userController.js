@@ -1,7 +1,16 @@
+require('dotenv').config();
 const db = require('../model/devHelprModels');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-// const jwt
+// Generate a JWT
+const generateAccessToken = (id) => jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: '5m',
+  });
+const generateRefreshToken = (id) => jwt.sign({ id }, process.env.REFRESH_TOKEN_SECTRET, {
+    expiresIn: '1d',
+  });
+
 const userExistsInDB = async (req, res, next) => {
     const text = `SELECT * FROM Users WHERE users.email = $1`;
     const values = [req.body.email]
@@ -42,4 +51,35 @@ const handleNewUser = async (req, res) => {
         }
 }
 
-module.exports = { handleNewUser, userExistsInDB };
+const handleSignIn = async (req, res) => {
+    const { email, password } = req.body;
+    //check if user exists in our DB already - userExistsInDB middleware should be ran before this middleware
+    //if user does not exist in DB - return false
+    if (!res.locals.existingUser) res.status(400).json(false)
+    
+    const text = `SELECT * FROM Users WHERE users.email = $1`;
+    const values = [email]
+    //fetch user info from db
+    const user = await db.query(text, values);
+    console.log('USER:  ',user.rows)
+    console.log('USER.PASSWORD: ',user.rows[0].password)
+    console.log('REQ.BODY PWD: ',password)
+    
+    // const match = await bcrypt.compare(password, user.rows[0].password)
+    if (await bcrypt.compare(password, user.rows[0].password)) {
+        //create our Access & Refresh JWTs
+        const accessToken = generateAccessToken(user.rows[0]._id);
+        const refreshToken = generateRefreshToken(user.rows[0]._id);
+        //store refresh token in cookies httpOnly for 1 day maxAge
+        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        return res.status(200).json({
+            id: user.rows[0]._id,
+            userName: user.rows[0].username,
+            email: user.rows[0].email,
+            accessToken: accessToken,
+        })
+    }
+    res.status(400).send({ 'message': 'NOT WORK AS INTENDED'})
+}
+
+module.exports = { handleNewUser, userExistsInDB, handleSignIn };
