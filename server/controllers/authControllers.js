@@ -1,11 +1,10 @@
 require('dotenv').config();
 const db = require('../model/devHelprModels');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const protect = async (req, res, next) => {
     let token;
-    const text = 'SELECT users._id, users.username FROM users WHERE users._id = $1;';
+    const text = 'SELECT users._id, users.username, users.email FROM users WHERE users._id = $1;';
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     
@@ -17,9 +16,10 @@ const protect = async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
             //get user from token
         const value = [decoded.id];
-        console.log('HERE is the decoded user id from token:  ',value);
-
-        req.user = await db.query(text, value)
+            //here we are storing our users._id, username and email in the req.user obj that we can access within other routes
+        const userInfo = await db.query(text, value);
+        req.user = userInfo.rows
+        // console.log(req.user);
         return next();
         } catch (error) {
         console.log(error);
