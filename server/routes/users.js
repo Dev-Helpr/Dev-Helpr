@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const testController = require('../controllers/testController');
 const userController = require('../controllers/userController');
+const { protect } = require('../controllers/authControllers');
 
 // inside route @ '/api/users/'
 
@@ -12,7 +13,7 @@ router.post('/', userController.userExistsInDB, userController.handleNewUser);
 router.post('/signIn', userController.userExistsInDB, userController.handleSignIn);
 
 //get user info
-router.get('/info', (req, res) => {
+router.get('/info', protect, (req, res) => {
     // res.cookie (JWT auth)
     res.status(200).json({ message: 'getting account info' })
 })
