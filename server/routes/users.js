@@ -23,6 +23,8 @@ router.get('/info', protect, (req, res) => {
     res.status(200).json(userInfo)
 })
 
+router.get('/logout', userController.handleLogOut);
+
 //test
 router.get('/test', testController.testGetDB, (req, res) => {
     console.log('HERE IS USER LIST FROM DB:  ',res.locals.userList)

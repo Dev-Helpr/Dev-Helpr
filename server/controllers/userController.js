@@ -85,4 +85,28 @@ const handleSignIn = async (req, res) => {
     res.status(400).send({ 'message': 'NOT WORK AS INTENDED'})
 }
 
-module.exports = { handleNewUser, userExistsInDB, handleSignIn, generateAccessToken };
+const handleLogOut = async ( req, res ) => {
+    //will want to add deletion of accessToken on front-end if saved there 
+
+    const cookies = req.cookies;
+    if (!cookies?.jwt) return res.sendStatus(204)
+    const refreshToken = cookies.jwt;
+
+    //check if current refreshToken is in our user's DB
+    const text = `SELECT users.username, users._id FROM users WHERE users.refreshToken = $1;`;
+    const values = [refreshToken];  
+    const user = await db.query(text, values);
+    //if user not found in DB, clear cookies of token anyways
+    if (!user.rows.length) {
+        //have to pass in the same options the cookie was set with or clearCookie will not work
+        res.clearCookie('jwt', { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        return res.sendStatus(204)
+    }
+
+    //delete refreshToken in DB
+    db.query(`UPDATE users SET refreshtoken = Null WHERE users._id = ${user.rows[0]._id};`);
+    res.clearCookie('jwt', { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+    res.sendStatus(204);
+}
+
+module.exports = { handleNewUser, userExistsInDB, handleSignIn, generateAccessToken, handleLogOut };
