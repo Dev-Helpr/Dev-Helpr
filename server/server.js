@@ -4,20 +4,28 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 3030;
+const { protect } = require('./controllers/authControllers');
 /** REQUIRE ROUTERS */
 const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
-const users = require(path.resolve(__dirname, './routes/users'));
-
+const usersRouter = require(path.resolve(__dirname, './routes/users'));
+const ticketsRouter = require(path.resolve(__dirname, './routes/tickets'));
+const refreshAccess = require('./routes/refresh')
 /** HANDLE PARSING REQUEST BODY FOR JSON AND URL */
-app.use(express.json());
+//can create a cors function later to only allow certain origins (domains) to access our apps backend
+app.use(cors())
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cookieParser());
 
 /** HANDLE REQUESTS FOR STATIC FILES */
 app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css')));
 /** DEFINE ROUTE HANDLERS */
-app.use('/api/users/', users);
-app.use('/api', apiRouter);
+app.use('/api/users/', usersRouter);
+//create a (GET) refresh route here or in usersRouter ?
+app.use('/api/refresh', refreshAccess);
+app.use(protect); //user will need to be logged in to access any route below this point
+app.use('/api/tickets/', ticketsRouter)
+app.use('/api', apiRouter); //test route
 
 /** ROUTE HANDLER TO RESPOND WITH MAIN APP */
 app.get('/', (request, response) => {

@@ -12,7 +12,7 @@ const generateRefreshToken = (id) => jwt.sign({ id }, process.env.REFRESH_TOKEN_
   });
 
 const userExistsInDB = async (req, res, next) => {
-    const text = `SELECT * FROM Users WHERE users.email = $1`;
+    const text = `SELECT * FROM Users WHERE users.email = $1;`;
     const values = [req.body.email]
     //check if email is already registered in DB
     const checkIfUserExist = await db.query(text, values);
@@ -85,4 +85,4 @@ const handleSignIn = async (req, res) => {
     res.status(400).send({ 'message': 'NOT WORK AS INTENDED'})
 }
 
-module.exports = { handleNewUser, userExistsInDB, handleSignIn };
+module.exports = { handleNewUser, userExistsInDB, handleSignIn, generateAccessToken };
