@@ -1,7 +1,11 @@
-const path = require('path');
-const http = require('http');
 const express = require('express');
-const socketio = require('socket.io');
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const path = require('path');
+const { Server } = require('socket.io');
+const io = new Server(server);
+
 const formatMessage = require('../utils/messages.js');
 const {
   userJoin,
@@ -10,9 +14,6 @@ const {
   getRoomUsers
 } = require('../utils/users');
 
-const app = express();
-const server = http.createServer(app);
-const io = socketio(server);
 const PORT = process.env.PORT || 3031;
 
 
@@ -34,9 +35,9 @@ app.use('/api', apiRouter);
 
 // DO NOT NEED THIS ANYMORE AS WEBPACK SERVES THE INDEX.HTML FILE ON STARTUP
 // /** ROUTE HANDLER TO RESPOND WITH MAIN APP */
-// app.get('/', (request, response) => {
-//   return response.sendFile(path.resolve(__dirname, '../client/index.html'));
-// });
+app.get('/', (request, response) => {
+  return response.sendFile(path.resolve(__dirname, '../client/pages/chat.html'));
+});
 
 /** CATCH-ALL ROUTE HANDLER FOR ANY REQUESTS TO AN UNKNOWN ROUTE */
 app.use('*', (request, response) => {
@@ -55,61 +56,88 @@ app.use((error, request, response, next) => {
 });
 
 /** START SERVER */
-app.listen(PORT, () => {
+
+
+/** NOTIFY THE CLIENT OF CLIENT CONNECTION ACTIVITY */
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
+
+/** PRINT THE CHAT MESSAGE EVENT */
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    console.log(`chat message: ${msg}`);
+  });
+});
+
+/** TEST: EMIT A MESSAGE TO ALL CONNECTED USERS */
+io.on('connection', (socket) => {
+  socket.broadcast.emit('hello everyone!');
+});
+
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg);
+  });
+});
+
+server.listen(PORT, () => {
   console.log(`Server connected: listening on port ${PORT}.`);
 });
-
 /** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATROOM */
-io.on('connection', socket => {
-  console.log('user has connected...')
-  socket.on('joinRoom', ({ username, room }) => {
-    const user = userJoin(socket.id, username, room);
+// io.on('connection', socket => {
+//   console.log('user has connected...')
+//   socket.on('joinRoom', ({ username, room }) => {
+//     const user = userJoin(socket.id, username, room);
+//
+//     socket.join(user.room);
+//
+//     // WELCOME CURRENT USER
+//     socket.emit('message', formatMessage(botName, 'Welcome to Dev-Helpr Chat!'));
+//
+//     // BROADCAST WHEN A USER CONNECTS
+//     socket.broadcast
+//       .to(user.room)
+//       .emit(
+//         'message',
+//         formatMessage(botName, `${user.username} has joined the chat.`)
+//       );
+//
+//     // SEND USERS AND ROOM INFO
+//     io.to(user.room).emit('roomUsers', {
+//       room: user.room,
+//       users: getRoomUsers(user.room)
+//     });
+//   });
+//
+//   // LISTEN FOR CHAT MESSAGE
+//   socket.on('chatMessage', msg => {
+//   const user = getCurrentUser(socket.id);
+//
+//   io.to(user.room).emit('message', formatMessage(user.username, msg));
+//   });
+//
+//   // RUNS WHEN CLIENT DISCONNECTS
+//   socket.on('disconnect', () => {
+//     const user = userLeave(socket.id);
+//
+//     if (user) {
+//       io.to(user.room).emit(
+//         'message',
+//         formatMessage(botName, `${user.username} has left the chat.`)
+//       );
+//
+//       // SEND USERS AND ROOM INFO
+//       io.to(user.room).emit('roomUsers', {
+//         room: user.room,
+//         users: getRoomUsers(user.room)
+//       });
+//     }
+//   });
+// });
 
-    socket.join(user.room);
-
-    // WELCOME CURRENT USER
-    socket.emit('message', formatMessage(botName, 'Welcome to Dev-Helpr Chat!'));
-
-    // BROADCAST WHEN A USER CONNECTS
-    socket.broadcast
-      .to(user.room)
-      .emit(
-        'message',
-        formatMessage(botName, `${user.username} has joined the chat.`)
-      );
-
-    // SEND USERS AND ROOM INFO
-    io.to(user.room).emit('roomUsers', {
-      room: user.room,
-      users: getRoomUsers(user.room)
-    });
-  });
-
-  // LISTEN FOR CHAT MESSAGE
-  socket.on('chatMessage', msg => {
-  const user = getCurrentUser(socket.id);
-
-  io.to(user.room).emit('message', formatMessage(user.username, msg));
-  });
-
-  // RUNS WHEN CLIENT DISCONNECTS
-  socket.on('disconnect', () => {
-    const user = userLeave(socket.id);
-
-    if (user) {
-      io.to(user.room).emit(
-        'message',
-        formatMessage(botName, `${user.username} has left the chat.`)
-      );
-
-      // SEND USERS AND ROOM INFO
-      io.to(user.room).emit('roomUsers', {
-        room: user.room,
-        users: getRoomUsers(user.room)
-      });
-    }
-  });
-});
-
-
+// export default io;
 module.exports = app;

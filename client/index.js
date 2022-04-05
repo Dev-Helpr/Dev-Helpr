@@ -4,17 +4,19 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import App from "./App.jsx";
+import './main.js';
 import 'bootstrap';
 import 'react-bootstrap/dist/react-bootstrap'
 import './stylesheets/chatbox.css';
 import './stylesheets/signup.css';
-import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css";
+import '../node_modules/socket.io-client/dist/socket.io.min.js';
+import '../node_modules/socket.io/client-dist/socket.io.js';
 
 render(
   <BrowserRouter>
-  <Provider store={store}>
+    <Provider store={store}>
       <App />
-  </Provider>
-    </BrowserRouter>,
+    </Provider>
+  </BrowserRouter>,
   document.getElementById("root")
 );

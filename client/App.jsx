@@ -26,11 +26,15 @@ const mapDispatchToProps = (dispatch) => ({
 function App(props) {
   console.log(props);
   return (
-    <Chatbox/>
-  );
+    <div>
+      <Chatbox />
+    </div>
+  )
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+/** MIKE G'S CODE */
 // <div className="App">
 // {/*  <Routes>*/}
 // {/*    <Route*/}
