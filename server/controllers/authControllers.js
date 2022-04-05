@@ -20,7 +20,7 @@ const protect = async (req, res, next) => {
             //here we are storing our users._id, username and email in the req.user obj that we can access within other routes
         const userInfo = await db.query(text, value);
         req.user = userInfo.rows[0]
-        console.log(req.user);
+        // console.log(req.user);
         return next();
         } catch (error) {
         console.log(error);
@@ -38,7 +38,7 @@ const handleRefreshToken = async (req, res) => {
     const cookies = req.cookies;
     //check if cookies exist? if yest check to see if .jwt property exists on cookies, if that does not exist then respond with 401 unauthorized
     if (!cookies?.jwt) return res.sendStatus(401);
-        console.log('COOKIES.JWT:  ', cookies.jwt);
+        // console.log('COOKIES.JWT:  ', cookies.jwt);
     try {
         const refreshToken = cookies.jwt;
         //check if user has non-expired refresh token - query user by refreshToken value in cookies
@@ -49,7 +49,8 @@ const handleRefreshToken = async (req, res) => {
         
         const refreshTokenValidation = await db.query(text, values);
         //if successful in query, the queries rows.length will be greater than 0, if 0 (or falsy) it means refresh token has expired or does not match the token in DB, and user needs to sign in again to generate matching tokens in cookies and in DB
-        console.log('QUERY RETURN FOR REFRESH TOKEN in length:   ', refreshTokenValidation.rows.length)
+        
+        // console.log('QUERY RETURN FOR REFRESH TOKEN in length:   ', refreshTokenValidation.rows.length)
         if (!refreshTokenValidation.rows.length) return res.sendStatus(403);
 
         const decodedRT = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECTRET);

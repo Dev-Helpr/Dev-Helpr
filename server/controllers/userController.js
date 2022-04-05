@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 // Generate a JWT
 const generateAccessToken = (id) => jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: '5m',
+    expiresIn: '10m',
   });
 const generateRefreshToken = (id) => jwt.sign({ id }, process.env.REFRESH_TOKEN_SECTRET, {
     expiresIn: '1d',
@@ -16,17 +16,18 @@ const userExistsInDB = async (req, res, next) => {
     const values = [req.body.email]
     //check if email is already registered in DB
     const checkIfUserExist = await db.query(text, values);
-        console.log(' OUR DB OUTPUT AFTER CHECKING IF EMAIL EXISTS:  ',checkIfUserExist.rows)
+        // console.log(' OUR DB OUTPUT AFTER CHECKING IF EMAIL EXISTS:  ',checkIfUserExist.rows)
+
         //if query returns a non-empty array (meaning the account was successfully queried on our database and therefore already exists) then save in res.locals.existingUser as true
         console.log('length:  ',checkIfUserExist.rows.length)
          if (checkIfUserExist.rows.length)  {
              res.locals.existingUser = true;
-             console.log('res.locals.existingUser =  ', res.locals.existingUser)
+            //  console.log('res.locals.existingUser =  ', res.locals.existingUser)
              return next()
             }
          //else the query returns an empty array, then it is not already in use within our DB, therefore we should save res.locals.existingUser to false
          res.locals.existingUser = false;
-         console.log('res.locals.existingUser =  ', res.locals.existingUser);
+        //  console.log('res.locals.existingUser =  ', res.locals.existingUser);
          return next();
 
 };
@@ -48,7 +49,7 @@ const handleNewUser = async (req, res) => {
             const text2 = `SELECT users._id FROM users WHERE users.email = $1;`;
             const values2 = [email]; 
             const userID = await db.query(text2, values2);
-            console.log('THIS IS USER ID GENERATED FROM DB:  ',userID.rows[0]._id);
+            // console.log('THIS IS USER ID GENERATED FROM DB:  ',userID.rows[0]._id);
 
             const accessToken = generateAccessToken(userID.rows[0]._id);
             const refreshToken = generateRefreshToken(userID.rows[0]._id);
@@ -96,10 +97,12 @@ const handleSignIn = async (req, res) => {
             id: user.rows[0]._id,
             userName: user.rows[0].username,
             email: user.rows[0].email,
+            online: true,
+            status: user,
             accessToken: accessToken,
         })
     }
-    res.status(400).send({ 'message': 'NOT WORK AS INTENDED'})
+    res.status(400).send({ 'message': 'username or password incorrect'})
 }
 
 const handleLogOut = async ( req, res ) => {
