@@ -98,7 +98,7 @@ const handleSignIn = async (req, res) => {
             userName: user.rows[0].username,
             email: user.rows[0].email,
             online: true,
-            status: user,
+            status: 'user',
             accessToken: accessToken,
         })
     }
