@@ -62,6 +62,8 @@ const handleNewUser = async (req, res) => {
             id: userID.rows[0]._id,
             userName,
             email,
+            online: true,
+            status: 'neutral',
             accessToken: accessToken,
         })
         } catch (err) {
@@ -98,7 +100,7 @@ const handleSignIn = async (req, res) => {
             userName: user.rows[0].username,
             email: user.rows[0].email,
             online: true,
-            status: 'user',
+            status: 'neutral',
             accessToken: accessToken,
         })
     }
