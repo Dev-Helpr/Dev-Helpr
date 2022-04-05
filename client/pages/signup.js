@@ -6,36 +6,36 @@ import axios from "axios";
 
 function Signup({ userInput, props }) {
   // // State for checking error
-  const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
+  const [login, setLogin] = useState(false);
   const [toggle1, setToggle1] = useState(false);
 
   const handleChange = (e) => {
     userInput(e);
-    setSubmitted(false);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("/api", {
+      .post("/api/users", {
         userName: props.userName,
         email: props.email,
         password: props.password,
       })
       .then((res) => {
-        console.log(res);
+        //if signup successfully, res.data = true
+        //if not, res.data = false
+        if (res.data) {
+          setLogin(true);
+          setError(false);
+        } else {
+          setLogin(false);
+          setError(true);
+        }
       });
-    setSubmitted(true);
     setToggle1(true);
-    setError(false);
-    console.log(e.target.value);
-    console.log("Submitted:", error);
-  };
 
-  const handleToggle1 = () => {
-    setToggle1(!toggle1);
-    console.log(toggle1);
+    console.log(e.target.value);
   };
 
   const clickAudio = () => {
@@ -44,14 +44,15 @@ function Signup({ userInput, props }) {
 
   return (
     <div>
-      {/* <Link to="/login"><a>MAX ROCKS</a></Link> */}
       <div className="photo">
         <div className="fade-in-image1">
           <h1>Dev-Helpr</h1>
         </div>
         <div className="styledFormWrapper">
           <div className="form-box">
-            <button className="signupButton">Please Login:</button>
+            <Link to="/login">
+              <button className="signupButton">Please Login:</button>
+            </Link>
             <form method="POST" action="/signup" onSubmit={handleSubmit}>
               <input
                 onChange={handleChange}
@@ -77,23 +78,24 @@ function Signup({ userInput, props }) {
                 required
                 placeholder="Password:"
               ></input>
-              <button
-                onClick={handleToggle1}
-                className="form-createUserButton"
-                type="submit"
-              >
+              <button className="form-createUserButton" type="submit">
                 Submit
               </button>
-              {toggle1 == true ? (
+              {login === true ? (
                 <div className="signupSuccess">
                   You have successfully signed up! Welcome
+                </div>
+              ) : null}
+              {error === true ? (
+                <div className="signupUnsuccess">
+                  This user is already exist
                 </div>
               ) : null}
             </form>
           </div>
         </div>
         <div className="fade-in-image2">
-          <h3>Connecting Developers across the globe</h3>
+          <h3 className='footer'>Connecting Developers across the globe</h3>
         </div>
       </div>
     </div>

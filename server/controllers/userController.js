@@ -12,6 +12,7 @@ const generateRefreshToken = (id) => jwt.sign({ id }, process.env.REFRESH_TOKEN_
   });
 
 const userExistsInDB = async (req, res, next) => {
+    console.log(req.body);
     const text = `SELECT * FROM Users WHERE users.email = $1;`;
     const values = [req.body.email]
     //check if email is already registered in DB
@@ -33,10 +34,10 @@ const userExistsInDB = async (req, res, next) => {
 
 const handleNewUser = async (req, res) => {
     //check if user exists in our DB already - userExistsInDB middleware should be ran before this middleware
-    if (res.locals.existingUser) return res.status(400).json(false)
-    
+    if (res.locals.existingUser) return res.status(200).json(false)
+
     const { userName, email, password } = req.body;
-         
+
         try {
             //encrypt the password with bcrypt and salt 10
             const hashedPwd = await bcrypt.hash(password, 10);
@@ -44,7 +45,7 @@ const handleNewUser = async (req, res) => {
             const text = `INSERT INTO Users (userName, email, online, status, password) VALUES ($1, $2, $3, $4, $5);`
             const values = [userName, email, true, 'neutral', hashedPwd];
             await db.query(text, values);
-            
+
            return res.status(201).json(true)
         } catch (err) {
             return res.status(500).json({ 'message': err.message })
@@ -56,7 +57,7 @@ const handleSignIn = async (req, res) => {
     //check if user exists in our DB already - userExistsInDB middleware should be ran before this middleware
     //if user does not exist in DB - return false
     if (!res.locals.existingUser) res.status(400).json(false)
-    
+
     const text = `SELECT * FROM Users WHERE users.email = $1`;
     const values = [email]
     //fetch user info from db
@@ -64,7 +65,7 @@ const handleSignIn = async (req, res) => {
     console.log('USER:  ',user.rows)
     console.log('USER.PASSWORD: ',user.rows[0].password)
     console.log('REQ.BODY PWD: ',password)
-    
+
     // const match = await bcrypt.compare(password, user.rows[0].password)
     if (await bcrypt.compare(password, user.rows[0].password)) {
         //create our Access & Refresh JWTs
@@ -86,7 +87,7 @@ const handleSignIn = async (req, res) => {
 }
 
 const handleLogOut = async ( req, res ) => {
-    //will want to add deletion of accessToken on front-end if saved there 
+    //will want to add deletion of accessToken on front-end if saved there
 
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(204)
@@ -94,7 +95,7 @@ const handleLogOut = async ( req, res ) => {
 
     //check if current refreshToken is in our user's DB
     const text = `SELECT users.username, users._id FROM users WHERE users.refreshToken = $1;`;
-    const values = [refreshToken];  
+    const values = [refreshToken];
     const user = await db.query(text, values);
     //if user not found in DB, clear cookies of token anyways
     if (!user.rows.length) {

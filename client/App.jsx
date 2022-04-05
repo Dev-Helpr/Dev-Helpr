@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import * as actions from "./action/action.js";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
+import Home from "./pages/home";
 import "./stylesheets/styles.css";
 // import ReactPlayer from "react-player";
 
@@ -28,14 +29,15 @@ function App(props) {
   return (
     <div className="App">
       <Routes>
-        <Route
+        {/* <Route
           path="/login"
           element={<Login props={props} userInput={props.userInput} />}
         />
         <Route
           path="/"
           element={<Signup props={props} userInput={props.userInput} />}
-        />
+        /> */}
+        <Route path='/' element={<Home />} />
       </Routes>
     </div>
   );
