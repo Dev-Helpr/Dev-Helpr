@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { handleRefreshToken, protect } = require('../controllers/authControllers')
+
 //just temp middleware for testing access/auth
 router.get('/test', (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
