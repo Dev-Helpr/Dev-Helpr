@@ -4,27 +4,25 @@
 }
 
 
-h1{
+.signup-h1{
 	color: rgb(255, 255, 255);
 	font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
 	font-size: 125px;
 	font-weight: 900;
-    padding-top: 0px;
+  padding-top: 0px;
 	margin-bottom: 32px;
 	display: flex;
 	align-items: left;
-    justify-content: left;
+  justify-content: left;
 	padding-top: 15px; 
-    margin-left: 15px;
-	
+  margin-left: 15px;
 }
 
-.signupButton {
+.signup-Button {
   color: rgb(255, 217, 0);
 	font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
 	font-size: 15px;
   font-weight: normal;
-	margin-bottom: 32px;
 	padding: 16px 32px;
 	display: inline-block;
 	font-weight: 700;
@@ -40,22 +38,7 @@ h1{
   overflow: hidden; 
 }  
 
-
-/* .signupButton {
-	color: rgb(255, 217, 0);
-	font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
-	font-size: 15px;
-  font-weight: normal;
-	margin-bottom: 32px;
-	display: flex;
-	align-items: center;
-  justify-content: center;
-	padding-top: 30px;
-  cursor: pointer; 
-	animation: example2 3s ease-out;
-} */
-
-h3 {
+.signup-h3 {
     color: rgb(255, 255, 255);
 	font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
 	font-size: 18px;
@@ -67,7 +50,7 @@ h3 {
 	padding-top: 290px;
 }
 
-.styledFormWrapper {
+.signup-styledFormWrapper {
    /* display: flex;
     justify-content: center;
     align-items: center;
@@ -145,20 +128,20 @@ h3 {
     border-radius: 10%;
 }
 
-.label {
+.signup-label {
     color:rgb(255, 249, 249);
     display: flex;
     margin-left: 700px;
 }
 
-.legend {
+.signup-legend {
     color:rgb(255, 249, 249);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.text-box {
+.signup-text-box {
     display: flex;
     align-items: center;
     background-color: white;
@@ -169,7 +152,7 @@ h3 {
     margin: 20px;
 }
 
-  .blackBox {
+.signup-form-username {
     position: fixed;
     background-color: rgb(32, 23, 23);
     margin-left: 500px;
@@ -183,7 +166,7 @@ h3 {
     border: 2px solid blue;
 }
 
-  .photo {
+.signup-photo {
 	padding: 0px;
 	text-align: center;
     background-image: url('../images/signupBackground19.jpg');
@@ -195,7 +178,7 @@ h3 {
 }
 
 
-.fade-in-image1 {
+.signup-fade-in-image1 {
     animation: fadeIn 5s;
     -webkit-animation: fadeIn 5s;
     -moz-animation: fadeIn 5s;
@@ -227,7 +210,7 @@ h3 {
     100% {opacity:1;}
   }
 
-  .fade-in-image2 {
+  .signup-fade-in-image2 {
     animation: fadeIn 10s;
     -webkit-animation: fadeIn 10s;
     -moz-animation: fadeIn 10s;
@@ -259,7 +242,7 @@ h3 {
     100% {opacity:1;}
   }
 
-  .signupSuccess {
+  .signup-signupSuccess {
     position: absolute;
     color: rgb(255, 255, 255);
 	font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
