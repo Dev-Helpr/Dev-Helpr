@@ -4,7 +4,6 @@ const http = require('http');
 const server = http.createServer(app);
 const path = require('path');
 const socketio = require('socket.io')
-// const Qs = require('qs');
 const Server = socketio.Server;
 const io = new Server(server);
 
@@ -17,7 +16,6 @@ const {
 } = require('../utils/users');
 
 const PORT = process.env.PORT || 3031;
-
 
 const botName = 'Dev-Helpr Bot';
 
@@ -90,15 +88,16 @@ app.use((error, request, response, next) => {
 
 
 /** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATROOM */
-
 io.on('connection', (socket) => {
+  // NOTIFY THAT USER HAS CONNECTED
   console.log('user has connected...');
 
+  // NOTIFY THAT USER HAS DISCONNECTED
   socket.on('disconnect', () => {
     console.log('user has disconnected...')
   });
 
-  socket.on('joinRoom', ({ username='mike', room=1 }) => { // PASS INFO FROM CLIENT
+  socket.on('joinRoom', ({ username, room }) => { // PASS INFO FROM CLIENT
     console.log(`${username} has joined room ${room}...`);
     const user = userJoin(socket.id, username, room);
 
@@ -153,7 +152,6 @@ io.on('connection', (socket) => {
 server.listen(PORT,() => {
   console.log(`Server connected: listening on port ${PORT}.`);
 });
-
 
 
 module.exports = app;

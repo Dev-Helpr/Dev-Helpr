@@ -4,15 +4,18 @@ const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 
 /** GET USERNAME AND ROOM FROM URL */
-const { username, room } = Qs.parse(location.search, {
-  ignoreQueryPrefix: true,
-});
+console.log(document);
+
+const socket = io();
+
+// const { username, room } = Qs.parse(location.search, {
+//   ignoreQueryPrefix: true,
+// });
 
 /** JOIN CHATROOM */
-io.on('connection', (socket) => {
-  console.log('main.js working...')
+socket.on('connection', (socket) => {
+  console.log('joined');
   socket.emit('joinRoom', {username, room});
-
 
   /** GET ROOM AND USERS */
   socket.on('roomUsers', ({room, users}) => {
@@ -33,6 +36,8 @@ io.on('connection', (socket) => {
 /** MESSAGE SUBMIT */
 chatForm.addEventListener('submit', (e) => {
   e.preventDefault();
+
+  console.log('message event fired!')
 
   // GET MESSAGE TEXT
   let msg = e.target.elements.msg.value;

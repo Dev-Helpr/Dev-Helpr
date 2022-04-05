@@ -72,7 +72,7 @@ module.exports = {
     ],
   },
 
-  externals: ['socket.io'],
+  // externals: ['socket.io'],
 
   plugins: [
     new HtmlWebpackPlugin({
