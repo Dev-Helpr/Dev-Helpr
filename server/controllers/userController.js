@@ -44,8 +44,25 @@ const handleNewUser = async (req, res) => {
             const text = `INSERT INTO Users (userName, email, online, status, password) VALUES ($1, $2, $3, $4, $5);`
             const values = [userName, email, true, 'neutral', hashedPwd];
             await db.query(text, values);
-            
-           return res.status(201).json(true)
+            //after storing new user into db, find user on DB and grab the users._id created from PostgreSQL so we can generate JWTs
+            const text2 = `SELECT users._id FROM users WHERE users.email = $1;`;
+            const values2 = [email]; 
+            const userID = await db.query(text2, values2);
+            console.log('THIS IS USER ID GENERATED FROM DB:  ',userID.rows[0]._id);
+
+            const accessToken = generateAccessToken(userID.rows[0]._id);
+            const refreshToken = generateRefreshToken(userID.rows[0]._id);
+            //store refresh token inside cookies
+            res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+            //store refresh token inside our db for matching when we need a new access token
+            db.query(`UPDATE users SET refreshtoken = '${refreshToken}' WHERE users._id = ${userID.rows[0]._id};`);
+
+           return res.status(201).json({
+            id: userID.rows[0]._id,
+            userName,
+            email,
+            accessToken: accessToken,
+        })
         } catch (err) {
             return res.status(500).json({ 'message': err.message })
         }
@@ -61,11 +78,11 @@ const handleSignIn = async (req, res) => {
     const values = [email]
     //fetch user info from db
     const user = await db.query(text, values);
-    console.log('USER:  ',user.rows)
-    console.log('USER.PASSWORD: ',user.rows[0].password)
-    console.log('REQ.BODY PWD: ',password)
+    // console.log('USER:  ',user.rows)
+    // console.log('USER.PASSWORD: ',user.rows[0].password)
+    // console.log('REQ.BODY PWD: ',password)
     
-    // const match = await bcrypt.compare(password, user.rows[0].password)
+    
     if (await bcrypt.compare(password, user.rows[0].password)) {
         //create our Access & Refresh JWTs
         const accessToken = generateAccessToken(user.rows[0]._id);
@@ -103,7 +120,7 @@ const handleLogOut = async ( req, res ) => {
         return res.sendStatus(204)
     }
 
-    //delete refreshToken in DB
+    //delete refreshToken in DB & in cookies
     db.query(`UPDATE users SET refreshtoken = Null WHERE users._id = ${user.rows[0]._id};`);
     res.clearCookie('jwt', { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
     res.sendStatus(204);
