@@ -6,7 +6,6 @@ const app = express();
 const PORT = 3030;
 const { protect } = require('./controllers/authControllers');
 /** REQUIRE ROUTERS */
-const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
 const usersRouter = require(path.resolve(__dirname, './routes/users'));
 const ticketsRouter = require(path.resolve(__dirname, './routes/tickets'));
 const refreshAccess = require('./routes/refresh')
@@ -25,7 +24,6 @@ app.use('/api/users/', usersRouter);
 app.use('/api/refresh', refreshAccess);
 app.use(protect); //user will need to be logged in to access any route below this point
 app.use('/api/tickets/', ticketsRouter)
-app.use('/api', apiRouter); //test route
 
 /** ROUTE HANDLER TO RESPOND WITH MAIN APP */
 app.get('/', (request, response) => {
