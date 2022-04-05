@@ -14,23 +14,54 @@ function Login({ userInput, props }) {
     e.preventDefault();
     console.log({email: props.email});
   }
+
+  const clickAudio = () => {
+    return new Audio(click1).play();
+  };
+
+
   return (
     <div>
-        <div className="photo">
-        <div className="fade-in-image1">
-          <h1>Dev-Helpr</h1>
+    
+      <div className="login-photo">
+        <div className="login-fade-in-image1">
+          <h1 className="login-h1">Dev-Helpr</h1>
         </div>
-      {/* <Link to="/signup">hello</Link> */}
+        <div className="login-styledFormWrapper"></div>
+        <div className="form-box">
+          <form>
+          <input 
+            name="email" 
+            className ="form-email" 
+            type="text" 
+            placeholder="email" 
+            onChange={handleChange}
+          />
 
-      <input name="email" className ="emailField" type="text" placeholder="email" onChange={handleChange}/>
+          <input 
+            className ="form-password" 
+            name="password" 
+            type="password" 
+            onChange={handleChange} 
+          />
 
-      <input name="password" type="password" onChange={handleChange} />
+          </form>
 
-      <button type="submit" onClick={handleClick}>Submit</button>
+          <button 
+            className="form-createUserButton" 
+            type="submit" 
+            onClick={() => {clickAudio()}}>Login
+          </button>
+
+          </div>
+
+          <div className="signup-fade-in-image2">
+          <h3 className="signup-h3">Connecting Developers across the globe</h3>
+        </div>
+      </div>
+    </div>
 
     
-    </div>
-    </div>
   );
 }
 

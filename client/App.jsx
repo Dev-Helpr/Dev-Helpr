@@ -29,13 +29,13 @@ function App(props) {
     <div className="App">
       <Routes>
         <Route
-          path="/login"
+          path="/"
           element={<Login props={props} userInput={props.userInput} />}
         />
-        <Route
+        {/* <Route
           path="/"
           element={<Signup props={props} userInput={props.userInput} />}
-        />
+        /> */}
       </Routes>
     </div>
   );
