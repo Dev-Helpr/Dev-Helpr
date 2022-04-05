@@ -31,6 +31,10 @@ module.exports = {
     open: true,
     hot: true,
     proxy: {
+      '/**': {
+        target: 'http://localhost:3031',
+        secure: false,
+      },
       '/api/**': {
         target: 'http://localhost:3031',
         secure: false,
@@ -68,9 +72,11 @@ module.exports = {
     ],
   },
 
+  externals: ['socket.io'],
+
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "client", "index.html"),
+      template: path.resolve(__dirname, 'client/pages/homepage.html'),
     }),
     new miniCSS(),
     new Dotenv(),

@@ -4,13 +4,15 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import App from "./App.jsx";
-import './main.js';
+// import './main.js';
 import 'bootstrap';
 import 'react-bootstrap/dist/react-bootstrap'
 import './stylesheets/chatbox.css';
 import './stylesheets/signup.css';
 import '../node_modules/socket.io-client/dist/socket.io.min.js';
 import '../node_modules/socket.io/client-dist/socket.io.js';
+// const Qs = require("nodemon/lib/cli");
+
 
 render(
   <BrowserRouter>

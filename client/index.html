@@ -1,6 +1,7 @@
 <html>
 
   <script src='/socket.io/socket.io.js'></script>
+  <script src='/client/main.js'></script>
 
 <head>
   <meta charset="UTF-8">
@@ -8,15 +9,20 @@
 </head>
 
 <body>
-  <div id="root"></div>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" type="text/css" href="./stylesheets/chatbox.css"/>
-  <script src="build/bundle.js"></script>
-  <script
-          src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
-          integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
-          crossorigin="anonymous"
-  ></script>
+
+  <script>
+    const socket = io();
+  </script>
+
+    <div id="root"></div>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="./stylesheets/chatbox.css"/>
+    <script src="build/bundle.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+            integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
+            crossorigin="anonymous"
+    ></script>
 </body>
 
 </html>
