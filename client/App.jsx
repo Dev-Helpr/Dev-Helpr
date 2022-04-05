@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import * as actions from "./action/action.js";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
-import "./stylesheets/styles.css";
+import Chatbox from './components/Chatbox.jsx';
 // import ReactPlayer from "react-player";
 
 const mapStateToProps = (state) => ({
@@ -26,19 +26,20 @@ const mapDispatchToProps = (dispatch) => ({
 function App(props) {
   console.log(props);
   return (
-    <div className="App">
-      <Routes>
-        <Route
-          path="/login"
-          element={<Login props={props} userInput={props.userInput} />}
-        />
-        <Route
-          path="/"
-          element={<Signup props={props} userInput={props.userInput} />}
-        />
-      </Routes>
-    </div>
+    <Chatbox/>
   );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+// <div className="App">
+// {/*  <Routes>*/}
+// {/*    <Route*/}
+// {/*      path="/login"*/}
+// {/*      element={<Login props={props} userInput={props.userInput} />}*/}
+// {/*    />*/}
+// {/*    <Route*/}
+// {/*      path="/"*/}
+// {/*      element={<Signup props={props} userInput={props.userInput} />}*/}
+// {/*    />*/}
+// {/*  </Routes>*/}
+// {/*</div>*/}

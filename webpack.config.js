@@ -6,8 +6,6 @@ const Dotenv = require("dotenv-webpack");
 module.exports = {
   entry: "./client/index.js",
 
-  // target: 'node',
-
   output: {
     path: path.resolve(__dirname, "build"),
     filename: "bundle.js",
@@ -16,6 +14,7 @@ module.exports = {
   },
 
   devtool: "inline-source-map",
+
   mode: "development",
 
   devServer: {
@@ -60,7 +59,6 @@ module.exports = {
       {
         test: /\.(css|scss|sass)$/i,
         // exclude: /node_modules/,
-        include: path.resolve(__dirname, 'node_modules/bootstrap/scss/bootstrap.scss'),
         use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {

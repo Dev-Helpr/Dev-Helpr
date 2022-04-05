@@ -1,29 +1,42 @@
 const path = require('path');
+const http = require('http');
 const express = require('express');
+const socketio = require('socket.io');
+const formatMessage = require('../utils/messages.js');
+const {
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers
+} = require('../utils/users');
 
 const app = express();
-const PORT = 3031;
+const server = http.createServer(app);
+const io = socketio(server);
+const PORT = process.env.PORT || 3031;
 
 
-/** REQUIRE ROUTERS */
-const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
-const { options } = require("pg/lib/defaults");
+const botName = 'Dev-Helpr Bot';
+
+/** HANDLE REQUESTS FOR STATIC FILES */
+app.use(express.static(path.resolve(__dirname, '../client')));
 
 /** HANDLE PARSING REQUEST BODY FOR JSON AND URL */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-/** HANDLE REQUESTS FOR STATIC FILES */
-app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css')));
+/** REQUIRE ROUTERS */
+const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
+const { options } = require("pg/lib/defaults");
 
 /** DEFINE ROUTE HANDLERS */
 app.use('/api', apiRouter);
 
-// DO NOT NEED THIS ANYMORE
+// DO NOT NEED THIS ANYMORE AS WEBPACK SERVES THE INDEX.HTML FILE ON STARTUP
 // /** ROUTE HANDLER TO RESPOND WITH MAIN APP */
-app.get('/', (request, response) => {
-  return response.sendFile(path.resolve(__dirname, '../client/index.html'));
-});
+// app.get('/', (request, response) => {
+//   return response.sendFile(path.resolve(__dirname, '../client/index.html'));
+// });
 
 /** CATCH-ALL ROUTE HANDLER FOR ANY REQUESTS TO AN UNKNOWN ROUTE */
 app.use('*', (request, response) => {
@@ -33,7 +46,7 @@ app.use('*', (request, response) => {
 /** CONFIGURE EXPRESS GLOBAL ERROR HANDLER */
 app.use((error, request, response, next) => {
   const defaultErr = {
-    log: 'Express error handler caught unknown middleware error', // testing
+    log: 'Express error handler caught unknown middleware error',
     status: 400,
     message: { err: 'An error occurred' },
   };
@@ -41,19 +54,62 @@ app.use((error, request, response, next) => {
   response.status(errorObj.status).json(errorObj.message.err)
 });
 
-/** START WEBSOCKET SERVER */
-// const server = http.listen(3031, () => {
-//   const { port } = server.address();
-//   console.log('Server connected. Listening on port 3030.');
-// });
-
-// io.on('connection', () => {
-//   console.log('a user connected');
-// })
-
 /** START SERVER */
-app.listen(3031, () => {
-  console.log(`Server connected -- listening on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server connected: listening on port ${PORT}.`);
 });
+
+/** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATROOM */
+io.on('connection', socket => {
+  console.log('user has connected...')
+  socket.on('joinRoom', ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
+
+    socket.join(user.room);
+
+    // WELCOME CURRENT USER
+    socket.emit('message', formatMessage(botName, 'Welcome to Dev-Helpr Chat!'));
+
+    // BROADCAST WHEN A USER CONNECTS
+    socket.broadcast
+      .to(user.room)
+      .emit(
+        'message',
+        formatMessage(botName, `${user.username} has joined the chat.`)
+      );
+
+    // SEND USERS AND ROOM INFO
+    io.to(user.room).emit('roomUsers', {
+      room: user.room,
+      users: getRoomUsers(user.room)
+    });
+  });
+
+  // LISTEN FOR CHAT MESSAGE
+  socket.on('chatMessage', msg => {
+  const user = getCurrentUser(socket.id);
+
+  io.to(user.room).emit('message', formatMessage(user.username, msg));
+  });
+
+  // RUNS WHEN CLIENT DISCONNECTS
+  socket.on('disconnect', () => {
+    const user = userLeave(socket.id);
+
+    if (user) {
+      io.to(user.room).emit(
+        'message',
+        formatMessage(botName, `${user.username} has left the chat.`)
+      );
+
+      // SEND USERS AND ROOM INFO
+      io.to(user.room).emit('roomUsers', {
+        room: user.room,
+        users: getRoomUsers(user.room)
+      });
+    }
+  });
+});
+
 
 module.exports = app;
