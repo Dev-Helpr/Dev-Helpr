@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 // import click1 from '../audioclips/click1.mp3';
 
 function Signup({ userInput, props }) {
@@ -10,25 +10,25 @@ function Signup({ userInput, props }) {
   const [error, setError] = useState(false);
   const [toggle1, setToggle1] = useState(false);
 
-  // Function for username change
   const handleChange = (e) => {
     userInput(e);
     setSubmitted(false);
   };
 
-  // Function for submit button
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("/api", {
-      userName: props.userName,
-      email: props.email,
-      password: props.password,
-    }).then(res => {
+    axios
+      .post("/api", {
+        userName: props.userName,
+        email: props.email,
+        password: props.password,
+      })
+      .then((res) => {
         console.log(res);
-    });
-      setSubmitted(true);
-      setToggle1(true);
-      setError(false);
+      });
+    setSubmitted(true);
+    setToggle1(true);
+    setError(false);
     console.log(e.target.value);
     console.log("Submitted:", error);
   };
@@ -101,20 +101,3 @@ function Signup({ userInput, props }) {
 }
 
 export default Signup;
-
-// Idea for the backend - query for signup
-// app.post("/signup", (req, res) => {
-//     db.query(
-//         "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-//         [username, email, password],
-//         (err, result) => {
-//             console.log(err);
-//         }
-//     )
-//     })
-
-// app.post("/signup", (req, res) => {
-//     const username = req.body.username;
-//     const email = req.body.email;
-//     const password = req.body.password;
-// })
