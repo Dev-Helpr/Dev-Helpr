@@ -9,6 +9,7 @@ const initialState = {
   inProgress: false,
   heading: '',
   brief: '',
+  user_id: 0,
 }
 
 
