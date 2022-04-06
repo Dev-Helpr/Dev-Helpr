@@ -61,6 +61,7 @@ const handleNewUser = async (req, res) => {
            return res.status(201).json({
             id: userID.rows[0]._id,
             userName,
+            password: '',
             email,
             online: true,
             status: 'neutral',
@@ -75,7 +76,7 @@ const handleSignIn = async (req, res) => {
     const { email, password } = req.body;
     //check if user exists in our DB already - userExistsInDB middleware should be ran before this middleware
     //if user does not exist in DB - return false
-    if (!res.locals.existingUser) res.status(400).json(false)
+    if (!res.locals.existingUser) res.status(200).json(false)
     
     const text = `SELECT * FROM Users WHERE users.email = $1`;
     const values = [email]
@@ -98,13 +99,14 @@ const handleSignIn = async (req, res) => {
         return res.status(200).json({
             id: user.rows[0]._id,
             userName: user.rows[0].username,
+            password: '',
             email: user.rows[0].email,
             online: true,
             status: 'neutral',
             accessToken: accessToken,
         })
     }
-    res.status(400).send({ 'message': 'username or password incorrect'})
+    res.status(200).json({ 'message': 'username or password incorrect'})
 }
 
 const handleLogOut = async ( req, res ) => {

@@ -24,12 +24,14 @@ const protect = async (req, res, next) => {
         return next();
         } catch (error) {
         console.log(error);
-        res.status(401);
+        //changed 401 to 200 for now due to bug
+        res.status(200);
         throw new Error('Not authorized')
         }
     }
     if(!token) {
-        res.status(401);
+        //changed 401 to 200 for now due to bug
+        res.status(200);
         throw new Error('Not authorized')
     }
 }

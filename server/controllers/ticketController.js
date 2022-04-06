@@ -27,6 +27,7 @@ const handleGetTicketList = async ( req, res) => {
 }
 
 const handleGetTicket = async ( req, res ) => {
+    //should prob refactor to use ticket's _id and req.params.id if time in future
     try {
         const { user_id } = req.body;
         const text = 'SELECT * FROM Tickets WHERE Tickets.user_id = $1;'
@@ -42,4 +43,29 @@ const handleGetTicket = async ( req, res ) => {
     }
 }
 
-module.exports = { handleNewTicket, handleGetTicketList, handleGetTicket }
+const handleDeleteTicket = async ( req, res ) => {
+    //pull down user's tickets.
+    //aquire tickets._id that user wants to delete
+        //make sure that the ticket to be deleted has the same users's id on both ticket and in req.user
+    const userID = req.user._id;
+    const ticketID = req.body._id;
+    const text = 'SELECT * FROM Tickets WHERE Tickets.user_id = $1;'
+    values = [userID];
+    const ticket = await db.query(text, values);
+    console.log('TICKET ITEM:  ', ticket.rows[0])
+    //check ticket ID on ticket in DB vs the ticket ID on the req body
+    if (ticket.rows[0]._id === ticketID){
+
+    
+
+    try {
+        
+        console.log('REQ.USERINFO:   inside delete: ', req.user)
+        res.sendStatus(200)
+    } catch (error) {
+        return res.status(500).json({ 'message': err.message })
+    }
+    }
+}
+
+module.exports = { handleNewTicket, handleGetTicketList, handleGetTicket, handleDeleteTicket }
