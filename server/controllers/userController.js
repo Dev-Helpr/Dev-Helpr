@@ -121,7 +121,7 @@ const handleSignIn = async (req, res) => {
 };
 
 const handleLogOut = async (req, res) => {
-  //will want to add deletion of accessToken on front-end if saved there
+  //will want to add deletion of accessToken on front-end state if currently saved there
 
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(204);
@@ -142,9 +142,40 @@ const handleLogOut = async (req, res) => {
   db.query(
     `UPDATE users SET refreshtoken = Null WHERE users._id = ${user.rows[0]._id};`
   );
+  //switch online status to false in db
+  db.query(
+      `UPDATE users SET online = false, status = neutral WHERE Users._id = ${user.rows[0]._id};`
+  )
   res.clearCookie("jwt", { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
   res.sendStatus(204);
 };
+
+const handleGetUserList = async (req, res) => {
+    
+
+    try {
+        const userList =  await db.query('SELECT Users._id, Users.userName, Users.online, Users.status FROM Users');
+        console.log('USER LIST:  ', userList.rows)
+        return res.status(200).json(userList.rows)
+    } catch (error) {
+        return res.status(500).json({ 'message': err.message })
+    }
+}
+
+const handleChangeUserStatus = async (req, res) => {
+    //check if user id on req.user matches id in params, if does you are authorized to change status
+    // console.log('REQ.PARAMS:  ', req.params.id)
+    // console.log('REQ.USER ID:  ', req.user._id.toString())
+    if ( req.params.id === req.user._id.toString()){
+        db.query(
+            `UPDATE users SET status = ${req.body.status} WHERE Users._id = ${req.user._id};`
+        )
+        return res.status(200).json(`You have successfully changed your status to ${req.body.status}`)
+    }
+    return res.status(200).json('You are not authorized to change status')
+}
+
+
 
 module.exports = {
   handleNewUser,
@@ -152,4 +183,6 @@ module.exports = {
   handleSignIn,
   generateAccessToken,
   handleLogOut,
+  handleGetUserList,
+  handleChangeUserStatus,
 };
