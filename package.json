@@ -33,6 +33,7 @@
     "react-redux": "^7.2.7",
     "react-router-dom": "^6.2.2",
     "redux": "^4.1.2",
+    "url-loader": "^4.1.1",
     "websocket": "^1.0.34"
   },
   "devDependencies": {
@@ -48,8 +49,8 @@
     "html-webpack-plugin": "^5.5.0",
     "isomorphic-fetch": "^3.0.0",
     "mini-css-extract-plugin": "^2.6.0",
-    "redux-devtools-extension": "^2.13.9",
     "nodemon": "^2.0.7",
+    "redux-devtools-extension": "^2.13.9",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
