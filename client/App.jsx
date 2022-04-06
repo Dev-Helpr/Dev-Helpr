@@ -6,7 +6,7 @@ import * as actions from "./action/action.js";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import Home from "./pages/home";
-import "./stylesheets/styles.css";
+// import "./stylesheets/styles.css";
 // import ReactPlayer from "react-player";
 
 const mapStateToProps = (state) => ({
@@ -21,6 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
   // create functions that will dispatch action creators
   userInput: (e) => dispatch(actions.userInput(e)),
   logIn: (e) => dispatch(actions.userLogin(e)),
+  clearInput: () => dispatch(actions.clearUserInput()),
 });
 
 
@@ -29,15 +30,15 @@ function App(props) {
   return (
     <div className="App">
       <Routes>
-        {/* <Route
+        <Route
           path="/login"
           element={<Login props={props} userInput={props.userInput} />}
         />
         <Route
           path="/"
           element={<Signup props={props} userInput={props.userInput} />}
-        /> */}
-        <Route path='/' element={<Home />} />
+        />
+        <Route path='/home' element={<Home />} />
       </Routes>
     </div>
   );

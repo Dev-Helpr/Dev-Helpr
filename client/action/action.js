@@ -10,9 +10,16 @@ export const userLogin = (object) => ({
   payload: object,
 });
 
+export const clearUserInput = () => ({
+  type: types.CLEAR_INPUT,
+  payload: null,
+});
+
+
 //for ticket reducer
 
 export const ticketCreator = (e) => ({
   type: types.CREATE_TICKET,
   payload: [e.target.name, e.target.value],
 });
+

@@ -24,6 +24,12 @@ const userStateReducer = (state = initialUserState, action) => {
       }
     }
 
+    case types.CLEAR_INPUT: {
+      return {
+        ...initialUserState,
+      };
+    }
+
     default: {
       return state;
     }
