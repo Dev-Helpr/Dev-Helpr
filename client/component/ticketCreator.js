@@ -97,9 +97,6 @@ function TicketCreator({
             ></textarea>
             {tickets.brief.length + "/255"}
           </label>
-          {/* <label> Urgency? (type 3 for very urgent, 2 for urgent, and 1 for not urgent)
-            <input type='text'></input>
-          </label> */}
           <label>
             Urgency?
             <label>
