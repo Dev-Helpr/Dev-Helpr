@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import axios from 'axios'
-// import click1 from '../audioclips/click1.mp3';
+import click1 from '../audioclips/click1.mp3';
+
 
 function Signup({ userInput, props }) {
   // // State for checking error
@@ -44,14 +45,13 @@ function Signup({ userInput, props }) {
 
   return (
     <div>
-      {/* <Link to="/login"><a>MAX ROCKS</a></Link> */}
-      <div className="photo">
-        <div className="fade-in-image1">
-          <h1>Dev-Helpr</h1>
+      <div className="signup-photo">
+        <div className="signup-fade-in-image1">
+          <h1 className="signup-h1">Dev-Helpr</h1>
         </div>
-        <div className="styledFormWrapper">
+        <div className="signup-styledFormWrapper">
           <div className="form-box">
-            <button className="signupButton">Please Login:</button>
+          <Link to="/login" className="signup-Button" onClick={() => {clickAudio()}}><a>Please Login</a></Link>
             <form method="POST" action="/signup" onSubmit={handleSubmit}>
               <input
                 onChange={handleChange}
@@ -77,23 +77,23 @@ function Signup({ userInput, props }) {
                 required
                 placeholder="Password:"
               ></input>
-              <button
-                onClick={handleToggle1}
+              <button 
+                onClick={() => {handleToggle1; clickAudio()}}
                 className="form-createUserButton"
                 type="submit"
               >
                 Submit
               </button>
               {toggle1 == true ? (
-                <div className="signupSuccess">
+                <div className="signup-signupSuccess">
                   You have successfully signed up! Welcome
                 </div>
               ) : null}
             </form>
           </div>
         </div>
-        <div className="fade-in-image2">
-          <h3>Connecting Developers across the globe</h3>
+        <div className="signup-fade-in-image2">
+          <h3 className="signup-h3">Connecting Developers across the globe</h3>
         </div>
       </div>
     </div>
