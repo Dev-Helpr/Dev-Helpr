@@ -14,7 +14,7 @@
 	display: flex;
 	align-items: left;
   justify-content: left;
-	padding-top: 15px; 
+	padding-top: 15px;
   margin-left: 15px;
 }
 
@@ -35,8 +35,8 @@
   background-repeat:no-repeat;
   border: none;
   cursor:pointer;
-  overflow: hidden; 
-}  
+  overflow: hidden;
+}
 
 .signup-h3 {
     color: rgb(255, 255, 255);
@@ -60,11 +60,11 @@
 }
 
 /* @keyframes example2 {
-	0%   { 
-	transform: translateX(200%); 		
+	0%   {
+	transform: translateX(200%);
 	}
-	100% { 
-	transform: translateX(0%); 
+	100% {
+	transform: translateX(0%);
 	}
 } */
 
@@ -94,21 +94,21 @@
     color: white;
     background-color: blue;
     width: 100%;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .form-email {
     color: white;
     background-color: blue;
     width: 100%;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .form-password {
     color: white;
     background-color: blue;
     width: 100%;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .form-createUserButton {
@@ -189,22 +189,22 @@
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-moz-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-webkit-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-o-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-ms-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
@@ -221,22 +221,22 @@
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-moz-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-webkit-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-o-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-ms-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
@@ -249,6 +249,19 @@
 	font-size: 18px;
     font-weight: normal;
 	margin-left: 785px;
+	display: flex;
+	align-items: center;
+    justify-content: center;
+	padding-top: 30px;
+  }
+
+    .signupUnsuccess {
+    position: absolute;
+    color: rgb(251, 49, 49);
+	font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 18px;
+    font-weight: normal;
+	margin-left: 870;
 	display: flex;
 	align-items: center;
     justify-content: center;

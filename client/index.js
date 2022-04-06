@@ -16,9 +16,3 @@ render(
     </BrowserRouter>,
   document.getElementById("root")
 );
-
-// TRYING THIS YET AGAIN. THERE SHOULD BE NO .IDEA FOLDER!
-//change
-
-//Codesmith rocks
-//Codesmith
