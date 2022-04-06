@@ -1,22 +1,21 @@
+const userForm = document.getElementById('username');
+const roomForm = document.getElementById('room');
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
-
-/** GET USERNAME AND ROOM FROM URL */
 const ioSocket = io();
 
-/** PARSE THE USERNAME AND ROOM NUMBER VIA URL */
-// const { username, room } = qs.parse(location.search, {
-//   ignoreQueryPrefix: true,
-// });
 
-const username = 'mike';
-const room = 4;
+/** PARSE THE USERNAME AND ROOM NUMBER VIA URL */
+const querystring = location.search;
+const params = new URLSearchParams(querystring);
+
+const username = params.get('username');
+const room = params.get('room');
 
 /** JOIN CHATROOM */
 ioSocket.on('connection', (socket) => {
-
   ioSocket.emit('joinRoom', { username, room });
 
   /** GET ROOM AND USERS */
@@ -38,6 +37,8 @@ ioSocket.on('connection', (socket) => {
 chatForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
+  // EXTRACT USERNAME AND ROOM VALUES AND USE THAT AS INPUT RATHER THAN PARSING THE URL WITH THE QS MODULE
+
   // GET MESSAGE TEXT
   let msg = e.target.elements.msg.value;
   msg = msg.trim();
@@ -49,7 +50,7 @@ chatForm.addEventListener('submit', (e) => {
   // EMIT MESSAGE TO SERVER
   ioSocket.emit('chatMessage', msg);
 
-  // Clear input
+  // CLEAR INPUT
   e.target.elements.msg.value = '';
   e.target.elements.msg.focus();
 });

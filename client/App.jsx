@@ -22,11 +22,12 @@ const mapDispatchToProps = (dispatch) => ({
   logIn: (e) => dispatch(actions.userLogin(e)),
 });
 
-
+// TODO: ADD AND ALIGN CHATBOX COMPONENT TO MAIN APP
 function App(props) {
   console.log(props);
   return (
     <div className="App">
+      {/*<Chatbox/>*/}
       <Routes>
         <Route
           path="/login"

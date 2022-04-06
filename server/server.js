@@ -45,6 +45,7 @@ const Qs = require("nodemon/lib/cli");
 /** HANDLE REQUESTS FOR STATIC FILES */
 app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css')));
 
+// TODO: HANDLE AND CONNECT ROUTERS IN LIEU OF HTML FILE ROUTING
 /** DEFINE ROUTE HANDLERS */
 // app.use('/api/users/', usersRouter);
 //create a (GET) refresh route here or in usersRouter ?
@@ -58,6 +59,7 @@ app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css
 //   return response.sendFile(path.resolve(__dirname, '../client/pages/homepage.html'));
 // });
 
+// TODO: SERVE REACT PAGES IN LIEU OF HTML PAGES
 app.get('/chat.html', (request, response) => {
   return response.sendFile(path.resolve(__dirname, '../client/pages/chat.html'));
 });
@@ -78,6 +80,7 @@ app.use((error, request, response, next) => {
   response.status(errorObj.status).json(errorObj.message.err)
 });
 
+// TODO: REVIEW CURRENT WEBSOCKET IMPLEMENTATION ARCHITECTURE
 /** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATROOM */
 io.on('connection', (socket) => {
   socket.emit('connection', 'dummySocket');
@@ -87,14 +90,14 @@ io.on('connection', (socket) => {
 
   // RUNS WHEN CLIENT DISCONNECTS
   socket.on('disconnect', () => {
-    console.log('user has disconnected...')
+    console.log('user has disconnected...');
   });
 
   // JOIN USER INTO ASSIGNED ROOM
   socket.on('joinRoom', ({ username, room }) => {
     console.log(`${username} has joined room ${room}...`);
-    const user = userJoin(socket.id, username, room);
 
+    const user = userJoin(socket.id, username, room);
     socket.join(user.room);
 
     // WELCOME CURRENT USER
