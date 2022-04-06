@@ -20,6 +20,8 @@ const mapStateToProps = (state) => ({
   ionline: state.users.online,
   status: state.users.status,
   accessToken: state.users.accessToken,
+  //ticket's state
+  tickets: state.tickets,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -29,10 +31,14 @@ const mapDispatchToProps = (dispatch) => ({
   logIn: (obj) => dispatch(actions.userLogin(obj)),
   //when invoke, it will convert users obj to its initial state.
   clearInput: () => dispatch(actions.clearUserInput()),
+  //update ticket input
+  ticketCreator: (e) => dispatch(actions.ticketCreator(e)),
+  updateTicketUrgency: (e) => dispatch(actions.updateTicketUrgency(e)),
 });
 
 function App(props) {
-  console.log('users\'s state: ', props);
+  console.log('users\'s state: ', props.user);
+  console.log('ticket state: ', props.tickets);
   return (
     <div className="App">
       <Routes>
@@ -59,7 +65,17 @@ function App(props) {
             />
           }
         />
-        <Route path="/home" element={<Home user={props.user}/>} />
+        <Route
+          path="/home"
+          element={
+            <Home
+              user={props.user}
+              tickets={props.tickets}
+              ticketCreator={props.ticketCreator}
+              updateTicketUrgency={props.updateTicketUrgency}
+            />
+          }
+        />
       </Routes>
     </div>
   );
