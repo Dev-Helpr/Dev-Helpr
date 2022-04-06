@@ -1,15 +1,15 @@
-import * as types from './../constant/actionTypes.js';
+import * as types from "./../constant/actionTypes.js";
 
 const initialUserState = {
-  userName: '',
-  email: '',
-  password: '',
+  userName: "",
+  email: "",
+  password: "",
   online: false,
-  status: '',
-}
+  status: "",
+  accessToken: "",
+};
 
 const userStateReducer = (state = initialUserState, action) => {
-
   switch (action.type) {
     case types.USER_INPUT: {
       return {
@@ -20,8 +20,8 @@ const userStateReducer = (state = initialUserState, action) => {
 
     case types.LOG_IN: {
       return {
-        ...action.payload
-      }
+        ...action.payload,
+      };
     }
 
     case types.CLEAR_INPUT: {
@@ -34,6 +34,6 @@ const userStateReducer = (state = initialUserState, action) => {
       return state;
     }
   }
-}
+};
 
 export default userStateReducer;

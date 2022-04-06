@@ -15,12 +15,13 @@ const mapStateToProps = (state) => ({
   password: state.users.password,
   ionline: state.users.online,
   status: state.users.status,
+  accessToken: state.users.accessToken,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   // create functions that will dispatch action creators
   userInput: (e) => dispatch(actions.userInput(e)),
-  logIn: (e) => dispatch(actions.userLogin(e)),
+  logIn: (obj) => dispatch(actions.userLogin(obj)),
   clearInput: () => dispatch(actions.clearUserInput()),
 });
 
