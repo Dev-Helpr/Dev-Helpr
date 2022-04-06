@@ -7,6 +7,7 @@ const socketio = require('socket.io')
 const Server = socketio.Server;
 const io = new Server(server);
 
+/** IMPORT UTILS */
 const formatMessage = require('../utils/messages.js');
 const {
   userJoin,
@@ -16,7 +17,6 @@ const {
 } = require('../utils/users');
 
 const PORT = process.env.PORT || 3031;
-
 const botName = 'Dev-Helpr Bot';
 
 /** HANDLE REQUESTS FOR STATIC FILES */
@@ -89,15 +89,17 @@ app.use((error, request, response, next) => {
 
 /** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATROOM */
 io.on('connection', (socket) => {
-  // NOTIFY THAT USER HAS CONNECTED
+  socket.emit('connection', 'connection');
+
+  // RUNS WHEN CLIENT CONNECTS
   console.log('user has connected...');
 
-  // NOTIFY THAT USER HAS DISCONNECTED
+  // RUNS WHEN CLIENT DISCONNECTS
   socket.on('disconnect', () => {
     console.log('user has disconnected...')
   });
 
-  socket.on('joinRoom', ({ username, room }) => { // PASS INFO FROM CLIENT
+  socket.on('joinRoom', ({ username, room }) => {
     console.log(`${username} has joined room ${room}...`);
     const user = userJoin(socket.id, username, room);
 
@@ -124,8 +126,9 @@ io.on('connection', (socket) => {
   // LISTEN FOR CHAT MESSAGE
   socket.on('chatMessage', msg => {
   const user = getCurrentUser(socket.id);
-
-  io.to(user.room).emit('message', formatMessage(user.username, msg));
+  console.log('chatMessage listener fired!');
+  console.log(user);
+  // io.to(user.room).emit('message', formatMessage(user.username, msg));
   });
 
   // RUNS WHEN CLIENT DISCONNECTS

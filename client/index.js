@@ -10,6 +10,7 @@ import './stylesheets/chatbox.css';
 import './stylesheets/signup.css';
 import '../node_modules/socket.io-client/dist/socket.io.min.js';
 import '../node_modules/socket.io/client-dist/socket.io.js';
+import 'qs';
 
 render(
   <BrowserRouter>

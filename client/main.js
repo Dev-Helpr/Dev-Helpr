@@ -4,27 +4,36 @@ const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 
 /** GET USERNAME AND ROOM FROM URL */
-console.log(document);
+const ioSocket = io();
 
-const socket = io();
-
-// const { username, room } = Qs.parse(location.search, {
+/** PARSE THE USERNAME AND ROOM NUMBER VIA URL */
+// const { username, room } = qs.parse(location.search, {
 //   ignoreQueryPrefix: true,
 // });
 
+const username = 'mike';
+const room = 5;
+
+// socket.emit('joinRoom', { username, room });
+
+
 /** JOIN CHATROOM */
-socket.on('connection', (socket) => {
-  console.log('joined');
-  socket.emit('joinRoom', {username, room});
+ioSocket.on('connection', (socket) => {
+  console.log(`server sent back connection signal on socket: ${socket}`);
+
+
+  ioSocket.emit('joinRoom', { username, room });
+  console.log(socket);
+
 
   /** GET ROOM AND USERS */
-  socket.on('roomUsers', ({room, users}) => {
+  ioSocket.on('roomUsers', ({room, users}) => {
     outputRoomName(room);
     outputUsers(users);
   });
 
   /** MESSAGE FROM SERVER */
-  socket.on('message', (message) => {
+  ioSocket.on('message', (message) => {
     console.log(message);
     outputMessage(message);
 
@@ -37,10 +46,9 @@ socket.on('connection', (socket) => {
 chatForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  console.log('message event fired!')
-
   // GET MESSAGE TEXT
   let msg = e.target.elements.msg.value;
+  console.log(msg);
 
   msg = msg.trim();
 
@@ -49,7 +57,7 @@ chatForm.addEventListener('submit', (e) => {
   }
 
   // EMIT MESSAGE TO SERVER
-  socket.emit('chatMessage', msg);
+  ioSocket.emit('chatMessage', msg);
 
   // Clear input
   e.target.elements.msg.value = '';
