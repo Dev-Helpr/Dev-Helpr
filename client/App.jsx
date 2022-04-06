@@ -10,6 +10,7 @@ import Home from "./pages/home";
 // import ReactPlayer from "react-player";
 
 const mapStateToProps = (state) => ({
+  id: state.users.id,
   userName: state.users.userName,
   email: state.users.email,
   password: state.users.password,

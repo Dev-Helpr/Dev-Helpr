@@ -24,10 +24,12 @@ function Login({ userInput, props }) {
         //if login successfuly
         console.log(res);
         if (typeof res.data === 'object') {
+          console.log(res.data)
           props.logIn(res.data);
-          setSignIn((prev) => !prev);
+          setSignIn(true);
         } else {
           setError({ isError: true, errorMessage: res.data });
+           setSignIn(false);
         }
       });
   };

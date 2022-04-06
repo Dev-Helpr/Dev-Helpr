@@ -6,9 +6,8 @@ import click1 from "../audioclips/click1.mp3";
 
 function Signup({ userInput, props }) {
   // // State for checking error
-  const [error, setError] = useState(false);
   const [login, setLogin] = useState(false);
-
+  const [error, setError] = useState({ isError: false, errorMessage: "" });
   const handleChange = (e) => {
     userInput(e);
   };
@@ -22,26 +21,23 @@ function Signup({ userInput, props }) {
         password: props.password,
       })
       .then((res) => {
-        //if signup successfully, res.data = true
-        //if not, res.data = false
-
-        if (res.data) {
+        //if login successfuly
+        console.log(res.data);
+        if (typeof res.data === "object") {
           setLogin(true);
-          setError(false);
-          props.clearInput();
+          console.log(res.data);
+          props.logIn(res.data);
         } else {
-          setLogin(false);
-          setError(true);
+          setError({ isError: true, errorMessage: res.data });
         }
       });
-    console.log(e.target.value);
   };
 
   const clickAudio = () => {
     return new Audio(click1).play();
   };
   if (login) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/home" />;
   }
   return (
     <div>
@@ -99,10 +95,8 @@ function Signup({ userInput, props }) {
                   You have successfully signed up! Welcome
                 </div>
               ) : null}
-              {error === true ? (
-                <div className="signupUnsuccess">
-                  This user is already exist
-                </div>
+              {error.isError === true ? (
+                <div className="signupUnsuccess">{error.errorMessage}</div>
               ) : null}
             </form>
           </div>

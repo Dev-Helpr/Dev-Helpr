@@ -1,6 +1,7 @@
 import * as types from "./../constant/actionTypes.js";
 
 const initialUserState = {
+  id: 0,
   userName: "",
   email: "",
   password: "",
