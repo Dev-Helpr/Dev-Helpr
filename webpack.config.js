@@ -65,6 +65,12 @@ module.exports = {
         test: /\.(svg|webp|ico|png|jpg|jpe?g|gif)$/i,
         type: "asset/resource",
       },
+      {
+        test: /\.mp3$/,
+        use: {
+          loader: 'url-loader',
+        }
+      } 
     ],
   },
 

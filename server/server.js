@@ -14,6 +14,10 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 const PORT = process.env.PORT || 3031;
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const app = express();
+const { protect } = require('./controllers/authControllers');
 
 
 const botName = 'Dev-Helpr Bot';
@@ -21,16 +25,32 @@ const botName = 'Dev-Helpr Bot';
 /** HANDLE REQUESTS FOR STATIC FILES */
 app.use(express.static(path.resolve(__dirname, '../client')));
 
+
+/** REQUIRE ROUTERS */
+const usersRouter = require(path.resolve(__dirname, './routes/users'));
+const ticketsRouter = require(path.resolve(__dirname, './routes/tickets'));
+const refreshAccess = require('./routes/refresh')
+
 /** HANDLE PARSING REQUEST BODY FOR JSON AND URL */
-app.use(express.json());
+//can create a cors function later to only allow certain origins (domains) to access our apps backend
+app.use(cors())
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 
 /** REQUIRE ROUTERS */
 const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
 const { options } = require("pg/lib/defaults");
 
+/** HANDLE REQUESTS FOR STATIC FILES */
+app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css')));
+
 /** DEFINE ROUTE HANDLERS */
-app.use('/api', apiRouter);
+app.use('/api/users/', usersRouter);
+//create a (GET) refresh route here or in usersRouter ?
+app.use('/api/refresh', refreshAccess);
+app.use(protect); //user will need to be logged in to access any route below this point
+app.use('/api/tickets/', ticketsRouter)
 
 // DO NOT NEED THIS ANYMORE AS WEBPACK SERVES THE INDEX.HTML FILE ON STARTUP
 // /** ROUTE HANDLER TO RESPOND WITH MAIN APP */

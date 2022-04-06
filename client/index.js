@@ -9,6 +9,9 @@ import 'react-bootstrap/dist/react-bootstrap'
 import './stylesheets/chatbox.css';
 import './stylesheets/signup.css';
 import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css";
+import './stylesheets/styles.css';
+import './stylesheets/signup.css'
+import './stylesheets/login.css'
 
 render(
   <BrowserRouter>
