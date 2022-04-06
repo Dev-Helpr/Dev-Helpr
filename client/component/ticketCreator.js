@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./../stylesheets/ticketCreator.css";
+import axios from 'axios'
 // {
 //   problem: '',
 //   tried: '',
@@ -16,6 +17,7 @@ function TicketCreator({
   tickets,
   updateTicketUrgency,
   setCreateTicketIsClick,
+  user_id,
 }) {
   const handleCheckbox = (e) => {
     if (e.target.checked) {
@@ -25,18 +27,21 @@ function TicketCreator({
     }
   };
 
-  const handleSubmitCreateTicket = () => {
+  const handleSubmitCreateTicket = (e) => {
     e.preventDefault();
     //uncomment to test for create new ticket route
-    // axios
-    //   .post("/api/tickets", { ...tickets, user_id: user.id })
-    //   .then((res) => {
-    //     //there is no response from backend
-    //     //set to false  after get a response from backend
-    //     setCreateTicketIsClick(false);
-    //   })
-    //   .catch((err) => console.log(err));
+    const values = { ...tickets, user_id: user_id };
+    axios
+      .post("/api/tickets", values)
+      .then((res) => {
+        //there is no response from backend
+        //set to false  after get a response from backend
+        setCreateTicketIsClick(false);
+      })
+      .catch((err) => console.log(err));
   };
+
+
 
   return (
     <div className="ticketCreator">
@@ -66,6 +71,17 @@ function TicketCreator({
               onChange={ticketCreator}
             ></textarea>
             {tickets.problem.length + "/255"}
+          </label>
+          <br/>
+          <label>
+            tried?
+            <textarea
+              required={true}
+              className="ticketCreator__textarea"
+              name="tried"
+              onChange={ticketCreator}
+            ></textarea>
+            {tickets.tried.length + "/255"}
           </label>
           <label>
             expect?

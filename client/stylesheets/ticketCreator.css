@@ -16,9 +16,14 @@
   flex-direction: column;
   justify-content: center;
   background-color: white;
+  padding: 20px 20px;
 }
 
 .ticketCreator__textarea {
+  display: block;
   color: black;
   border-color: blue;
+  margin-left: 0px;
+  width: 100%;
+  border-style: solid;
 }

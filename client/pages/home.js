@@ -66,6 +66,7 @@ function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
           updateTicketUrgency={updateTicketUrgency}
           ticketCreator={ticketCreator}
           tickets={tickets}
+          user_id={user.id}
         />
       ) : null}
     </div>
