@@ -89,7 +89,7 @@ app.use((error, request, response, next) => {
 
 /** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATROOM */
 io.on('connection', (socket) => {
-  socket.emit('connection', 'connection');
+  socket.emit('connection', 'dummySocket');
 
   // RUNS WHEN CLIENT CONNECTS
   console.log('user has connected...');
@@ -99,6 +99,7 @@ io.on('connection', (socket) => {
     console.log('user has disconnected...')
   });
 
+  // JOIN USER INTO ASSIGNED ROOM
   socket.on('joinRoom', ({ username, room }) => {
     console.log(`${username} has joined room ${room}...`);
     const user = userJoin(socket.id, username, room);
@@ -126,9 +127,7 @@ io.on('connection', (socket) => {
   // LISTEN FOR CHAT MESSAGE
   socket.on('chatMessage', msg => {
   const user = getCurrentUser(socket.id);
-  console.log('chatMessage listener fired!');
-  console.log(user);
-  // io.to(user.room).emit('message', formatMessage(user.username, msg));
+  io.to(user.room).emit('message', formatMessage(user.username, msg));
   });
 
   // RUNS WHEN CLIENT DISCONNECTS
@@ -149,7 +148,6 @@ io.on('connection', (socket) => {
     }
   });
 });
-
 
 /** START THE SERVER AND LISTEN FOR CLIENT REQUESTS */
 server.listen(PORT,() => {

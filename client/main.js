@@ -12,19 +12,12 @@ const ioSocket = io();
 // });
 
 const username = 'mike';
-const room = 5;
-
-// socket.emit('joinRoom', { username, room });
-
+const room = 4;
 
 /** JOIN CHATROOM */
 ioSocket.on('connection', (socket) => {
-  console.log(`server sent back connection signal on socket: ${socket}`);
-
 
   ioSocket.emit('joinRoom', { username, room });
-  console.log(socket);
-
 
   /** GET ROOM AND USERS */
   ioSocket.on('roomUsers', ({room, users}) => {
@@ -34,7 +27,6 @@ ioSocket.on('connection', (socket) => {
 
   /** MESSAGE FROM SERVER */
   ioSocket.on('message', (message) => {
-    console.log(message);
     outputMessage(message);
 
     // SCROLL DOWN
@@ -48,8 +40,6 @@ chatForm.addEventListener('submit', (e) => {
 
   // GET MESSAGE TEXT
   let msg = e.target.elements.msg.value;
-  console.log(msg);
-
   msg = msg.trim();
 
   if (!msg) {
