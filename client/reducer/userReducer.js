@@ -1,15 +1,16 @@
-import * as types from './../constant/actionTypes.js';
+import * as types from "./../constant/actionTypes.js";
 
 const initialUserState = {
-  userName: '',
-  email: '',
-  password: '',
+  id: 0,
+  userName: "",
+  email: "",
+  password: "",
   online: false,
-  status: '',
-}
+  status: "",
+  accessToken: "",
+};
 
 const userStateReducer = (state = initialUserState, action) => {
-
   switch (action.type) {
     case types.USER_INPUT: {
       return {
@@ -19,15 +20,21 @@ const userStateReducer = (state = initialUserState, action) => {
     }
 
     case types.LOG_IN: {
-      //axios get request
-      //
-      return;
+      return {
+        ...action.payload,
+      };
+    }
+
+    case types.CLEAR_INPUT: {
+      return {
+        ...initialUserState,
+      };
     }
 
     default: {
       return state;
     }
   }
-}
+};
 
 export default userStateReducer;

@@ -1,0 +1,19 @@
+.home {
+  /* display: flex; */
+
+/* display: grid;
+grid-template-columns: 1fr 2fr 1fr;
+/* grid-template-rows: repeat(2, 1fr); */
+/* grid-column-gap: 18px;
+grid-row-gap: 10px; */
+}
+
+.home__tickets {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  margin-top: 30px;
+  width: 25%;
+  height: 70%;
+  overflow-y: scroll;
+}
