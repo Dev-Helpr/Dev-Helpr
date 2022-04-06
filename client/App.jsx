@@ -26,24 +26,19 @@ const mapDispatchToProps = (dispatch) => ({
 function App(props) {
   console.log(props);
   return (
-    <div>
-      <Chatbox />
+    <div className="App">
+      <Routes>
+        <Route
+          path="/login"
+          element={<Login props={props} userInput={props.userInput} />}
+        />
+        <Route
+          path="/"
+          element={<Signup props={props} userInput={props.userInput} />}
+        />
+      </Routes>
     </div>
-  )
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-/** MIKE G'S CODE */
-// <div className="App">
-// {/*  <Routes>*/}
-// {/*    <Route*/}
-// {/*      path="/login"*/}
-// {/*      element={<Login props={props} userInput={props.userInput} />}*/}
-// {/*    />*/}
-// {/*    <Route*/}
-// {/*      path="/"*/}
-// {/*      element={<Signup props={props} userInput={props.userInput} />}*/}
-// {/*    />*/}
-// {/*  </Routes>*/}
-// {/*</div>*/}

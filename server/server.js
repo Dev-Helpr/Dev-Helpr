@@ -6,6 +6,9 @@ const path = require('path');
 const socketio = require('socket.io')
 const Server = socketio.Server;
 const io = new Server(server);
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const { protect } = require('./controllers/authControllers');
 
 /** IMPORT UTILS */
 const formatMessage = require('../utils/messages.js');
@@ -22,17 +25,32 @@ const botName = 'Dev-Helpr Bot';
 /** HANDLE REQUESTS FOR STATIC FILES */
 app.use(express.static(path.resolve(__dirname, '../client')));
 
+/** REQUIRE ROUTERS */
+const usersRouter = require(path.resolve(__dirname, './routes/users'));
+const ticketsRouter = require(path.resolve(__dirname, './routes/tickets'));
+const refreshAccess = require('./routes/refresh')
+
 /** HANDLE PARSING REQUEST BODY FOR JSON AND URL */
-app.use(express.json());
+//can create a cors function later to only allow certain origins (domains) to access our apps backend
+app.use(cors())
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 
 /** REQUIRE ROUTERS */
 const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
 const { options } = require("pg/lib/defaults");
 const Qs = require("nodemon/lib/cli");
 
+/** HANDLE REQUESTS FOR STATIC FILES */
+app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css')));
+
 /** DEFINE ROUTE HANDLERS */
-app.use('/api', apiRouter);
+// app.use('/api/users/', usersRouter);
+//create a (GET) refresh route here or in usersRouter ?
+// app.use('/api/refresh', refreshAccess);
+// app.use(protect); //user will need to be logged in to access any route below this point
+// app.use('/api/tickets/', ticketsRouter)
 
 
 /** ROUTE HANDLERS TO RESPOND WITH MAIN APP -- WEBPACK SERVES THE INDEX.HTML FILE ON STARTUP */
@@ -59,33 +77,6 @@ app.use((error, request, response, next) => {
   const errorObj = Object.assign(defaultErr, { error: error });
   response.status(errorObj.status).json(errorObj.message.err)
 });
-
-/** NOTIFY THE CLIENT OF CLIENT CONNECTION ACTIVITY -- old code */
-// io.on('connection', (socket) => {
-//   console.log('a user connected');
-//   socket.on('disconnect', () => {
-//     console.log('user disconnected');
-//   });
-// });
-//
-// /** PRINT THE CHAT MESSAGE EVENT */
-// io.on('connection', (socket) => {
-//   socket.on('chat message', (msg) => {
-//     console.log(`chat message: ${msg}`);
-//   });
-// });
-//
-// /** TEST: EMIT A MESSAGE TO ALL CONNECTED USERS */
-// io.on('connection', (socket) => {
-//   socket.broadcast.emit('hello everyone!');
-// });
-//
-// io.on('connection', (socket) => {
-//   socket.on('chat message', (msg) => {
-//     io.emit('chat message', msg);
-//   });
-// });
-
 
 /** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATROOM */
 io.on('connection', (socket) => {
