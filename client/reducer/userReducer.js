@@ -19,9 +19,9 @@ const userStateReducer = (state = initialUserState, action) => {
     }
 
     case types.LOG_IN: {
-      //axios get request
-      //
-      return;
+      return {
+        ...action.payload
+      }
     }
 
     default: {
