@@ -1,14 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const { handleNewTicket, handleGetTicketList, handleGetTicket, handleDeleteTicket } = require('../controllers/ticketController')
+const { handleNewTicket, handleGetTicketList, handleGetTicket, handleDeleteTicket, handleUpdateTicket } = require('../controllers/ticketController')
+
+//inside @ '/api/tickets/'
 
 router.post('/', handleNewTicket);
 
 router.get('/list', handleGetTicketList);
 
-router.get('/ticket', handleGetTicket);
+router.route('/:id')
+    .get(handleGetTicket)
+    .put(handleUpdateTicket)
+    .delete(handleDeleteTicket)
 
-router.get('/del', handleDeleteTicket);
+// router.get('/ticket', handleGetTicket);
+
+// router.get('/del', handleDeleteTicket);
 
 
 //just temp middleware for testing access/auth
