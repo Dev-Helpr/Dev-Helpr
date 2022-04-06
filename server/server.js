@@ -47,11 +47,11 @@ app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css
 
 // TODO: HANDLE AND CONNECT ROUTERS IN LIEU OF HTML FILE ROUTING
 /** DEFINE ROUTE HANDLERS */
-// app.use('/api/users/', usersRouter);
+app.use('/api/users/', usersRouter);
 //create a (GET) refresh route here or in usersRouter ?
-// app.use('/api/refresh', refreshAccess);
-// app.use(protect); //user will need to be logged in to access any route below this point
-// app.use('/api/tickets/', ticketsRouter)
+app.use('/api/refresh', refreshAccess);
+app.use(protect); //user will need to be logged in to access any route below this point
+app.use('/api/tickets/', ticketsRouter)
 
 
 /** ROUTE HANDLERS TO RESPOND WITH MAIN APP -- WEBPACK SERVES THE INDEX.HTML FILE ON STARTUP */

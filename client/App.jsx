@@ -27,7 +27,7 @@ function App(props) {
   console.log(props);
   return (
     <div className="App">
-      {/*<Chatbox/>*/}
+      <Chatbox/>
       <Routes>
         <Route
           path="/login"

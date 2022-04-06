@@ -82,7 +82,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'client/pages/homepage.html'),
+    template: path.resolve(__dirname, "client", "index.html"),
     }),
     new miniCSS(),
     new Dotenv(),
