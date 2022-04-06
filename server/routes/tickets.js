@@ -1,5 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const { handleNewTicket, handleGetTicketList, handleGetTicket } = require('../controllers/ticketController')
+
+router.post('/', handleNewTicket);
+
+router.get('/list', handleGetTicketList);
+
+router.get('/ticket', handleGetTicket);
+
+
 
 //just temp middleware for testing access/auth
 router.get('/test', (req, res) => {
