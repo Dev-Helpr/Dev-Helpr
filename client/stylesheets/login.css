@@ -14,7 +14,7 @@
 	display: flex;
 	align-items: left;
      justify-content: left;
-	padding-top: 15px; 
+	padding-top: 15px;
     margin-left: 15px;
 }
 
@@ -35,8 +35,8 @@
   background-repeat:no-repeat;
   border: none;
   cursor:pointer;
-  overflow: hidden; 
-}  
+  overflow: hidden;
+}
 
 .login-h3 {
     color: rgb(255, 255, 255);
@@ -60,14 +60,16 @@
 }
 
 /* @keyframes example2 {
-	0%   { 
-	transform: translateX(200%); 		
+	0%   {
+	transform: translateX(200%);
 	}
-	100% { 
-	transform: translateX(0%); 
+	100% {
+	transform: translateX(0%);
 	}
 } */
-
+.logIn__error {
+  color: red;
+}
 
 .form-box-2 {
     padding-top: 155px;
@@ -94,21 +96,21 @@
     color: white;
     background-color: blue;
     width: 100%;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .form-email-2 {
     color: white;
     background-color: blue;
     width: 15%;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .form-password-2 {
     color: white;
     background-color: blue;
     width: 15%;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .form-createUserButton-2 {
@@ -189,22 +191,22 @@
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-moz-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-webkit-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-o-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-ms-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
@@ -221,22 +223,22 @@
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-moz-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-webkit-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-o-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}
   }
-  
+
   @-ms-keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity:1;}

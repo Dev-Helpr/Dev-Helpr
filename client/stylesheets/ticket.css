@@ -1,0 +1,26 @@
+.ticket {
+  display: flex;
+  /* flex-direction: row; */
+  background-color: aqua;
+  /* margin-top: 20px; */
+  margin-bottom: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  justify-content: space-between;
+  height: 10%;
+}
+
+.ticket:hover {
+  cursor: pointer;
+}
+
+.ticket__heading {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: antiquewhite;
+  border-radius: 50%;
+}
