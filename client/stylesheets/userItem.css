@@ -1,0 +1,83 @@
+.user {
+
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+     background-color: #5A79AF;
+    /* display: flex;
+   
+   
+    
+    margin-bottom: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    justify-content: space-around;
+    height: 10%; */
+  }
+  
+  .status_button:hover {
+    cursor: pointer;
+    outline: 2px solid hsl(0, 2%, 78%);
+  }
+  /* .ghost {
+      width: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    #FFD900 - yellow
+
+    #0000FF -- super blue? 
+
+    #060b6a
+
+    #16a318 - green on bluish
+
+    #04AA6D - green on white
+  } */
+  .userName {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .offline {
+      color: #595151;
+      
+      background-color: #5A79AF;
+      
+      
+  }
+
+  .status_button {
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 50%;
+  }
+
+  .hide_status {
+    background-color: grey;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    opacity: 40%;
+  }

@@ -155,7 +155,7 @@ const handleGetUserList = async (req, res) => {
 
     try {
         const userList =  await db.query('SELECT Users._id, Users.userName, Users.online, Users.status FROM Users');
-        console.log('USER LIST:  ', userList.rows)
+        // console.log('USER LIST:  ', userList.rows)
         return res.status(200).json(userList.rows)
     } catch (error) {
         return res.status(500).json({ 'message': err.message })
@@ -164,8 +164,8 @@ const handleGetUserList = async (req, res) => {
 
 const handleChangeUserStatus = async (req, res) => {
     //check if user id on req.user matches id in params, if does you are authorized to change status
-    // console.log('REQ.PARAMS:  ', req.params.id)
-    // console.log('REQ.USER ID:  ', req.user._id.toString())
+    console.log('REQ.PARAMS:  ', req.params.id)
+    console.log('REQ.USER ID:  ', req.user._id.toString())
     if ( req.params.id === req.user._id.toString()){
         db.query(
             `UPDATE users SET status = ${req.body.status} WHERE Users._id = ${req.user._id};`

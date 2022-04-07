@@ -20,7 +20,7 @@ const protect = async (req, res, next) => {
             //here we are storing our users._id, username and email in the req.user obj that we can access within other routes
         const userInfo = await db.query(text, value);
         req.user = userInfo.rows[0]
-        // console.log(req.user);
+        console.log('YOU HAVE SUCCESSFUL PASSED A GUARDED ROUTE');
         return next();
         } catch (error) {
         console.log(error);
