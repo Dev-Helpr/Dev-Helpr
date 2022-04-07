@@ -18,6 +18,8 @@ function TicketCreator({
   updateTicketUrgency,
   setCreateTicketIsClick,
   user_id,
+  arrOfTicket,
+  setArrOfTicket,
 }) {
   const handleCheckbox = (e) => {
     if (e.target.checked) {
@@ -36,6 +38,7 @@ function TicketCreator({
       .then((res) => {
         //there is no response from backend
         //set to false  after get a response from backend
+        setArrOfTicket([]);
         setCreateTicketIsClick(false);
       })
       .catch((err) => console.log(err));

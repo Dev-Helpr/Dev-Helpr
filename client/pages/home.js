@@ -5,14 +5,18 @@ import TicketCreator from "./../component/ticketCreator.js";
 import axios from "axios";
 import "./../stylesheets/home.css";
 
-function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
+function Home({
+  user,
+  tickets,
+  ticketCreator,
+  updateTicketUrgency,
+  getTicketStateWhenClickEdit,
+}) {
   const [ticketIsClick, setTicketIsClick] = useState(false);
   const [createTicketIsClick, setCreateTicketIsClick] = useState(false);
   const [arrOfTicket, setArrOfTicket] = useState([]);
   const [ticketDisplay, setTicketDisplay] = useState({});
-
   const handleClick = (id) => {
-
     axios
       .get(`/api/tickets/${id}`)
       .then((res) => {
@@ -25,13 +29,13 @@ function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
   useEffect(() => {
     //fetch for tickets
     axios
-      .get("/api/tickets/list")
+      .get("/api/tickets/list?_sort=id&_order=asc")
       .then((res) => {
         //expected this to be an array of object, if not ticket then it will be an empty array
         console.log("data: ", res.data);
         const array = [];
         // setArrOfTicket(res.data);
-        for (let i = 0; i < res.data.length; i++) {
+        for (let i = res.data.length - 1; i > 0; i--) {
           const { heading, problem, _id } = res.data[i];
           array.push(
             <Ticket
@@ -46,36 +50,30 @@ function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
         setArrOfTicket(array);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [arrOfTicket.length]);
 
   return (
     <div className="home">
-      <div className="home__tickets">
-        {arrOfTicket}
-        {/* <Ticket heading="Javascript" brief="wdd" handleClick={handleClick} />
-        <Ticket heading="C++" brief="wdd" handleClick={handleClick} />
-        <Ticket heading="Java" brief="wdd" handleClick={handleClick} />
-        <Ticket heading="Python" brief="wdd" handleClick={handleClick} />
-        <Ticket heading="Python" brief="wdd" handleClick={handleClick} />
-        <Ticket heading="Python" brief="wdd" handleClick={handleClick} />
-        <Ticket heading="Python" brief="wdd" handleClick={handleClick} />
-        <Ticket heading="Python" brief="wdd" handleClick={handleClick} />
-        <Ticket heading="Python" brief="wdd" handleClick={handleClick} />
-        <Ticket heading="Python" brief="wdd" handleClick={handleClick} />
-        <Ticket heading="Python" brief="wdd" handleClick={handleClick} />
-        <Ticket heading="Python" brief="wdd" handleClick={handleClick} />
-        <Ticket heading="Python" brief="wdd" handleClick={handleClick} /> */}
-      </div>
-      {ticketIsClick ? (
-        <TicketDescription {...ticketDisplay} />
-      ) : (
-        <div className="ticketDescription">hi</div>
-      )}
       <button onClick={() => setCreateTicketIsClick((prev) => !prev)}>
         +Create Ticket
       </button>
+      <div className="home__tickets">{arrOfTicket}</div>
+      {ticketIsClick ? (
+        <TicketDescription
+          ticketCreator={ticketCreator}
+          tickets={tickets}
+          getTicketStateWhenClickEdit={getTicketStateWhenClickEdit}
+          {...ticketDisplay}
+          userId={user.id}
+        />
+      ) : (
+        <div className="ticketDescription">hi</div>
+      )}
+
       {createTicketIsClick ? (
         <TicketCreator
+          setArrOfTicket={setArrOfTicket}
+          arrOfTicket={arrOfTicket}
           setCreateTicketIsClick={setCreateTicketIsClick}
           updateTicketUrgency={updateTicketUrgency}
           ticketCreator={ticketCreator}
