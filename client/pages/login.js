@@ -4,11 +4,9 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 import click1 from "../audioclips/click1.mp3";
 
-function Login({ userInput, props }) {
+function Login({ userInput, email, password, logIn }) {
   const [signIn, setSignIn] = useState(false);
-  const [error, setError] = useState({isError: false, errorMessage: ''});
-
-  const handleChange = (e) => userInput(e);
+  const [error, setError] = useState({ isError: false, errorMessage: "" });
 
   const clickAudio = () => new Audio(click1).play();
 
@@ -17,21 +15,22 @@ function Login({ userInput, props }) {
 
     axios
       .post("/api/users/signIn", {
-        email: props.email,
-        password: props.password,
+        email: email,
+        password: password,
       })
       .then((res) => {
         //if login successfuly
-        console.log(res);
-        if (typeof res.data === 'object') {
-          console.log(res.data)
-          props.logIn(res.data);
+        if (typeof res.data === "object") {
+          console.log(res.data);
+          logIn(res.data);
           setSignIn(true);
         } else {
+          //if not
           setError({ isError: true, errorMessage: res.data });
-           setSignIn(false);
+          setSignIn(false);
         }
-      });
+      })
+      .catch((err) => console.log(err));
   };
 
   if (signIn) {
@@ -52,14 +51,14 @@ function Login({ userInput, props }) {
               className="form-email-2"
               type="text"
               placeholder="email"
-              onChange={handleChange}
+              onChange={userInput}
             />
 
             <input
               className="form-password-2"
               name="password"
               type="password"
-              onChange={handleChange}
+              onChange={userInput}
             />
             <button
               className="form-createUserButton-2"

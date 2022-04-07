@@ -22,7 +22,7 @@ app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css
 app.use('/api/users/', usersRouter);
 //create a (GET) refresh route here or in usersRouter ?
 app.use('/api/refresh', refreshAccess);
-app.use(protect); //user will need to be logged in to access any route below this point
+// app.use(protect); //user will need to be logged in to access any route below this point
 app.use('/api/tickets/', ticketsRouter)
 
 /** ROUTE HANDLER TO RESPOND WITH MAIN APP */
