@@ -1,3 +1,7 @@
+body {
+	background-color: rgb(35, 34, 34);
+}
+
 .home {
   /* display: flex; */
 
@@ -8,12 +12,146 @@ grid-template-columns: 1fr 2fr 1fr;
 grid-row-gap: 10px; */
 }
 
+
 .home__tickets {
+  position: fixed;
   display: flex;
+  background-color: rgb(24, 23, 23);
+  border: px solid rgb(72, 74, 72);
   flex-direction: column;
-  margin-left: 20px;
-  margin-top: 30px;
+  margin-left: 60px;
+  margin-top: 60px;
   width: 25%;
-  height: 70%;
-  overflow-y: scroll;
+  height: 880px;
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll; 
 }
+
+.home__tickets::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
+.ticketBodyBox {
+  position: absolute;
+  width: 600px;
+  height: 100%;
+  background-color: rgb(39, 38, 38);
+  top: 0px;
+  border: 2px solid rgb(67, 69, 67);
+}
+
+
+.box1 {
+  position: absolute;
+  width: 60px;
+  height: 100vh;
+  background-color: rgb(39, 38, 38);
+  top: 0px;
+}
+
+.box2 {
+  position: absolute;
+  width: 1859px;
+  height: 6.3%;
+  background-color: rgb(51, 51, 237);
+  margin-left: 60px;
+  top: 0px;
+}
+
+.box3 {
+  position: absolute;
+  width: 1859px;
+  height: 6.5%;
+  background-color: rgb(51, 51, 237);
+  margin-left: 60px;
+  top: 0px;
+  border: 2px solid rgb(67, 69, 67);
+}
+
+.ticketBody {
+  position: absolute;
+  width: 1055px;
+  height: 45.5%;
+  margin-left: 545px;
+  top: 62px;
+  border: 2px solid rgb(67, 69, 67);
+}
+
+.chatBox {
+  position: absolute;
+  width: 1055px;
+  height: 46%;
+  margin-left: 545px;
+  top: 500px;
+  border: 2px solid rgb(67, 69, 67);
+}
+
+.usersContainer-box{
+  position: absolute;
+  width: 300px;
+  height: 92.5%;
+  margin-left: 1610px;
+  top: 62px;
+  border: 2px solid rgb(67, 69, 67);
+}
+
+.usersContainer-box-text {
+  font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
+  position: absolute;
+  color: rgb(255, 255, 255);
+  background-color: rgb(83, 88, 225);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 95;
+  font-weight: 400;
+  border-radius: 5%;
+}
+
+.text1 {
+  position: absolute;
+  font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  margin-left: 70px;
+  padding: 5px;
+  color: rgb(250, 250, 250);
+}
+
+.clockTime {
+  position: fixed;
+  font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  padding-top: 22px;
+  margin-left: 1670px;
+  height: 100px;
+  width: 1000px;
+  color: rgb(255, 0, 174);
+}
+
+.clock {
+  position: absolute;
+  padding-top: 21.5px;
+  padding-left: 1790px;
+  color: rgb(255, 75, 147);
+  font-size: 11;
+  font-weight: 500;
+}
+
+.signupPhoto {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  margin-left: 1610px;
+  width: 300px;
+  height: auto;
+  top: 712px;
+}
+

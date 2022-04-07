@@ -4,6 +4,11 @@ import TicketDescription from "./../component/ticketDescription.js";
 import TicketCreator from "./../component/ticketCreator.js";
 import axios from "axios";
 import "./../stylesheets/home.css";
+import Datetime from "../component/datetime.js";
+import Clock from 'react-live-clock';
+import click1 from "../audioclips/click1.mp3";
+import signupBackground from '../images/signupBackground19.jpg'
+
 
 function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
   const [ticketIsClick, setTicketIsClick] = useState(false);
@@ -11,6 +16,12 @@ function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
   const [arrOfTicket, setArrOfTicket] = useState([]);
 
   const handleClick = () => setTicketIsClick(true);
+
+  const clickAudio = () => new Audio(click1).play();
+
+  useEffect(() => {
+    setInterval(() => setDateState(new Date()), 30000);
+  }, []);
 
   useEffect(() => {
     //fetch for tickets
@@ -39,9 +50,37 @@ function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
 
   return (
     <div className="home">
+
+    <img className="signupPhoto" src={signupBackground}/>
+
+
+      <div class="container">
+      <box className="box1"></box>
+      <box className="box2"></box>
+      <box className="ticketBody"></box>
+      <box className="chatBox"></box>
+
+      <box className="usersContainer-box">
+          <p className="usersContainer-box-text ">Online Users:</p>
+      </box>
+
+        <p className="text1">Dev-helpr</p>
+      </div>
+
+      <div className="clock">
+         <Clock
+            format={'h:mm:ssa'}
+            style={{fontSize: '1.5em'}}
+            ticking={true} />
+      </div>
+
+      <div className = "clockTime">
+            <Datetime />
+      </div>
+
       <div className="home__tickets">
         {arrOfTicket}
-        <Ticket heading="Javascript" brief="wdd" handleClick={handleClick} />
+        {/* <Ticket heading="Javascript" brief="wdd" handleClick={handleClick} />
         <Ticket heading="C++" brief="wdd" handleClick={handleClick} />
         <Ticket heading="Java" brief="wdd" handleClick={handleClick} />
         <Ticket heading="Python" brief="wdd" handleClick={handleClick} />
@@ -53,16 +92,13 @@ function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
         <Ticket heading="Python" brief="wdd" handleClick={handleClick} />
         <Ticket heading="Python" brief="wdd" handleClick={handleClick} />
         <Ticket heading="Python" brief="wdd" handleClick={handleClick} />
-        <Ticket heading="Python" brief="wdd" handleClick={handleClick} />
+        <Ticket heading="Python" brief="wdd" handleClick={handleClick} /> */}
       </div>
       {ticketIsClick ? (
         <TicketDescription />
       ) : (
-        <div className="ticketDescription">hi</div>
+        <div className="ticketDescription"></div>
       )}
-      <button onClick={() => setCreateTicketIsClick((prev) => !prev)}>
-        +Create Ticket
-      </button>
       {createTicketIsClick ? (
         <TicketCreator
           setCreateTicketIsClick={setCreateTicketIsClick}
@@ -73,6 +109,11 @@ function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
         />
       ) : null}
       {/* userFeed */}
+
+      <div className="switchContainer">
+          <input type="checkbox" id="switch" name="switch"/>
+          <label for="switch" class="switch" onClick={() => {clickAudio(); setCreateTicketIsClick((prev) => !prev)}}>Create Ticket</label>
+      </div>
     </div>
   );
 }

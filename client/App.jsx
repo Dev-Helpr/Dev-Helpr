@@ -6,8 +6,8 @@ import * as actions from "./action/action.js";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import Home from "./pages/home";
-// import "./stylesheets/styles.css";
-// import ReactPlayer from "react-player";
+
+
 
 const mapStateToProps = (state) => ({
   //user is the whole users object
@@ -42,7 +42,7 @@ function App(props) {
   return (
     <div className="App">
       <Routes>
-        <Route
+        {/* <Route
           path="/login"
           element={
             <Login
@@ -64,9 +64,9 @@ function App(props) {
               userInput={props.userInput}
             />
           }
-        />
+        /> */}
         <Route
-          path="/home"
+          path="/"
           element={
             <Home
               user={props.user}
