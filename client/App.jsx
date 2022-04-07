@@ -14,6 +14,9 @@ import Home from "./pages/home";
 // import ReactPlayer from "react-player";
 
 const mapStateToProps = (state) => ({
+  //user is the whole users object
+  user: state.users,
+  //each value inside users object
   id: state.users.id,
   userName: state.users.userName,
   email: state.users.email,
@@ -21,30 +24,62 @@ const mapStateToProps = (state) => ({
   ionline: state.users.online,
   status: state.users.status,
   accessToken: state.users.accessToken,
+  //ticket's state
+  tickets: state.tickets,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // create functions that will dispatch action creators
+  // userInput: update users object based on user input (console.log of users obj in App component below)
   userInput: (e) => dispatch(actions.userInput(e)),
+  //update users obj after receive data from backend, this func is used in both signup and log in
   logIn: (obj) => dispatch(actions.userLogin(obj)),
+  //when invoke, it will convert users obj to its initial state.
   clearInput: () => dispatch(actions.clearUserInput()),
+  //update ticket input
+  ticketCreator: (e) => dispatch(actions.ticketCreator(e)),
+  updateTicketUrgency: (e) => dispatch(actions.updateTicketUrgency(e)),
 });
 
-
 function App(props) {
-  console.log(props);
+  console.log('users\'s state: ', props.user);
+  console.log('ticket state: ', props.tickets);
   return (
     <div className="App">
       <Routes>
         <Route
           path="/login"
-          element={<Login props={props} userInput={props.userInput} />}
+          element={
+            <Login
+              email={props.email}
+              password={props.password}
+              logIn={props.logIn}
+              userInput={props.userInput}
+            />
+          }
         />
         <Route
           path="/"
-          element={<Signup props={props} userInput={props.userInput} />}
+          element={
+            <Signup
+              userName={props.userName}
+              email={props.email}
+              password={props.password}
+              logIn={props.logIn}
+              userInput={props.userInput}
+            />
+          }
         />
-        <Route path='/home' element={<Home />} />
+        <Route
+          path="/home"
+          element={
+            <Home
+              user={props.user}
+              tickets={props.tickets}
+              ticketCreator={props.ticketCreator}
+              updateTicketUrgency={props.updateTicketUrgency}
+            />
+          }
+        />
       </Routes>
     </div>
   );
