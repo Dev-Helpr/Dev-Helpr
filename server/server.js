@@ -20,9 +20,7 @@ app.use(cookieParser());
 app.use(
   express.static(path.resolve(__dirname, "../client/stylesheets/styles.css"))
 );
-app.get("/home", (req, res) => {
-  return resw.sendFile(path.resolve(__dirname, "../client/index.html"));
-});
+
 /** DEFINE ROUTE HANDLERS */
 app.use("/api/users/", usersRouter);
 //create a (GET) refresh route here or in usersRouter ?

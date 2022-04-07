@@ -39,7 +39,7 @@ function Home({
       },
     };
     axios
-      .get("/api/tickets/list?_sort=id&_order=asc", config)
+      .get("/api/tickets/list?_sort=id&_order=DESC", config)
       .then((res) => {
         //expected this to be an array of object, if not ticket then it will be an empty array
         console.log("data: ", res.data);
