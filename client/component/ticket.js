@@ -1,9 +1,9 @@
 import React from 'react'
 import './../stylesheets/ticket.css'
 
-function Ticket({ heading, brief, handleClick }) {
+function Ticket({ heading, brief, handleClick, id }) {
   return (
-    <div className="ticket" onClick={handleClick}>
+    <div className="ticket" onClick={() => handleClick(id)}>
       <h2 className='ticket__heading'>{heading}</h2>
       <div className="ticket__topic">
         <h3>Topic</h3>
