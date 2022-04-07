@@ -17,8 +17,13 @@ function Home({
   const [arrOfTicket, setArrOfTicket] = useState([]);
   const [ticketDisplay, setTicketDisplay] = useState({});
   const handleClick = (id) => {
+     const config = {
+       headers: {
+         Authorization: `Bearer ${user.accessToken}`,
+       },
+     };
     axios
-      .get(`/api/tickets/${id}`)
+      .get(`/api/tickets/${id}`, config)
       .then((res) => {
         setTicketDisplay(res.data);
         setTicketIsClick(true);
@@ -28,8 +33,13 @@ function Home({
 
   useEffect(() => {
     //fetch for tickets
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    };
     axios
-      .get("/api/tickets/list?_sort=id&_order=asc")
+      .get("/api/tickets/list?_sort=id&_order=asc", config)
       .then((res) => {
         //expected this to be an array of object, if not ticket then it will be an empty array
         console.log("data: ", res.data);
@@ -50,7 +60,9 @@ function Home({
         setArrOfTicket(array);
       })
       .catch((err) => console.log(err));
+      //
   }, [arrOfTicket.length]);
+
 
   return (
     <div className="home">
@@ -60,6 +72,10 @@ function Home({
       <div className="home__tickets">{arrOfTicket}</div>
       {ticketIsClick ? (
         <TicketDescription
+          user={user}
+          setTicketIsClick={setTicketIsClick}
+          setArrOfTicket={setArrOfTicket}
+          updateTicketUrgency={updateTicketUrgency}
           ticketCreator={ticketCreator}
           tickets={tickets}
           getTicketStateWhenClickEdit={getTicketStateWhenClickEdit}
@@ -72,6 +88,7 @@ function Home({
 
       {createTicketIsClick ? (
         <TicketCreator
+          user={user}
           setArrOfTicket={setArrOfTicket}
           arrOfTicket={arrOfTicket}
           setCreateTicketIsClick={setCreateTicketIsClick}

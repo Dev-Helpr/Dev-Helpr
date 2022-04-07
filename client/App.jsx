@@ -39,6 +39,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function App(props) {
+  // console.log(props.accessToken);
   console.log('users\'s state: ', props.user);
   console.log('ticket state: ', props.tickets);
   return (

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TicketEditor from "./ticketEditor.js";
 import "./../stylesheets/ticketDescription.css";
+import axios from 'axios';
 //How it looks like inside ticketDisplay
 // {
 //   problem: '',
@@ -14,6 +15,10 @@ import "./../stylesheets/ticketDescription.css";
 //   user_id: 0,
 // }
 function ticketDescription({
+  user,
+  setTicketIsClick,
+  setArrOfTicket,
+  updateTicketUrgency,
   ticketCreator,
   tickets,
   getTicketStateWhenClickEdit,
@@ -23,7 +28,18 @@ function ticketDescription({
   // console.log("from ticketDes: ", userId, +ticketDisplay.user_id);
   const [isEdit, setIsEdit] = useState(false);
 
-  const resolveOnClick = (e) => {};
+  const resolveOnClick = (e) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    };
+    
+    axios.delete(`api/tickets/${ticketDisplay._id}`, config).then(res => {
+      setArrOfTicket([]);
+      setTicketIsClick(false);
+    })
+  };
 
   return (
     <div className="ticketDescription">
@@ -43,6 +59,9 @@ function ticketDescription({
       ) : null}
       {isEdit ? (
         <TicketEditor
+          user={user}
+          setArrOfTicket={setArrOfTicket}
+          updateTicketUrgency={updateTicketUrgency}
           ticketCreator={ticketCreator}
           tickets={tickets}
           getTicketStateWhenClickEdit={getTicketStateWhenClickEdit}

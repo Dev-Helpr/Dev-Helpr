@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./../stylesheets/ticketEditor.css";
+import axios from "axios";
 /*
 expect: "dsfsd"
 heading: "something"
@@ -15,6 +16,9 @@ _id: 10
 */
 
 function TicketEditor({
+  user,
+  setArrOfTicket,
+  updateTicketUrgency,
   ticketCreator,
   tickets,
   getTicketStateWhenClickEdit,
@@ -39,10 +43,32 @@ function TicketEditor({
     getTicketStateWhenClickEdit(obj);
   }, []);
 
+  const handleCheckbox = (e) => {
+    if (e.target.checked) {
+      updateTicketUrgency(e);
+    } else {
+      updateTicketUrgency();
+    }
+  };
   //submit will send a put request to backend api/ticket/${ticketId}
   //this request doesn't return anyting
   const handleSubmitTicketEditor = (e) => {
     e.preventDefault();
+
+const config = {
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
+  };
+
+
+    axios
+      .put(`api/tickets/${ticketDisplay._id}`, tickets, config)
+      .then((res) => {
+        setArrOfTicket([]);
+        setIsEdit(false);
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleTicketEditor = (e) => {
@@ -128,7 +154,7 @@ function TicketEditor({
             {tickets.brief.length + "/255"}
           </label>
           <br />
-          {/* <label>
+          <label>
             Urgency?
             <label>
               Very urgent
@@ -138,8 +164,8 @@ function TicketEditor({
                 value={3}
                 onChange={handleCheckbox}
               ></input>
-            </label> */}
-          {/* <label>
+            </label>
+            <label>
               Urgent
               <input
                 type="checkbox"
@@ -158,7 +184,7 @@ function TicketEditor({
               ></input>
             </label>
           </label>
-          <button type="submit">Submit</button> */}
+          <button type="submit">Submit</button>
         </form>
       </div>
     </div>

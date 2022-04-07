@@ -13,6 +13,7 @@ import axios from "axios";
 //   user_id: 0,
 // }
 function TicketCreator({
+  user,
   ticketCreator,
   tickets,
   updateTicketUrgency,
@@ -33,8 +34,14 @@ function TicketCreator({
     e.preventDefault();
     //uncomment to test for create new ticket route
     const values = { ...tickets, user_id: user_id };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    };
+
     axios
-      .post("/api/tickets", values)
+      .post("/api/tickets", values, config)
       .then((res) => {
         //there is no response from backend
         //set to false  after get a response from backend

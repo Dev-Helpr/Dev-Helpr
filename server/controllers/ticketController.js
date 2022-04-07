@@ -47,7 +47,7 @@ const handleGetTicket = async ( req, res ) => {
 }
 
 const handleDeleteTicket = async ( req, res ) => {
-    
+
     //aquire tickets._id that user wants to delete from params
         //make sure that the ticket to be deleted has the same users's id on both ticket and in req.user
     const userID = req.user._id.toString();
