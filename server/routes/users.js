@@ -8,16 +8,17 @@ const { protect } = require('../controllers/authControllers');
 // Create new user in database
 router.route('/')
     .post(userExistsInDB, handleNewUser)
+    //get user list
     .get(handleGetUserList)
 
 //log in user 
 router.post('/signIn', userExistsInDB, handleSignIn);
+//updates user status
+router.route('/:id')
+.put(protect, handleChangeUserStatus)
+
 
 //get user info - need to be logged in
-router.route('/:id')
-    .put(protect, handleChangeUserStatus)
-
-
 router.get('/info', protect, (req, res) => {
     // res.cookie (JWT auth)
     const userInfo = {
