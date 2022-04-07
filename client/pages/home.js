@@ -8,36 +8,39 @@ import "./../stylesheets/home.css";
 function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
   const [ticketIsClick, setTicketIsClick] = useState(false);
   const [createTicketIsClick, setCreateTicketIsClick] = useState(false);
+  const [arrOfTicket, setArrOfTicket] = useState([]);
 
   const handleClick = () => setTicketIsClick(true);
 
+  useEffect(() => {
+    //fetch for tickets
+    axios
+      .get("/api/tickets/list")
+      .then((res) => {
+        //expected this to be an array of object, if not ticket then it will be an empty array
+        console.log(res.data);
+        const array = [];
+        // setArrOfTicket(res.data);
+        for (let i = 0; i < res.data.length; i++) {
+          const {heading, problem} = res.data[i];
+          console.log(problem);
+          array.push(
+            <Ticket
+              key={i}
+              heading={heading}
+              brief={problem}
+              handleClick={handleClick}
+            />);
+        }
+        setArrOfTicket(array);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-  let arrOfTicket = false;
-
-  //Uncomment to test get list of tickets
-  // useEffect(() => {
-  //   //fetch for tickets
-  //   axios
-  //     .get("/api/tickets/list")
-  //     .then((res) => {
-  //       //expected this to be an array of object, if not ticket then it will be an empty array
-  //       console.log(res.data);
-  //       arrOfTicket = res.data;
-  //     })
-  //     .cacth((err) => console.log(err));
-  // }, []);
-  // if (arrOfTicket) {
-  //   const arrTicket = []
-  //   for (let i = 0; i < arrOfTicket.length; i++) {
-  //     arrTicket.push(
-  //       <Ticket key={i} heading="Javascript" brief="wdd" handleClick={handleClick} />
-  //     );
-  //   }
-  // }
   return (
     <div className="home">
       <div className="home__tickets">
-        {/* arrOfTicket ? {arrTicket} : null*/}
+        {arrOfTicket}
         <Ticket heading="Javascript" brief="wdd" handleClick={handleClick} />
         <Ticket heading="C++" brief="wdd" handleClick={handleClick} />
         <Ticket heading="Java" brief="wdd" handleClick={handleClick} />
@@ -69,6 +72,7 @@ function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
           user_id={user.id}
         />
       ) : null}
+      {/* userFeed */}
     </div>
   );
 }

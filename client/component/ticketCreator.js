@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./../stylesheets/ticketCreator.css";
-import axios from 'axios'
+import axios from "axios";
 // {
 //   problem: '',
 //   tried: '',
@@ -41,8 +41,6 @@ function TicketCreator({
       .catch((err) => console.log(err));
   };
 
-
-
   return (
     <div className="ticketCreator">
       <div className="ticketCreator__content">
@@ -72,7 +70,7 @@ function TicketCreator({
             ></textarea>
             {tickets.problem.length + "/255"}
           </label>
-          <br/>
+          <br />
           <label>
             tried?
             <textarea
@@ -83,6 +81,7 @@ function TicketCreator({
             ></textarea>
             {tickets.tried.length + "/255"}
           </label>
+          <br />
           <label>
             expect?
             <textarea
@@ -93,6 +92,7 @@ function TicketCreator({
             ></textarea>
             {tickets.expect.length + "/255"}
           </label>
+          <br />
           <label>
             hypothesis?
             <textarea
@@ -103,6 +103,7 @@ function TicketCreator({
             ></textarea>
             {tickets.hypothesis.length + "/255"}
           </label>
+          <br />
           <label>
             brief?
             <textarea
@@ -113,6 +114,7 @@ function TicketCreator({
             ></textarea>
             {tickets.brief.length + "/255"}
           </label>
+          <br />
           <label>
             Urgency?
             <label>
