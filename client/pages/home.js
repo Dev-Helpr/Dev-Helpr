@@ -14,6 +14,7 @@ function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
   const [createTicketIsClick, setCreateTicketIsClick] = useState(false);
   const [arrOfTicket, setArrOfTicket] = useState([]);
   const [arrOfUSers, setArrOfUsers] = useState([]);
+  const [updateStatus, setUpdateStatus] = useState(1)
   const currentUser = useSelector((state) => state.users);
   const { accessToken } = currentUser;
 
@@ -43,6 +44,7 @@ function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
             username={username}
             online={online}
             status={status}
+            setUpdateStatus={setUpdateStatus}
             
           />);
       }
@@ -53,6 +55,7 @@ function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
 
   useEffect(() => {
     //fetch for tickets
+    console.log('USE EFFECT FIRING')
     axios
       .get("/api/tickets/list", config)
       .then((res) => {
@@ -76,7 +79,7 @@ function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
       .catch((err) => console.log(err));
 
       fetchUserList();
-}, []);
+}, [updateStatus]);
 
 
  
@@ -105,7 +108,7 @@ function Home({ user, tickets, ticketCreator, updateTicketUrgency }) {
         />
       ) : null}
       {/* userFeed */}
-      <div className="home_users">
+      <div className="home__users">
         {arrOfUSers}
       </div>
     </div>

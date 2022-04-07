@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 
 
 
-function UserItem({ id, username, online, status, }) {
+function UserItem({ id, username, online, status, setUpdateStatus}) {
   const [arrOfUSers, setArrOfUsers] = useState([]);
   const currentUser = useSelector((state) => state.users);
   const { accessToken } = currentUser;
@@ -16,33 +16,34 @@ function UserItem({ id, username, online, status, }) {
     },
   };
 
-  const fetchUserList = () => {
+  // const fetchUserList = () => {
 
-    axios
-    .get("/api/users/", config)
-    .then((res) => {
-      //expected this to be an array of object, if not ticket then it will be an empty array
-      // console.log('USER LIST:  ',res.data);
-      const array = [];
-      // setArrOfTicket(res.data);
-      for (let i = 0; i < res.data.length; i++) {
-        const { _id, username, online, status } = res.data[i];
-        array.push(
-          <UserItem
-            key={i}
-            id={_id}
-            username={username}
-            online={online}
-            status={status}
+  //   axios
+  //   .get("/api/users/", config)
+  //   .then((res) => {
+  //     //expected this to be an array of object, if not ticket then it will be an empty array
+  //     // console.log('USER LIST:  ',res.data);
+  //     const array = [];
+  //     // setArrOfTicket(res.data);
+  //     for (let i = 0; i < res.data.length; i++) {
+  //       const { _id, username, online, status } = res.data[i];
+  //       array.push(
+  //         <UserItem
+  //           key={i}
+  //           id={_id}
+  //           username={username}
+  //           online={online}
+  //           status={status}
 
-          />);
-      }
-      setArrOfUsers(array);
-    })
-    .catch((err) => console.log(err));
-  };
+  //         />);
+  //     }
+  //     setArrOfUsers(array);
+  //   })
+  //   .catch((err) => console.log(err));
+  // };
 
   const handleStatusClick = (status, id) => {
+    
     let newStatus;
     status === 'neutral' ? newStatus = "'seekingHelp'" :
     status === 'seekingHelp' ? newStatus = "'helper'" :
@@ -52,13 +53,11 @@ function UserItem({ id, username, online, status, }) {
     axios
     .put(`/api/users/${id}`, {status: newStatus}, config)
     .then((res) => {
-      console.log(res)
+      setUpdateStatus(num => num+1)
+      console.log('UPDATE STATUS')
     })
     
-    useEffect(()=> {
-      fetchUserList();
-      
-    }, [])
+   
   };
 
   return (
