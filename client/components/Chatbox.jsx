@@ -15,7 +15,7 @@ function Chatbox() {
   /** INITIALIZE STATE OF CHATBOX COMPONENT **/
   const [username, setUsername] = useState('Mike');
   const [room, setRoom] = useState(90283745);
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState(['joe shmoe']);
   const [ticketResolved, setTicketResolved] = useState(false);
   const [messages, addMessages] = useState([]);
 
@@ -33,8 +33,7 @@ function Chatbox() {
 
     /* GET ROOM AND USERS */
     ioSocket.on('roomUsers', (socket) => {
-      console.log(socket.user, socket.room);
-      // setRoom(socket.room);
+      setRoom(socket.room);
       // setUserList(socket.users)
     });
     // ioSocket.on('roomUsers', ({room, users}) => {
@@ -89,17 +88,15 @@ function Chatbox() {
   };
 
   /** ADD ROOM NAME AND USERS TO CHATBOX COMPONENT **/
-
-
   // const outputRoomName = (room) => {
   //   return setRoom(room);
   // }
   //
   /** ADD USERS TO DOM **/
-  const outputUsers = ({username, users = [...userList]}) => {
-    users.push(<li>{username}</li>);
-    setUserList(users);
-  };
+  // const outputUsers = ({username, users = [...userList]}) => {
+  //   users.push(<li>{username}</li>);
+  //   setUserList(users);
+  // };
   // userList.innerHTML = '';
   // users.forEach((user) => {
   //   const li = document.createElement('li');
@@ -140,7 +137,7 @@ function Chatbox() {
         <main className="chat-main">
           <div className="chat-sidebar">
             <h2><i className="fas fa-comments"/> Room Name:<br/><h2 id="room-name">{room}</h2></h2>
-            <h2><i className="fas fa-users"/> Users:<br/><ul id="users">{}</ul></h2>
+            <h2><i className="fas fa-users"/> Users:<br/><ul id="users">{userList}</ul></h2>
             {/*<ul id="users"> </ul>*/}
           </div>
           <div className="chat-messages">
