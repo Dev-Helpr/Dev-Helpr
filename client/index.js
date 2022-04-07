@@ -4,7 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import App from "./App.jsx";
-import qs from 'qs';
+import Home from './pages/home'; // NOT USING ON INDEX.JS
+import Login from './pages/login'; // NOT USING ON INDEX.JS
 import 'bootstrap';
 import 'react-bootstrap/dist/react-bootstrap'
 import './stylesheets/chatbox.css';
@@ -16,7 +17,9 @@ import './stylesheets/login.css';
 render(
   <BrowserRouter>
     <Provider store={store}>
-      <App />
+      {/*<App />*/}
+      <Home/>
+      {/*<Login/>*/}
     </Provider>
   </BrowserRouter>,
   document.getElementById("root")

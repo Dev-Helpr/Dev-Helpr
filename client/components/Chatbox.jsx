@@ -1,4 +1,3 @@
-// TODO: CONVERT CHAT.HTML DOM TO REACT COMPONENT
 import React from 'react';
 
 const userForm = document.getElementById('username');
@@ -7,59 +6,63 @@ const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
+import * as io from '../../node_modules/socket.io/client-dist/socket.io.js';
 const ioSocket = io();
 
 
 function Chatbox() {
-  //
-  /** PARSE THE USERNAME AND ROOM NUMBER VIA URL */
-  const querystring = location.search;
-  const params = new URLSearchParams(querystring);
+  /** BEGIN CHAT SESSION */
+  ioSocket.on('connection', () => {
 
-  const username = params.get('username');
-  const room = params.get('room');
+    // CONFIRM DUPLEX COMMUNICATION WITH SERVER //
+    ioSocket.emit('client response');
+    console.log('connection established with server...');
 
-  /** JOIN CHATROOM */
-  ioSocket.on('connection', (socket) => {
+    // PARSE THE USERNAME AND TICKET ID (AS ROOM) AT TICKET SOLVE REQUEST //
+    const username = 'mike'; // THIS WILL BE THE CURRENT CLIENT WHOSE BROWSER THE COMPONENT IS ON
+    const room = 'websocket' // THIS WILL BE THE TICKET TOPIC -- OR -- A UNIQUE ID (NUM GENERATOR?)
+
+    // JOIN CHATROOM //
     ioSocket.emit('joinRoom', { username, room });
 
-    /** GET ROOM AND USERS */
+    // GET ROOM AND USERS //
     ioSocket.on('roomUsers', ({room, users}) => {
       outputRoomName(room);
       outputUsers(users);
-    });
+  })
+
 
     /** MESSAGE FROM SERVER */
     ioSocket.on('message', (message) => {
       outputMessage(message);
 
       // SCROLL DOWN
-      chatMessages.scrollTop = chatMessages.scrollHeight;
+      // chatMessages.scrollTop = chatMessages.scrollHeight;
     });
   });
 
-  /** MESSAGE SUBMIT */
-  chatForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    // EXTRACT USERNAME AND ROOM VALUES AND USE THAT AS INPUT RATHER THAN PARSING THE URL WITH THE QS MODULE
-
-    // GET MESSAGE TEXT
-    let msg = e.target.elements.msg.value;
-    msg = msg.trim();
-
-    if (!msg) {
-      return false;
-    }
-
-    // EMIT MESSAGE TO SERVER
-    ioSocket.emit('chatMessage', msg);
-
-    // CLEAR INPUT
-    e.target.elements.msg.value = '';
-    e.target.elements.msg.focus();
-  });
-
+  // /** MESSAGE SUBMIT */
+  // chatForm.addEventListener('submit', (e) => {
+  //   e.preventDefault();
+  //
+  //   // EXTRACT USERNAME AND ROOM VALUES AND USE THAT AS INPUT RATHER THAN PARSING THE URL WITH THE QS MODULE
+  //
+  //   // GET MESSAGE TEXT
+  //   let msg = e.target.elements.msg.value;
+  //   msg = msg.trim();
+  //
+  //   if (!msg) {
+  //     return false;
+  //   }
+  //
+  //   // EMIT MESSAGE TO SERVER
+  //   ioSocket.emit('chatMessage', msg);
+  //
+  //   // CLEAR INPUT
+  //   e.target.elements.msg.value = '';
+  //   e.target.elements.msg.focus();
+  // });
+  //
   /** OUTPUT MESSAGE TO DOM */
   function outputMessage(message) {
     const div = document.createElement('div');
@@ -75,12 +78,12 @@ function Chatbox() {
     div.appendChild(para);
     document.querySelector('.chat-messages').appendChild(div);
   }
-
+  //
   /** ADD ROOM NAME TO DOM */
   function outputRoomName(room) {
     roomName.innerText = room;
   }
-
+  //
   /** ADD USERS TO DOM */
   function outputUsers(users) {
     userList.innerHTML = '';
@@ -92,27 +95,26 @@ function Chatbox() {
   }
 
   /** PROMPT THE USER BEFORE LEAVING THE CHATROOM */
-  document.getElementById('leave-btn').addEventListener('click', () => {
-    const leaveRoom = confirm('Are you sure you want to leave the chatroom?');
-    if (leaveRoom) {
-      window.location = '../index.html';
-    } else {
-    }
-  });
+  // document.getElementById('leave-btn').addEventListener('click', () => {
+  //   const leaveRoom = confirm('Are you sure you want to leave the chatroom?');
+  //   if (leaveRoom) {
+  //     window.location = '../index.html';
+  //   } else {
+  //   }
+  // });
 
   return(
     <div>
       <meta charSet="UTF-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <title>Dev-Helpr Chat</title>
-      {/*<link*/}
-      {/*  rel="stylesheet"*/}
-      {/*  type="text/css"*/}
-      {/*  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"*/}
-      {/*  integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="*/}
-      {/*  crossOrigin="anonymous"*/}
-      {/*/>*/}
-
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+        crossOrigin="anonymous"
+      />
       <link rel="stylesheet" type="text/css" href='../stylesheets/chatbox.css' />
 
       <div className="chat-container">

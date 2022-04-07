@@ -1,5 +1,5 @@
 import React from "react";
-import "./../stylesheets/ticketDescription.css";
+import "../stylesheets/ticketDescription.css";
 
 function ticketDescription() {
 

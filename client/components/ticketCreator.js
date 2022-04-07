@@ -1,5 +1,5 @@
 import React from "react";
-import second from "./../stylesheets/ticketCreator.css";
+import second from "../stylesheets/ticketCreator.css";
 
 function TicketCreator() {
   const handleSubmit = () => {
@@ -9,7 +9,7 @@ function TicketCreator() {
     <div className="ticketCreator">
       <div className="ticketCreator__content">
         <form onSubmit={handleSubmit}>
-          ushdfouhoiefh
+          [this is a ticket]
         </form>
       </div>
     </div>

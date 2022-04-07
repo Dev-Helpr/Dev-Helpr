@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import * as actions from "./action/action.js";
+import * as actions from "./actions/action.js";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
-import Chatbox from './components/Chatbox.jsx';
 import Home from "./pages/home";
 // import "./stylesheets/styles.css";
 // import ReactPlayer from "react-player";
@@ -30,9 +29,9 @@ const mapDispatchToProps = (dispatch) => ({
 // TODO: ADD AND ALIGN CHATBOX COMPONENT TO MAIN APP
 function App(props) {
   console.log(props);
+
   return (
     <div className="App">
-      <Chatbox/>
       <Routes>
         <Route
           path="/login"

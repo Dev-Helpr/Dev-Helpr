@@ -1,5 +1,5 @@
 import React from 'react'
-import './../stylesheets/ticket.css'
+import '../stylesheets/ticket.css'
 
 function Ticket({ heading, brief, handleClick }) {
   return (

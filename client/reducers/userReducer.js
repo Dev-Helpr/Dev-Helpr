@@ -1,4 +1,4 @@
-import * as types from "./../constant/actionTypes.js";
+import * as types from "../constants/actionTypes.js";
 
 const initialUserState = {
   id: 0,

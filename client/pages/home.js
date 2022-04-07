@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import Ticket from "./../component/ticket.js";
-import TicketDescription from "./../component/ticketDescription.js";
-import TicketCreator from "./../component/ticketCreator.js";
-import "./../stylesheets/home.css";
+import Ticket from "../components/ticket.js";
+import TicketDescription from "../components/ticketDescription.js";
+import TicketCreator from "../components/ticketCreator.js";
+import "../stylesheets/home.css";
+import Chatbox from "../components/Chatbox.jsx";
 
 function Home() {
   const [ticketIsClick, setTicketIsClick] = useState(false);
@@ -35,6 +36,7 @@ function Home() {
       )}
       <button onClick={createTicketOnClick}>+Create Ticket</button>
       {createTicketIsClick ? <TicketCreator /> : null}
+      <Chatbox/>
     </div>
   );
 }

@@ -3,12 +3,12 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const path = require('path');
-const socketio = require('socket.io')
-const Server = socketio.Server;
+const Server = require('socket.io').Server
 const io = new Server(server);
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { protect } = require('./controllers/authControllers');
+const { options } = require("pg/lib/defaults");
 
 /** IMPORT UTILS */
 const formatMessage = require('../utils/messages.js');
@@ -39,7 +39,6 @@ app.use(cookieParser());
 
 /** REQUIRE ROUTERS */
 const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
-const { options } = require("pg/lib/defaults");
 const Qs = require("nodemon/lib/cli");
 
 /** HANDLE REQUESTS FOR STATIC FILES */
@@ -50,19 +49,8 @@ app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css
 app.use('/api/users/', usersRouter);
 //create a (GET) refresh route here or in usersRouter ?
 app.use('/api/refresh', refreshAccess);
-app.use(protect); //user will need to be logged in to access any route below this point
+// app.use(protect); //user will need to be logged in to access any route below this point
 app.use('/api/tickets/', ticketsRouter)
-
-
-/** ROUTE HANDLERS TO RESPOND WITH MAIN APP -- WEBPACK SERVES THE INDEX.HTML FILE ON STARTUP */
-// app.get('/', (request, response) => {
-//   return response.sendFile(path.resolve(__dirname, '../client/pages/homepage.html'));
-// });
-
-// TODO: SERVE REACT PAGES IN LIEU OF HTML PAGES
-app.get('/chat.html', (request, response) => {
-  return response.sendFile(path.resolve(__dirname, '../client/pages/chat.html'));
-});
 
 /** CATCH-ALL ROUTE HANDLER FOR ANY REQUESTS TO AN UNKNOWN ROUTE */
 app.use('*', (request, response) => {
@@ -81,14 +69,17 @@ app.use((error, request, response, next) => {
 });
 
 // TODO: REVIEW CURRENT WEBSOCKET IMPLEMENTATION ARCHITECTURE
-/** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATROOM */
+/** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATBOX */
 io.on('connection', (socket) => {
-  socket.emit('connection', 'dummySocket');
+  socket.on('client response', () => {
+    console.log('client has established connection...');
+  })
 
-  // RUNS WHEN CLIENT CONNECTS
+  socket.emit('connection', () => 'returned statement');
+  // RUNS WHEN CLIENT CONNECTS //
   console.log('user has connected...');
 
-  // RUNS WHEN CLIENT DISCONNECTS
+  // RUNS WHEN CLIENT DISCONNECTS //
   socket.on('disconnect', () => {
     console.log('user has disconnected...');
   });
@@ -100,10 +91,10 @@ io.on('connection', (socket) => {
     const user = userJoin(socket.id, username, room);
     socket.join(user.room);
 
-    // WELCOME CURRENT USER
+    // WELCOME CURRENT USER //
     socket.emit('message', formatMessage(botName, 'Welcome to Dev-Helpr Chat!'));
 
-    // BROADCAST WHEN A USER CONNECTS
+    // BROADCAST WHEN A USER CONNECTS //
     socket.broadcast
       .to(user.room)
       .emit(
@@ -111,20 +102,20 @@ io.on('connection', (socket) => {
         formatMessage(botName, `${user.username} has joined the chat.`)
       );
 
-    // SEND USERS AND ROOM INFO
+    // SEND USERS AND ROOM INFO //
     io.to(user.room).emit('roomUsers', {
       room: user.room,
       users: getRoomUsers(user.room)
     });
   });
 
-  // LISTEN FOR CHAT MESSAGE
+  // LISTEN FOR CHAT MESSAGE //
   socket.on('chatMessage', msg => {
   const user = getCurrentUser(socket.id);
   io.to(user.room).emit('message', formatMessage(user.username, msg));
   });
 
-  // RUNS WHEN CLIENT DISCONNECTS
+  // RUNS WHEN CLIENT DISCONNECTS //
   socket.on('disconnect', () => {
     const user = userLeave(socket.id);
 
@@ -134,7 +125,7 @@ io.on('connection', (socket) => {
         formatMessage(botName, `${user.username} has left the chat.`)
       );
 
-      // SEND USERS AND ROOM INFO
+      // SEND USERS AND ROOM INFO //
       io.to(user.room).emit('roomUsers', {
         room: user.room,
         users: getRoomUsers(user.room)
