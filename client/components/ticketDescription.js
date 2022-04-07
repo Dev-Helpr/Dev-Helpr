@@ -6,7 +6,7 @@ function ticketDescription() {
   return (
     <div className="ticketDescription" >
       <div>
-        isajijdapsjpdjaopjopajipjfaje'fpjcpaepijfciaze'fijcaifjcafpijifjpwe
+        THIS IS A TICKET DESCRIPTION
       </div>
     </div>
   );

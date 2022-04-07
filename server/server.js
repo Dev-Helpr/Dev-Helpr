@@ -10,7 +10,7 @@ const cookieParser = require('cookie-parser');
 const { protect } = require('./controllers/authControllers');
 const { options } = require("pg/lib/defaults");
 
-/** IMPORT UTILS */
+/** IMPORT UTILS **/
 const formatMessage = require('../utils/messages.js');
 const {
   userJoin,
@@ -22,30 +22,28 @@ const {
 const PORT = process.env.PORT || 3031;
 const botName = 'Dev-Helpr Bot';
 
-/** HANDLE REQUESTS FOR STATIC FILES */
+/** HANDLE REQUESTS FOR STATIC FILES **/
 app.use(express.static(path.resolve(__dirname, '../client')));
 
-/** REQUIRE ROUTERS */
+/** REQUIRE ROUTERS **/
+const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
 const usersRouter = require(path.resolve(__dirname, './routes/users'));
 const ticketsRouter = require(path.resolve(__dirname, './routes/tickets'));
 const refreshAccess = require('./routes/refresh')
 
-/** HANDLE PARSING REQUEST BODY FOR JSON AND URL */
+/** HANDLE PARSING REQUEST BODY FOR JSON AND URL **/
 //can create a cors function later to only allow certain origins (domains) to access our apps backend
 app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-/** REQUIRE ROUTERS */
-const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
-const Qs = require("nodemon/lib/cli");
-
-/** HANDLE REQUESTS FOR STATIC FILES */
+/** HANDLE REQUESTS FOR STATIC FILES **/
 app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css')));
 
 // TODO: HANDLE AND CONNECT ROUTERS IN LIEU OF HTML FILE ROUTING
 /** DEFINE ROUTE HANDLERS */
+app.use('/api', apiRouter);
 app.use('/api/users/', usersRouter);
 //create a (GET) refresh route here or in usersRouter ?
 app.use('/api/refresh', refreshAccess);
@@ -57,7 +55,7 @@ app.use('*', (request, response) => {
   response.status(404).send('Error: Page not found');
 });
 
-/** CONFIGURE EXPRESS GLOBAL ERROR HANDLER */
+/** CONFIGURE EXPRESS GLOBAL ERROR HANDLER **/
 app.use((error, request, response, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
@@ -69,32 +67,32 @@ app.use((error, request, response, next) => {
 });
 
 // TODO: REVIEW CURRENT WEBSOCKET IMPLEMENTATION ARCHITECTURE
-/** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATBOX */
+/** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATBOX **/
 io.on('connection', (socket) => {
   socket.on('client response', () => {
     console.log('client has established connection...');
   })
 
   socket.emit('connection', () => 'returned statement');
-  // RUNS WHEN CLIENT CONNECTS //
+  /* RUNS WHEN CLIENT CONNECTS */
   console.log('user has connected...');
 
-  // RUNS WHEN CLIENT DISCONNECTS //
+  /* RUNS WHEN CLIENT DISCONNECTS */
   socket.on('disconnect', () => {
     console.log('user has disconnected...');
   });
 
-  // JOIN USER INTO ASSIGNED ROOM
+  /* JOIN USER INTO ASSIGNED ROOM */
   socket.on('joinRoom', ({ username, room }) => {
     console.log(`${username} has joined room ${room}...`);
 
     const user = userJoin(socket.id, username, room);
     socket.join(user.room);
 
-    // WELCOME CURRENT USER //
+    /* WELCOME CURRENT USER */
     socket.emit('message', formatMessage(botName, 'Welcome to Dev-Helpr Chat!'));
 
-    // BROADCAST WHEN A USER CONNECTS //
+    /* BROADCAST WHEN A USER CONNECTS */
     socket.broadcast
       .to(user.room)
       .emit(
@@ -102,20 +100,20 @@ io.on('connection', (socket) => {
         formatMessage(botName, `${user.username} has joined the chat.`)
       );
 
-    // SEND USERS AND ROOM INFO //
+    /* SEND USERS AND ROOM INFO */
     io.to(user.room).emit('roomUsers', {
       room: user.room,
       users: getRoomUsers(user.room)
     });
   });
 
-  // LISTEN FOR CHAT MESSAGE //
+  /* LISTEN FOR CHAT MESSAGE */
   socket.on('chatMessage', msg => {
   const user = getCurrentUser(socket.id);
   io.to(user.room).emit('message', formatMessage(user.username, msg));
   });
 
-  // RUNS WHEN CLIENT DISCONNECTS //
+  /* RUNS WHEN CLIENT DISCONNECTS */
   socket.on('disconnect', () => {
     const user = userLeave(socket.id);
 
@@ -125,7 +123,7 @@ io.on('connection', (socket) => {
         formatMessage(botName, `${user.username} has left the chat.`)
       );
 
-      // SEND USERS AND ROOM INFO //
+      /* SEND USERS AND ROOM INFO */
       io.to(user.room).emit('roomUsers', {
         room: user.room,
         users: getRoomUsers(user.room)
@@ -134,7 +132,7 @@ io.on('connection', (socket) => {
   });
 });
 
-/** START THE SERVER AND LISTEN FOR CLIENT REQUESTS */
+/** START THE SERVER AND LISTEN FOR CLIENT REQUESTS **/
 server.listen(PORT,() => {
   console.log(`Server connected: listening on port ${PORT}.`);
 });
