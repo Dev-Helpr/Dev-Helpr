@@ -5,12 +5,9 @@ import { connect } from "react-redux";
 import * as actions from "./action/action.js";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
-<<<<<<< HEAD
 import Chatbox from './components/Chatbox.jsx';
-=======
 import Home from "./pages/home";
 // import "./stylesheets/styles.css";
->>>>>>> a97f186d062ebb9035bd55b892628a6b20419189
 // import ReactPlayer from "react-player";
 
 const mapStateToProps = (state) => ({
