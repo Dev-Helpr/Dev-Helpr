@@ -28,7 +28,7 @@ function TicketCreator({
       updateTicketUrgency();
     }
   };
-
+  console.log("LOOOK:", user_id )
   const handleSubmitCreateTicket = (e) => {
     e.preventDefault();
     //uncomment to test for create new ticket route

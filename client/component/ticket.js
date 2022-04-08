@@ -5,7 +5,7 @@ function Ticket({ heading, brief, handleClick }) {
   return (
     <div className="ticket" onClick={handleClick}>
       <h3 className='ticket__programming_language__subject'>{heading}</h3>
-      <h3 className='ticket__programming_language'>'Programming Language:</h3>
+      <h3 className='ticket__programming_language'>Programming Language:</h3>
       
 
       <div className="ticket__topic">

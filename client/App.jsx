@@ -42,7 +42,7 @@ function App(props) {
   return (
     <div className="App">
       <Routes>
-        {/* <Route
+        <Route
           path="/login"
           element={
             <Login
@@ -64,9 +64,9 @@ function App(props) {
               userInput={props.userInput}
             />
           }
-        /> */}
+        />
         <Route
-          path="/"
+          path="/home"
           element={
             <Home
               user={props.user}
