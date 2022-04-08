@@ -47,8 +47,11 @@ function Chatbox() {
     ioSocket.on('message', (message) => {
       setMessages([...messages, outputMessage(message)]);
       messages.push(outputMessage(message));
-    })
 
+      /* AUTO-SCROLL DOWN */
+      const el = document.getElementById('chat-messages')
+      if (el) el.scrollTop = el.scrollHeight
+    })
   });
 
   /* MESSAGE SUBMIT */
@@ -69,10 +72,6 @@ function Chatbox() {
     /* CLEAR INPUT */
     e.target.elements.msg.value = '';
     e.target.elements.msg.focus();
-
-    /* AUTO-SCROLL DOWN */
-    const el = document.getElementById('chat-messages')
-    if (el) el.scrollTop = el.scrollHeight
   });
 
   /* OUTPUT MESSAGE TO COMPONENT */
