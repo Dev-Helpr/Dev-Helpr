@@ -2,13 +2,11 @@
   "name": "dev-helpr",
   "version": "1.0.0",
   "description": "",
- "main": "index.js",
+  "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
     "build": "cross-env NODE_ENV=production webpack",
-    "dev": "concurrently \"cross-env NODE_ENV=development webpack serve --open\" \"cross-env nodemon Server/server.js\"",
-    "gulp-prod": "node_modules/.bin/gulp prod",
-    "gulp-dev": "node_modules/.bin/gulp dev"
+    "dev": "concurrently \"cross-env NODE_ENV=development webpack serve --open\" \"cross-env nodemon Server/server.js\""
   },
   "nodemonConfig": {
     "ignore": [
@@ -20,15 +18,23 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.1",
+    "bcrypt": "^5.0.1",
     "browserify": "^17.0.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.12.3",
-    "gulp": "^4.0.2",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.3",
+    "postcss-loader": "^6.2.1",
     "prop-types": "^15.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-router-dom": "^6.2.2"
+    "react-redux": "^7.2.7",
+    "react-router-dom": "^6.2.2",
+    "redux": "^4.1.2",
+    "url-loader": "^4.1.1",
+    "websocket": "^1.0.34"
   },
   "devDependencies": {
     "@babel/core": "^7.17.7",
@@ -44,6 +50,7 @@
     "isomorphic-fetch": "^3.0.0",
     "mini-css-extract-plugin": "^2.6.0",
     "nodemon": "^2.0.7",
+    "redux-devtools-extension": "^2.13.9",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
@@ -52,4 +59,3 @@
     "webpack-dev-server": "^4.7.4"
   }
 }
-
