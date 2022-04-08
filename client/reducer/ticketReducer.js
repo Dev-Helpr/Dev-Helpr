@@ -35,6 +35,15 @@ const ticketStateReducer = (state = initialState, action) => {
         [action.payload[0]]: strToNum,
       };
     }
+
+    case types.ClICK_EDIT: {
+      return {
+        ...state,
+        ...action.payload,
+      }
+    }
+
+
     default: {
       return state;
     }

@@ -28,3 +28,8 @@ export const updateTicketUrgency = (e) => ({
   payload: e ? [e.target.name, e.target.value] : null,
 });
 
+export const getTicketStateWhenClickEdit = (obj) => ({
+  type:  types.ClICK_EDIT,
+  payload: obj,
+})
+
