@@ -104,43 +104,42 @@ function Home({
 
   return (
     <div className="home">
-      <Chatbox/>
-      {/*<button onClick={() => setCreateTicketIsClick((prev) => !prev)}>*/}
-      {/*  +Create Ticket*/}
-      {/*</button>*/}
-      {/*<div className="home__tickets">{arrOfTicket}</div>*/}
-      {/*{ticketIsClick ? (*/}
-      {/*  <TicketDescription*/}
-      {/*    user={user}*/}
-      {/*    setTicketIsClick={setTicketIsClick}*/}
-      {/*    setArrOfTicket={setArrOfTicket}*/}
-      {/*    updateTicketUrgency={updateTicketUrgency}*/}
-      {/*    ticketCreator={ticketCreator}*/}
-      {/*    tickets={tickets}*/}
-      {/*    getTicketStateWhenClickEdit={getTicketStateWhenClickEdit}*/}
-      {/*    {...ticketDisplay}*/}
-      {/*    userId={user.id}*/}
-      {/*  />*/}
-      {/*) : (*/}
-      {/*  <div className="ticketDescription">hi</div>*/}
-      {/*)}*/}
-      {/*<button onClick={handleClick}>+Create Ticket</button>*/}
-      {/*{createTicketIsClick ? <TicketCreator /> : null}*/}
+      <button onClick={() => setCreateTicketIsClick((prev) => !prev)}>
+        +Create Ticket
+      </button>
+      <div className="home__tickets">{arrOfTicket}</div>
+      {ticketIsClick ? (
+        <TicketDescription
+          user={user}
+          setTicketIsClick={setTicketIsClick}
+          setArrOfTicket={setArrOfTicket}
+          updateTicketUrgency={updateTicketUrgency}
+          ticketCreator={ticketCreator}
+          tickets={tickets}
+          getTicketStateWhenClickEdit={getTicketStateWhenClickEdit}
+          {...ticketDisplay}
+          userId={user.id}
+        />
+      ) : (
+        <div className="ticketDescription">hi</div>
+      )}
+      <button onClick={handleClick}>+Create Ticket</button>
+      {createTicketIsClick ? <TicketCreator /> : null}
 
-      {/*{createTicketIsClick ? (*/}
-      {/*  <TicketCreator*/}
-      {/*    user={user}*/}
-      {/*    setArrOfTicket={setArrOfTicket}*/}
-      {/*    arrOfTicket={arrOfTicket}*/}
-      {/*    setCreateTicketIsClick={setCreateTicketIsClick}*/}
-      {/*    updateTicketUrgency={updateTicketUrgency}*/}
-      {/*    ticketCreator={ticketCreator}*/}
-      {/*    tickets={tickets}*/}
-      {/*    user_id={user.id}*/}
-      {/*  />*/}
-      {/*) : null}*/}
-      {/*/!* userFeed *!/*/}
-      {/*<div className="home__users">{arrOfUsers}</div>*/}
+      {createTicketIsClick ? (
+        <TicketCreator
+          user={user}
+          setArrOfTicket={setArrOfTicket}
+          arrOfTicket={arrOfTicket}
+          setCreateTicketIsClick={setCreateTicketIsClick}
+          updateTicketUrgency={updateTicketUrgency}
+          ticketCreator={ticketCreator}
+          tickets={tickets}
+          user_id={user.id}
+        />
+      ) : null}
+       userFeed
+      <div className="home__users">{arrOfUsers}</div>
     </div>
   );
 }

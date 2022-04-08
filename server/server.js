@@ -67,13 +67,13 @@ app.use((error, request, response, next) => {
 
 /** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATBOX **/
 io.on('connection', (socket) => {
+  /* RUNS WHEN CLIENT CONNECTS */
+  console.log('user has connected...');
+  socket.emit('connection', () => 'returned statement');
+
   socket.on('client response', () => {
     console.log('client has established connection...');
   })
-
-  socket.emit('connection', () => 'returned statement');
-  /* RUNS WHEN CLIENT CONNECTS */
-  console.log('user has connected...');
 
   /* RUNS WHEN CLIENT DISCONNECTS */
   socket.on('disconnect', () => {
@@ -84,7 +84,7 @@ io.on('connection', (socket) => {
   socket.on('joinRoom', ({ username, room }) => {
     console.log(`${username} has joined room ${room}...`);
 
-    const user = userJoin(socket.id, username, room);
+    const user = userJoin(socket.id, 'bob', 5);
     socket.join(user.room);
 
     /* WELCOME CURRENT USER */
