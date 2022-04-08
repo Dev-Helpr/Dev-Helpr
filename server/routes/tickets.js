@@ -5,13 +5,21 @@ const { handleNewTicket, handleGetTicketList, handleGetTicket, handleDeleteTicke
 //inside @ '/api/tickets/'
 
 router.post('/', handleNewTicket);
+// ADDS TICKET TO THE TICKETSCONTAINER COMPONENT //
 
 router.get('/list', handleGetTicketList);
+// WILL RENDER LIST OF TICKETS ON TICKETSCONTAINER COMPONENT //
 
-router.route('/:id')
-    .get(handleGetTicket)
-    .put(handleUpdateTicket)
-    .delete(handleDeleteTicket)
+router.get('/ticket', handleGetTicket);
+// WILL RENDER TICKET ONTO TICKETDISPLAY COMPONENT //
+
+router.get('/del', handleDeleteTicket);
+
+// WILL DELETE TICKET FROM TICKETSCONTAINER COMPONENT; TRIGGERED BY RESOLVING A TICKET OR USER COMMAND //
+// router.route('/:id')
+//     .get(handleGetTicket)
+//     .put(handleUpdateTicket)
+//     .delete(handleDeleteTicket)
 
 // router.get('/ticket', handleGetTicket);
 

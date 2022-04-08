@@ -14,9 +14,14 @@ module.exports = {
   },
 
   devtool: "inline-source-map",
+
   mode: "development",
 
   devServer: {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
+    },
     host: 'localhost',
     port: 8084,
     static: {
@@ -26,12 +31,16 @@ module.exports = {
     open: true,
     hot: true,
     proxy: {
+      '/**': {
+        target: 'http://localhost:3031',
+        secure: false,
+      },
       '/api/**': {
-        target: 'http://localhost:3030',
+        target: 'http://localhost:3031',
         secure: false,
       },
       '/client/stylesheets/**': {
-        target: 'http://localhost:3030',
+        target: 'http://localhost:3031',
         secure: false,
       }
     }
@@ -52,8 +61,8 @@ module.exports = {
         ],
       },
       {
-        test: /\.(css|scss|sass)$/,
-        exclude: /node_modules/,
+        test: /\.(css|scss|sass)$/i,
+        // exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
@@ -69,9 +78,11 @@ module.exports = {
     ],
   },
 
+  externals: ['socket.io'],
+
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "client", "index.html"),
+    template: path.resolve(__dirname, "client", "index.html"),
     }),
     new miniCSS(),
     new Dotenv(),
