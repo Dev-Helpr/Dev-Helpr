@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const path = require('path');
 const http = require('http');
 const express = require('express');
@@ -31,9 +32,22 @@ const usersRouter = require(path.resolve(__dirname, './routes/users'));
 const ticketsRouter = require(path.resolve(__dirname, './routes/tickets'));
 const refreshAccess = require('./routes/refresh')
 
+=======
+const path = require("path");
+const express = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const app = express();
+const PORT = 3030;
+const { protect } = require("./controllers/authControllers");
+/** REQUIRE ROUTERS */
+const usersRouter = require(path.resolve(__dirname, "./routes/users"));
+const ticketsRouter = require(path.resolve(__dirname, "./routes/tickets"));
+const refreshAccess = require("./routes/refresh");
+>>>>>>> 54d4f724e4f173b641bba437b9aba985b51a96d4
 /** HANDLE PARSING REQUEST BODY FOR JSON AND URL */
 //can create a cors function later to only allow certain origins (domains) to access our apps backend
-app.use(cors())
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -43,35 +57,52 @@ const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
 const { options } = require("pg/lib/defaults");
 
 /** HANDLE REQUESTS FOR STATIC FILES */
+<<<<<<< HEAD
 app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css')));
+=======
+app.use(
+  express.static(path.resolve(__dirname, "../client/stylesheets/styles.css"))
+);
+>>>>>>> 54d4f724e4f173b641bba437b9aba985b51a96d4
 
 /** DEFINE ROUTE HANDLERS */
-app.use('/api/users/', usersRouter);
+app.use("/api/users/", usersRouter);
 //create a (GET) refresh route here or in usersRouter ?
-app.use('/api/refresh', refreshAccess);
-// app.use(protect); //user will need to be logged in to access any route below this point
-app.use('/api/tickets/', ticketsRouter)
+app.use("/api/refresh", refreshAccess);
+app.use(protect); //user will need to be logged in to access any route below this point
+app.use("/api/tickets/", ticketsRouter);
 
+<<<<<<< HEAD
 // DO NOT NEED THIS ANYMORE AS WEBPACK SERVES THE INDEX.HTML FILE ON STARTUP
 // /** ROUTE HANDLER TO RESPOND WITH MAIN APP */
 // app.get('/', (request, response) => {
 //   return response.sendFile(path.resolve(__dirname, '../client/index.html'));
 // });
+=======
+/** ROUTE HANDLER TO RESPOND WITH MAIN APP */
+app.get("/", (request, response) => {
+  return response.sendFile(path.resolve(__dirname, "../client/index.html"));
+});
+>>>>>>> 54d4f724e4f173b641bba437b9aba985b51a96d4
 
 /** CATCH-ALL ROUTE HANDLER FOR ANY REQUESTS TO AN UNKNOWN ROUTE */
-app.use('*', (request, response) => {
-  response.status(404).send('Error: Page not found');
+app.use("*", (request, response) => {
+  response.status(404).send("Error: Page not found");
 });
 
 /** CONFIGURE EXPRESS GLOBAL ERROR HANDLER */
 app.use((error, request, response, next) => {
   const defaultErr = {
+<<<<<<< HEAD
     log: 'Express error handler caught unknown middleware error',
+=======
+    log: "Express error handler caught unknown middleware error", // testing
+>>>>>>> 54d4f724e4f173b641bba437b9aba985b51a96d4
     status: 400,
-    message: { err: 'An error occurred' },
+    message: { err: "An error occurred" },
   };
   const errorObj = Object.assign(defaultErr, { error: error });
-  response.status(errorObj.status).json(errorObj.message.err)
+  response.status(errorObj.status).json(errorObj.message.err);
 });
 
 /** START SERVER */

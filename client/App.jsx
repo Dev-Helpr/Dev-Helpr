@@ -38,9 +38,12 @@ const mapDispatchToProps = (dispatch) => ({
   //update ticket input
   ticketCreator: (e) => dispatch(actions.ticketCreator(e)),
   updateTicketUrgency: (e) => dispatch(actions.updateTicketUrgency(e)),
+  getTicketStateWhenClickEdit: (obj) =>
+    dispatch(actions.getTicketStateWhenClickEdit(obj)),
 });
 
 function App(props) {
+  // console.log(props.accessToken);
   console.log('users\'s state: ', props.user);
   console.log('ticket state: ', props.tickets);
   return (
@@ -77,6 +80,7 @@ function App(props) {
               tickets={props.tickets}
               ticketCreator={props.ticketCreator}
               updateTicketUrgency={props.updateTicketUrgency}
+              getTicketStateWhenClickEdit={props.getTicketStateWhenClickEdit}
             />
           }
         />

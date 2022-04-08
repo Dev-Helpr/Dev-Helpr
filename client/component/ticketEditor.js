@@ -1,27 +1,48 @@
-import React, { useState } from "react";
-import "./../stylesheets/ticketCreator.css";
+import React, { useEffect } from "react";
+import "./../stylesheets/ticketEditor.css";
 import axios from "axios";
-// {
-//   problem: '',
-//   tried: '',
-//   expect: '',
-//   hypothesis: '',
-//   urgency: 1,
-//   inProgress: false,
-//   heading: '',
-//   brief: '',
-//   user_id: 0,
-// }
-function TicketCreator({
+/*
+expect: "dsfsd"
+heading: "something"
+hypothesis: "dsfsf"
+inprogress: false
+problem: "sdfs"
+ready1: false
+ready2: false
+tried: "dffs"
+urgency: 2
+user_id: "24"
+_id: 10
+*/
+
+function TicketEditor({
   user,
+  setArrOfTicket,
+  updateTicketUrgency,
   ticketCreator,
   tickets,
-  updateTicketUrgency,
-  setCreateTicketIsClick,
-  user_id,
-  arrOfTicket,
-  setArrOfTicket,
+  getTicketStateWhenClickEdit,
+  setIsEdit,
+  ...ticketDisplay
 }) {
+  console.log("tickets: ", tickets);
+  //this will update ticket state in redux whenever this form is load
+  useEffect(() => {
+    const obj = {
+      expect: ticketDisplay.expect,
+      heading: ticketDisplay.heading,
+      hypothesis: ticketDisplay.hypothesis,
+      inProgress: ticketDisplay.inprogress,
+      problem: ticketDisplay.problem,
+      ready1: ticketDisplay.ready1,
+      ready2: ticketDisplay.ready2,
+      tried: ticketDisplay.tried,
+      urgency: ticketDisplay.urgency,
+      user_id: ticketDisplay.user_id,
+    };
+    getTicketStateWhenClickEdit(obj);
+  }, []);
+
   const handleCheckbox = (e) => {
     if (e.target.checked) {
       updateTicketUrgency(e);
@@ -29,37 +50,39 @@ function TicketCreator({
       updateTicketUrgency();
     }
   };
-
-  const handleSubmitCreateTicket = (e) => {
+  //submit will send a put request to backend api/ticket/${ticketId}
+  //this request doesn't return anyting
+  const handleSubmitTicketEditor = (e) => {
     e.preventDefault();
-    //uncomment to test for create new ticket route
-    const values = { ...tickets, user_id: user_id };
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user.accessToken}`,
-      },
-    };
+
+const config = {
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
+  };
+
 
     axios
-      .post("/api/tickets", values, config)
+      .put(`api/tickets/${ticketDisplay._id}`, tickets, config)
       .then((res) => {
-        //there is no response from backend
-        //set to false  after get a response from backend
         setArrOfTicket([]);
-        setCreateTicketIsClick(false);
+        setIsEdit(false);
       })
       .catch((err) => console.log(err));
   };
 
+  const handleTicketEditor = (e) => {
+    e.preventDefault();
+    ticketCreator(e);
+  };
+
   return (
-    <div className="ticketCreator">
-      <div className="ticketCreator__content">
-        <button onClick={() => setCreateTicketIsClick((prev) => !prev)}>
-          X
-        </button>
+    <div className="ticketEditor">
+      <div className="ticketEditor__content">
+        <button onClick={() => setIsEdit((prev) => !prev)}>x</button>
         <form
-          className="ticketCreator__content"
-          onSubmit={handleSubmitCreateTicket}
+          className="ticketEditor__content"
+          onSubmit={handleSubmitTicketEditor}
         >
           <label>
             Heading?
@@ -67,16 +90,18 @@ function TicketCreator({
               required={true}
               type="text"
               name="heading"
-              onChange={ticketCreator}
+              value={tickets.heading}
+              onChange={handleTicketEditor}
             ></input>
           </label>
           <label>
             problem?
             <textarea
               required={true}
-              className="ticketCreator__textarea"
+              value={tickets.problem}
+              className="ticketEditor__textarea"
               name="problem"
-              onChange={ticketCreator}
+              onChange={handleTicketEditor}
             ></textarea>
             {tickets.problem.length + "/255"}
           </label>
@@ -84,10 +109,11 @@ function TicketCreator({
           <label>
             tried?
             <textarea
+              value={tickets.tried}
               required={true}
-              className="ticketCreator__textarea"
+              className="ticketEditor__textarea"
               name="tried"
-              onChange={ticketCreator}
+              onChange={handleTicketEditor}
             ></textarea>
             {tickets.tried.length + "/255"}
           </label>
@@ -95,10 +121,11 @@ function TicketCreator({
           <label>
             expect?
             <textarea
+              value={tickets.expect}
               required={true}
-              className="ticketCreator__textarea"
+              className="ticketEditor__textarea"
               name="expect"
-              onChange={ticketCreator}
+              onChange={handleTicketEditor}
             ></textarea>
             {tickets.expect.length + "/255"}
           </label>
@@ -106,10 +133,11 @@ function TicketCreator({
           <label>
             hypothesis?
             <textarea
+              value={tickets.hypothesis}
               required={true}
-              className="ticketCreator__textarea"
+              className="ticketEditor__textarea"
               name="hypothesis"
-              onChange={ticketCreator}
+              onChange={handleTicketEditor}
             ></textarea>
             {tickets.hypothesis.length + "/255"}
           </label>
@@ -117,10 +145,11 @@ function TicketCreator({
           <label>
             brief?
             <textarea
+              value={tickets.brief}
               required={true}
-              className="ticketCreator__textarea"
+              className="ticketEditor__textarea"
               name="brief"
-              onChange={ticketCreator}
+              onChange={handleTicketEditor}
             ></textarea>
             {tickets.brief.length + "/255"}
           </label>
@@ -162,4 +191,4 @@ function TicketCreator({
   );
 }
 
-export default TicketCreator;
+export default TicketEditor;
