@@ -1,8 +1,20 @@
 .user {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  background-color: #5A79AF;
-}
+    position: relative;
+    /* grid-template-columns: 3fr 3fr; */
+    color: white;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    margin-left: 1630px;
+    top: 150px;
+    height: 20px;
+    font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-size: 10px;
+    font-weight: lighter;
+    cursor: pointer;
+    /* background-color: white; */
+  }
+
 
   .status_button:hover {
     cursor: pointer;
@@ -10,23 +22,24 @@
   }
 
   .userName {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: black;
+    position: absolute;
+    display: flex;
+    justify-content: right;
+    align-items: right;
+    color: rgb(244, 244, 244);
     padding-left: 10px;
-    padding-right: 10px;
+    padding-right: 100px;
     padding-top: 10px;
     padding-bottom: 10px;
+    /* background-color: rgb(20, 19, 19);  */
   }
 ​
   .offline {
       color: #595151;
 
       background-color: #5A79AF;
-
-
   }
+
 ​
   .status_button {
     background-color: #04AA6D;
@@ -40,7 +53,24 @@
     margin: 4px 2px;
     border-radius: 50%;
   }
+
+  .status_button_2 {
+  position: absolute;
+  top: 7px;
+  border: none;
+  color: white;
+  padding: 7px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-left: 180px;
+  }
 ​
+
   .hide_status {
     background-color: grey;
     border: none;
@@ -53,3 +83,4 @@
     margin: 4px 2px;
     opacity: 40%;
   }
+

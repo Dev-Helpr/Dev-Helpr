@@ -30,38 +30,41 @@ function UserItem({ id, username, online, status, setUpdateStatus }) {
   };
 
   return (
+    
     <div className={`user ${online ? "" : "offline"}`}>
       {/* <div className='ghost'></div> */}
       <div className="userName">
         <h2
           style={
             online === false
-              ? { color: "#595151", opacity: "50%" }
+              ? { color: "#FFFFFF", opacity: "50%" }
               : status === "seekingHelp"
-              ? { color: "#FFD900" }
+              ? { color: "#FFFFFF" }
               : status === "helper"
-              ? { color: "#16a318" }
-              : { color: "#0000FF" }
+              ? { color: "#FFFFFF" }
+              : { color: "#FFFFFF" }
           }
         >
           {username}
         </h2>
       </div>
+
       {/* <div className="user__topic"> */}
       {/* <h3>Online: {online.toString()} </h3>
         <p>Status: {status}</p> */}
       <div className="btn-container">
         <button
           onClick={() => handleStatusClick(status, id)}
-          className={`status_button ${online ? "" : "hide_status"}`}
+          className={`status_button_2 ${online ? "" : "hide_status"}`}
           style={
             status === "seekingHelp"
               ? { backgroundColor: "#FFD900" }
               : status === "helper"
               ? { backgroundColor: "#16a318" }
-              : { backgroundColor: "#5A79AF" }
+              : { backgroundColor: "#5353f3" }
           }
         ></button>
+     
       </div>
       {/* <div className="ticket__brief">
         <h3>Brief</h3>
