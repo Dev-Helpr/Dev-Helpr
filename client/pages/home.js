@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Ticket from "./../component/ticket.js";
 import TicketDescription from "./../component/ticketDescription.js";
 import TicketCreator from "./../component/ticketCreator.js";
+import UserItem from "../component/userItem.js";
 import axios from "axios";
 import "./../stylesheets/home.css";
 
@@ -15,18 +16,55 @@ function Home({
   const [ticketIsClick, setTicketIsClick] = useState(false);
   const [createTicketIsClick, setCreateTicketIsClick] = useState(false);
   const [arrOfTicket, setArrOfTicket] = useState([]);
+  //these 2 lines
+  const [arrOfUsers, setArrOfUsers] = useState([]);
+  const [updateStatus, setUpdateStatus] = useState(true);
+
   const [ticketDisplay, setTicketDisplay] = useState({});
+
   const handleClick = (id) => {
-     const config = {
-       headers: {
-         Authorization: `Bearer ${user.accessToken}`,
-       },
-     };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    };
     axios
       .get(`/api/tickets/${id}`, config)
       .then((res) => {
         setTicketDisplay(res.data);
         setTicketIsClick(true);
+      })
+      .catch((err) => console.log(err));
+  };
+  //this whole function
+  //fetch for users
+  const fetchUserList = () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    };
+    axios
+      .get("/api/users/", config)
+      .then((res) => {
+        //expected this to be an array of object, if not ticket then it will be an empty array
+        console.log("USER LIST:  ", res.data);
+        const array = [];
+        // setArrOfTicket(res.data);
+        for (let i = 0; i < res.data.length; i++) {
+          const { _id, username, online, status } = res.data[i];
+          array.push(
+            <UserItem
+              key={i}
+              id={_id}
+              username={username}
+              online={online}
+              status={status}
+              setUpdateStatus={setUpdateStatus}
+            />
+          );
+        }
+        setArrOfUsers(array);
       })
       .catch((err) => console.log(err));
   };
@@ -60,9 +98,8 @@ function Home({
         setArrOfTicket(array);
       })
       .catch((err) => console.log(err));
-      //
-  }, [arrOfTicket.length]);
-
+      fetchUserList();
+  }, [arrOfTicket.length, updateStatus]);
 
   return (
     <div className="home">
@@ -99,6 +136,7 @@ function Home({
         />
       ) : null}
       {/* userFeed */}
+      <div className="home__users">{arrOfUsers}</div>
     </div>
   );
 }
