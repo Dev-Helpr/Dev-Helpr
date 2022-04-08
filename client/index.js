@@ -17,8 +17,8 @@ import './stylesheets/login.css';
 render(
   <BrowserRouter>
     <Provider store={store}>
-      {/*<App />*/}
-      <Home/>
+      <App />
+      {/*<Home/>*/}
       {/*<Login/>*/}
     </Provider>
   </BrowserRouter>,

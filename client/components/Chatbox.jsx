@@ -11,14 +11,12 @@ const ioSocket = io();
 
 
 function Chatbox() {
-
   /** INITIALIZE STATE OF CHATBOX COMPONENT **/
-  const [username, setUsername] = useState('Mike');
-  const [room, setRoom] = useState(90283745);
-  const [userList, setUserList] = useState(['joe shmoe']);
+  const [username, setUsername] = useState(undefined);
+  const [room, setRoom] = useState(undefined);
+  const [userList, setUserList] = useState([]);
   const [ticketResolved, setTicketResolved] = useState(false);
   const [messages, addMessages] = useState([]);
-
 
   /** BEGIN CHAT SESSION ONCE CHATBOX COMPONENT MOUNTS **/
   /* DO WE USE useEffect() HERE? */
@@ -26,7 +24,7 @@ function Chatbox() {
 
     /* CONFIRM DUPLEX COMMUNICATION WITH SERVER */
     ioSocket.emit('client response');
-    console.log('connection established with server...');
+    console.log('client has responded...');
 
     /* JOIN CHATROOM */
     ioSocket.emit('joinRoom', {username, room});
@@ -36,10 +34,10 @@ function Chatbox() {
       setRoom(socket.room);
       // setUserList(socket.users)
     });
-    // ioSocket.on('roomUsers', ({room, users}) => {
-    //   outputRoomName(room);
-    //   outputUsers(users);
-    // });
+    ioSocket.on('roomUsers', ({room, users}) => {
+      outputRoomName('special room');
+      outputUsers(['bob', 'david']);
+    });
 
     /* MESSAGE FROM SERVER */
     ioSocket.on('message', (message) => {
@@ -87,16 +85,18 @@ function Chatbox() {
     );
   };
 
+  // TODO: LIST USERNAMES IN ROOM
+  // TODO: ROUTE USERS IN THEIR OWN ROOMS BASED ON SOCKET ID OR HASHED VALUE
   /** ADD ROOM NAME AND USERS TO CHATBOX COMPONENT **/
-  // const outputRoomName = (room) => {
-  //   return setRoom(room);
-  // }
-  //
-  /** ADD USERS TO DOM **/
-  // const outputUsers = ({username, users = [...userList]}) => {
-  //   users.push(<li>{username}</li>);
-  //   setUserList(users);
-  // };
+  const outputRoomName = (room) => {
+    return setRoom(room);
+  }
+
+  // /** ADD USERS TO DOM **/
+  const outputUsers = ({username, users = [...userList]}) => {
+    users.push(<div>{username}</div>);
+    setUserList([<div>user</div>, <div>user</div>])
+  };
   // userList.innerHTML = '';
   // users.forEach((user) => {
   //   const li = document.createElement('li');
@@ -113,6 +113,7 @@ function Chatbox() {
   //   } else {
   //   }
   // });
+
 
 
   return(
