@@ -136,7 +136,7 @@ function Chatbox() {
         </header>
         <main className="chat-main">
           <div className="chat-sidebar">
-            <h2><i className="fas fa-comments"/> Room Name:<br/><h2 id="room-name">{room}</h2></h2>
+            <h2><i className="fas fa-comments"/> Room Name:<br/><p id="room-name">{room}</p></h2>
             <h2><i className="fas fa-users"/> Users:<br/><ul id="users">{userList}</ul></h2>
             {/*<ul id="users"> </ul>*/}
           </div>

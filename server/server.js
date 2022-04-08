@@ -41,7 +41,6 @@ app.use(cookieParser());
 /** HANDLE REQUESTS FOR STATIC FILES **/
 app.use(express.static(path.resolve(__dirname, '../client/stylesheets/styles.css')));
 
-// TODO: HANDLE AND CONNECT ROUTERS IN LIEU OF HTML FILE ROUTING
 /** DEFINE ROUTE HANDLERS */
 app.use('/api', apiRouter);
 app.use('/api/users/', usersRouter);
@@ -50,7 +49,7 @@ app.use('/api/refresh', refreshAccess);
 // app.use(protect); //user will need to be logged in to access any route below this point
 app.use('/api/tickets/', ticketsRouter)
 
-/** CATCH-ALL ROUTE HANDLER FOR ANY REQUESTS TO AN UNKNOWN ROUTE */
+/** CATCH-ALL ROUTE HANDLER FOR ANY REQUESTS TO AN UNKNOWN ROUTE **/
 app.use('*', (request, response) => {
   response.status(404).send('Error: Page not found');
 });
@@ -66,7 +65,6 @@ app.use((error, request, response, next) => {
   response.status(errorObj.status).json(errorObj.message.err)
 });
 
-// TODO: REVIEW CURRENT WEBSOCKET IMPLEMENTATION ARCHITECTURE
 /** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATBOX **/
 io.on('connection', (socket) => {
   socket.on('client response', () => {

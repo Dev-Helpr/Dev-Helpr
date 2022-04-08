@@ -23,3 +23,13 @@ export const ticketCreator = (e) => ({
   payload: [e.target.name, e.target.value],
 });
 
+export const updateTicketUrgency = (e) => ({
+  type: types.TICKET_URGENCY,
+  payload: e ? [e.target.name, e.target.value] : null,
+});
+
+export const getTicketStateWhenClickEdit = (obj) => ({
+  type:  types.ClICK_EDIT,
+  payload: obj,
+})
+

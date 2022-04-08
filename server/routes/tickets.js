@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { handleNewTicket, handleGetTicketList, handleGetTicket, handleDeleteTicket } = require('../controllers/ticketController')
+const { handleNewTicket, handleGetTicketList, handleGetTicket, handleDeleteTicket, handleUpdateTicket } = require('../controllers/ticketController')
+
+//inside @ '/api/tickets/'
 
 router.post('/', handleNewTicket);
 // ADDS TICKET TO THE TICKETSCONTAINER COMPONENT //
@@ -12,7 +14,16 @@ router.get('/ticket', handleGetTicket);
 // WILL RENDER TICKET ONTO TICKETDISPLAY COMPONENT //
 
 router.get('/del', handleDeleteTicket);
+
 // WILL DELETE TICKET FROM TICKETSCONTAINER COMPONENT; TRIGGERED BY RESOLVING A TICKET OR USER COMMAND //
+// router.route('/:id')
+//     .get(handleGetTicket)
+//     .put(handleUpdateTicket)
+//     .delete(handleDeleteTicket)
+
+// router.get('/ticket', handleGetTicket);
+
+// router.get('/del', handleDeleteTicket);
 
 
 //just temp middleware for testing access/auth
