@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import * as io from '../../node_modules/socket.io/client-dist/socket.io.js';
 
-const userForm = document.getElementById('username');
-const roomForm = document.getElementById('room');
-const chatForm = document.getElementById('chat-form');
-const chatMessages = document.getElementsByClassName('chat-messages');
-const roomName = document.getElementById('room-name');
-const userList = document.getElementById('users');
+// const userForm = document.getElementById('username');
+// const roomForm = document.getElementById('room');
+// const chatForm = document.getElementById('chat-form');
+// const chatMessages = document.getElementsByClassName('chat-messages');
+// const roomName = document.getElementById('room-name');
+// const userList = document.getElementById('users');
 const ioSocket = io();
 
 
@@ -19,22 +19,20 @@ function Chatbox() {
   const [messages, setMessages] = useState([]);
 
   /** BEGIN CHAT SESSION ONCE CHATBOX COMPONENT MOUNTS **/
-  /* DO WE USE useEffect() HERE? */
-  ioSocket.on('connection', () => {
+  ioSocket.on('connection', (socket) => {
 
     /* CONFIRM DUPLEX COMMUNICATION WITH SERVER */
-    console.log('client has responded...');
-    ioSocket.emit('client response', 'client response socket...');
+    console.log(socket);
+    ioSocket.emit('client response', 'this is a response from the client...');
 
     /* JOIN CHATROOM */
     /*** SET DUMMY USER. MUST CONNECT WITH TICKET SUBMITTER ***/
     const username = `dummy-user-${Math.floor(Math.random() * 10)}`;
-    const room = 'dummy-room'
+    const room = 'dummy-room';
     ioSocket.emit('joinRoom', { username, room });
 
     /* GET ROOM AND USERS */
     ioSocket.on('roomUsers', (socket) => {
-      // console.log(socket.room);
       const currentUsers = [];
       for (let i = 0; i < socket.users.length; i++) {
         currentUsers.push(<div>{socket.users[i].username}</div>);
@@ -96,12 +94,12 @@ function Chatbox() {
   };
 
   /** PROMPT THE USER BEFORE LEAVING THE CHATROOM **/
-  // document.getElementById('leave-btn').addEventListener('click', () => {
+  // button.addEventListener('click', () => {
   //   const leaveRoom = confirm('Are you sure you want to leave the chatroom?');
-  //   if (leaveRoom) {
-  //     window.location = '../index.html';
-  //   } else {
-  //   }
+    // if (leaveRoom) {
+    //   window.location = '../index.html';
+    // } else {
+    // }
   // });
 
 

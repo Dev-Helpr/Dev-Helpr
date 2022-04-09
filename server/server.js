@@ -3,8 +3,8 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const path = require('path');
-const Server = require('socket.io').Server
-const io = new Server(server);
+const socketServer = require('socket.io').Server
+const io = new socketServer(server);
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { protect } = require('./controllers/authControllers');
@@ -68,8 +68,8 @@ app.use((error, request, response, next) => {
 /** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATBOX **/
 io.on('connection', (socket) => {
   /* RUNS WHEN CLIENT CONNECTS */
-  console.log('user has connected...');
-  socket.emit('connection', () => 'returned statement');
+  console.log('user has connected to server...');
+  socket.emit('connection', 'this is a message from the server...');
   socket.on('client response', (socket) => {
     console.log(socket);
   })
