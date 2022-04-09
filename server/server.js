@@ -37,7 +37,8 @@ app.use(
 /** DEFINE ROUTE HANDLERS */
 app.use("/api/users/", usersRouter);
 //create a (GET) refresh route here or in usersRouter ?
-app.use("/api/refresh", refreshAccess);
+app.use("/api/refresh", refreshAccess); //this API call needs to be implemented on a function in front-end, on a timer, to refresh our accessToken if refreshToken still exists on cookies
+
 // app.use(protect); //user will need to be logged in to access any route below this point
 app.use("/api/tickets/", ticketsRouter);
 
@@ -83,9 +84,11 @@ io.on("connection", (socket) => {
 
 });
 /** START SERVER */
+//socket.io server
 server.listen(3031, () => {
   console.log("SOCKET.IO SERVER IS RUNNING ON 3031")
 });
+//express server
 app.listen(PORT, () => {
   console.log(`Server connected -- listening on port ${PORT}`);
 });
@@ -96,24 +99,5 @@ module.exports = app;
 
 
 
-// async function isValidJwt(token){
-//   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
-//       if (err){
-//           console.log(err);
-//           return false;
-//       }else{
-//           //console.log(decoded);
-//           return true;
-//       }
-//   });
-// }
 
-// io.use((socket, next) => {
-//    token = socket.handshake.auth.token;
-//   if (isValidJwt(token)){
-//       return next();
-//   }else{
-//       return next(new Error("Socket authentication error"));
-//   }
-// });
 

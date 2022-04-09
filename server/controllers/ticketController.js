@@ -1,6 +1,6 @@
 const db = require('../model/devHelprModels');
 
-// insert new habit into DB
+// insert new ticket into DB
 const handleNewTicket = async (req, res, next) => {
     const { problem, tried, expect, hypothesis, urgency, inProgress, heading, ready1, ready2, user_id } = req.body;
 
@@ -9,10 +9,10 @@ const handleNewTicket = async (req, res, next) => {
     const values = [ problem, tried, expect, hypothesis, urgency, false, heading, false, false, user_id ];
 
     await db.query(text, values);
-    //will we need to return the new ticket back in res or should we just have the page make a fetch to update the entire list of tickets?
+    
     return res.status(201).json({ 'message': 'placeholder response - successful'})
 };
-
+//API call to get list of all tickets on DB
 const handleGetTicketList = async ( req, res) => {
     try {
 
@@ -25,7 +25,7 @@ const handleGetTicketList = async ( req, res) => {
     }
 
 }
-
+//API call that will retrieve data of a single ticket on DB
 const handleGetTicket = async ( req, res ) => {
     //grab ticket id from params and use it to search database
     const text = 'SELECT * FROM Tickets WHERE Tickets._id = $1;'
@@ -74,6 +74,7 @@ const handleDeleteTicket = async ( req, res ) => {
     return res.status(200).json('You are not allowed to delete this ticket')
 }
 
+//this middleware will use auth to verify user should be able to update ticket and on front-end that user can select their ticket and preform this API call
 const handleUpdateTicket = async (req,res) => {
     const { problem, tried, expect, hypothesis, urgency, inProgress, heading, ready1, ready2, user_id } = req.body;
 

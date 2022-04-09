@@ -63,7 +63,7 @@ const handleNewUser = async (req, res) => {
     db.query(
       `UPDATE users SET refreshtoken = '${refreshToken}' WHERE users._id = ${userID.rows[0]._id};`
     );
-
+      //return back user info with new accessToken to be saved in state, to be sent as Auth Headers for protected routes
     return res.status(201).json({
       id: userID.rows[0]._id,
       userName,
