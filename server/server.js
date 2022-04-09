@@ -62,6 +62,12 @@ app.use((error, request, response, next) => {
   response.status(errorObj.status).json(errorObj.message.err);
 });
 
+// SOCKET.IO
+
+io.on("conncetion", (socket) => {
+  console.log(socket.id)
+})
+
 /** START SERVER */
 
 app.listen(PORT, () => {

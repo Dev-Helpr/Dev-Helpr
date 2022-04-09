@@ -155,7 +155,7 @@ const handleGetUserList = async (req, res) => {
 
     try {
         const userList =  await db.query('SELECT Users._id, Users.userName, Users.online, Users.status FROM Users');
-        console.log('USER LIST:  ', userList.rows)
+        // console.log('USER LIST:  ', userList.rows)
         return res.status(200).json(userList.rows)
     } catch (error) {
         return res.status(500).json({ 'message': err.message })

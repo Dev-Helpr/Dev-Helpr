@@ -67,7 +67,7 @@ function Home({
       .get("/api/users/", config)
       .then((res) => {
         //expected this to be an array of object, if not ticket then it will be an empty array
-        console.log("USER LIST:  ", res.data);
+        // console.log("USER LIST:  ", res.data);
         const array = [];
         // setArrOfTicket(res.data);
         for (let i = 0; i < res.data.length; i++) {
@@ -98,7 +98,7 @@ function Home({
       .get("/api/tickets/list?_sort=id&_order=DESC", config)
       .then((res) => {
         //expected this to be an array of object, if not ticket then it will be an empty array
-        console.log("data: ", res.data);
+        // console.log("data: ", res.data);
         const array = [];
         // setArrOfTicket(res.data);
         for (let i = res.data.length - 1; i > 0; i--) {
@@ -129,7 +129,7 @@ function Home({
         <box className="ticketBody"></box>
         <box className="usersList-Box1"></box>
         <box className="chatBox">
-          <Chatbox />
+          <Chatbox user={user} onlineUsers={arrOfUsers.filter(filterOnlineUserNames)}/>
         </box>
         <box className="usersContainer-box">
           <p className="usersContainer-box-text1 ">Online Users:</p>

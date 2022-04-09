@@ -17,7 +17,7 @@ const handleGetTicketList = async ( req, res) => {
     try {
 
         const ticketList = await db.query('SELECT * FROM tickets LIMIT 30;')
-        console.log('TICKET LIST:  ', ticketList.rows)
+        // console.log('TICKET LIST:  ', ticketList.rows)
         //return an array of objects(tickets)
         return res.status(200).json(ticketList.rows)
     } catch (error) {
