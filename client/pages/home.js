@@ -117,8 +117,15 @@ function Home({
           <p className="usersContainer-box-text1 ">Online Users:</p>
           <p className="usersContainer-box-text2 ">Online Status:</p>
         </box>
-        <p className="text1">Dev-helpr</p>
+
+        <div className="login-fade-in-image1">
+            <p className="text1">Dev-helpr</p>
+        </div>
+
       </div>
+      
+      <div className="boxBackground"></div>
+
       <div className="clock">
         <Clock
           format={"h:mm:ssa"}
