@@ -46,7 +46,7 @@ grid-row-gap: 10px; */
   position: absolute;
   width: 60px;
   height: 100vh;
-  background-color: rgb(39, 38, 38);
+  background-color: rgb(30, 27, 27);
   top: 0px;
 }
 
@@ -200,10 +200,6 @@ grid-row-gap: 10px; */
   0% {opacity:0;}
   100% {opacity:1;}
 }
-
-
-
-
 
 .clockTime {
   position: fixed;
