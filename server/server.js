@@ -6,18 +6,18 @@ const http = require("http");
 const app = express();
 app.use(cors());
 
-const server = http.createServer(app);
 const { Server } = require("socket.io");
+const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:8084",
     methods: ["GET", "POST"],
-  }
+  },
 });
 
 const PORT = 3030;
 
-console.log('io: ',io)
+// console.log('io: ',io)
 const { protect } = require("./controllers/authControllers");
 /** REQUIRE ROUTERS */
 const usersRouter = require(path.resolve(__dirname, "./routes/users"));
@@ -64,15 +64,17 @@ app.use((error, request, response, next) => {
 
 // SOCKET.IO
 
-io.on("conncetion", (socket) => {
+io.on("connection", (socket) => {
   console.log(`User ID: ${socket.id} is connected...`);
 
   socket.on("send_message", (data) => {
-    console.log(data.message)
+    socket.broadcast.emit("receive_message", data)
   })
 });
 /** START SERVER */
-
+server.listen(3031, () => {
+  console.log("SOCKET.IO SERVER IS RUNNING ON 3031")
+});
 app.listen(PORT, () => {
   console.log(`Server connected -- listening on port ${PORT}`);
 });

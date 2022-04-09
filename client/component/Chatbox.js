@@ -1,13 +1,23 @@
-import React from 'react'
+
+import React, {useEffect} from 'react'
+import io from 'socket.io-client';
 
 function Chatbox({
   onlineUsers,
   user,
-  socket,
+  // socket,
 }) {
+  const socket = io.connect('http://localhost:3031')
   const sendMessage = () => {
+    console.log('SEND MESSAGE FIRING')
     socket.emit("send_message", {message: 'HELLO'})
   }
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      alert(data.message);
+    })
+  }, []);
+
   return (
       <>
     <box className="chat-users">
