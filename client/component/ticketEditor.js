@@ -79,13 +79,13 @@ const config = {
   return (
     <div className="ticketEditor">
       <div className="ticketEditor__content">
-        <button onClick={() => setIsEdit((prev) => !prev)}>x</button>
+        <button className="closeButton_Editor" onClick={() => {setIsEdit((prev) => !prev); clickAudio()}}>x</button>
         <form
           className="ticketEditor__content"
           onSubmit={handleSubmitTicketEditor}
         >
           <label>
-            Heading?
+          Programming Language:
             <input
               required={true}
               type="text"
@@ -95,7 +95,7 @@ const config = {
             ></input>
           </label>
           <label>
-            problem?
+            What is the issue:
             <textarea
               required={true}
               value={tickets.problem}
@@ -107,7 +107,7 @@ const config = {
           </label>
           <br />
           <label>
-            tried?
+          What have you tried:
             <textarea
               value={tickets.tried}
               required={true}
@@ -119,7 +119,7 @@ const config = {
           </label>
           <br />
           <label>
-            expect?
+          What did you expect to happen:
             <textarea
               value={tickets.expect}
               required={true}
@@ -131,7 +131,7 @@ const config = {
           </label>
           <br />
           <label>
-            hypothesis?
+          Reason why you think it isn't working:
             <textarea
               value={tickets.hypothesis}
               required={true}
@@ -143,7 +143,7 @@ const config = {
           </label>
           <br />
           <label>
-            brief?
+          Brief:
             <textarea
               value={tickets.brief}
               required={true}
@@ -184,7 +184,7 @@ const config = {
               ></input>
             </label>
           </label>
-          <button type="submit">Submit</button>
+          <button className = "submitButton_Editor" type="submit">Submit</button>
         </form>
       </div>
     </div>

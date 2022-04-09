@@ -1,5 +1,4 @@
 .ticketDescription {
-  /* background-color: rgb(14, 0, 0); */
   position: fixed;
   margin-left: 548px;
   padding-top: 70;
@@ -102,4 +101,32 @@
   top: 300;
 }
 
+.ticket_Edit_Button {
+    position: fixed;
+    background-color: rgb(5, 0, 0);
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin-left: 460px;
+    top: 465px;
+    border-radius: 7%
+}
 
+.ticket_Resolve_Button {
+  position: fixed;
+  background-color: rgb(5, 0, 0);
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 5px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin-left: 370px;
+  top: 465px;
+  border-radius: 7%
+}

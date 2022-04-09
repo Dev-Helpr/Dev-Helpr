@@ -156,7 +156,7 @@ function TicketCreator({
                 onChange={handleCheckbox}
               ></input>
             </label>
-            <button className="closeButton" type="submit">
+            <button className="submitButton" type="submit">
               Submit Ticket
             </button>
             <label>

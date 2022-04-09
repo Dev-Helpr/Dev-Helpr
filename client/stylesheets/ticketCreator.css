@@ -53,7 +53,7 @@
 }
 
 .closeButton {
-  margin-left: 270px;
+  margin-left: 470px;
   color: rgb(2, 0, 0);
   font-size: 15px;
   width: 60px;
@@ -62,8 +62,8 @@
 .submitButton {
   position: absolute;
   top: 890px;
-  margin-left: 430px;
-  color: rgb(2, 0, 0);
+  margin-left: 230px;
+  color: rgb(2, 0, 1);
   font-size: 15px;
   width: 100px;
 }
