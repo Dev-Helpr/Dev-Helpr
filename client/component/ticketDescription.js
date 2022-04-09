@@ -43,14 +43,18 @@ function ticketDescription({
 
   return (
     <div className="ticketDescription">
-      <h2>Heading</h2>
-      <p>{ticketDisplay.heading}</p>
-      <h2>Problem</h2>
-      <p>{ticketDisplay.problem}</p>
-      <h2>Tried</h2>
-      <p>{ticketDisplay.tried}</p>
-      <h2>Expected</h2>
-      <p>{ticketDisplay.expect}</p>
+      <h2 className="ticketDescription_heading_PL">Programming Language:</h2>
+      <p className="ticketDescription_subject_PL">{ticketDisplay.heading}</p>
+
+      <h2 className="ticketDescription_heading_Issue  ">What is the issue:</h2>
+      <p className="ticketDescription_subject_Issue">{ticketDisplay.problem}</p>
+
+      <h2 className="ticketDescription_heading_Tried">What have you tried:</h2>
+      <p className="ticketDescription_subject_Tried">{ticketDisplay.tried}</p>
+
+      <h2 className="ticketDescription_heading_Expect">What did you expect to happen:</h2>
+      <p className="icketDescription_subject_Expect">{ticketDisplay.expect}</p> 
+
       {userId === +ticketDisplay.user_id ? (
         <div>
           <button onClick={() => setIsEdit((prev) => !prev)}>edit</button>

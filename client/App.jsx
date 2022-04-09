@@ -6,8 +6,8 @@ import * as actions from "./action/action.js";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import Home from "./pages/home";
-// import "./stylesheets/styles.css";
-// import ReactPlayer from "react-player";
+
+
 
 const mapStateToProps = (state) => ({
   //user is the whole users object

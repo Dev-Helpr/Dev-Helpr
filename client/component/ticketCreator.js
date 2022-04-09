@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./../stylesheets/ticketCreator.css";
 import axios from "axios";
+import click1 from "../audioclips/click1.mp3";
+
 // {
 //   problem: '',
 //   tried: '',
@@ -51,18 +53,27 @@ function TicketCreator({
       .catch((err) => console.log(err));
   };
 
+  const clickAudio = () => new Audio(click1).play();
+
+
   return (
     <div className="ticketCreator">
       <div className="ticketCreator__content">
-        <button onClick={() => setCreateTicketIsClick((prev) => !prev)}>
-          X
+        <button
+          className="closeButton"
+          onClick={() => {
+            setCreateTicketIsClick((prev) => !prev);
+            clickAudio();
+          }}
+        >
+          Close X
         </button>
         <form
           className="ticketCreator__content"
           onSubmit={handleSubmitCreateTicket}
         >
           <label>
-            Heading?
+            Programming Language:
             <input
               required={true}
               type="text"
@@ -71,7 +82,7 @@ function TicketCreator({
             ></input>
           </label>
           <label>
-            problem?
+            What is the issue:
             <textarea
               required={true}
               className="ticketCreator__textarea"
@@ -82,7 +93,7 @@ function TicketCreator({
           </label>
           <br />
           <label>
-            tried?
+            What have you tried:
             <textarea
               required={true}
               className="ticketCreator__textarea"
@@ -93,7 +104,7 @@ function TicketCreator({
           </label>
           <br />
           <label>
-            expect?
+            What did you expect to happen:
             <textarea
               required={true}
               className="ticketCreator__textarea"
@@ -104,7 +115,7 @@ function TicketCreator({
           </label>
           <br />
           <label>
-            hypothesis?
+            Reason why you think it isn't working:
             <textarea
               required={true}
               className="ticketCreator__textarea"
@@ -115,7 +126,7 @@ function TicketCreator({
           </label>
           <br />
           <label>
-            brief?
+            Brief:
             <textarea
               required={true}
               className="ticketCreator__textarea"
@@ -126,7 +137,7 @@ function TicketCreator({
           </label>
           <br />
           <label>
-            Urgency?
+            Urgency:
             <label>
               Very urgent
               <input
@@ -145,6 +156,9 @@ function TicketCreator({
                 onChange={handleCheckbox}
               ></input>
             </label>
+            <button className="closeButton" type="submit">
+              Submit Ticket
+            </button>
             <label>
               Not urgent
               <input
@@ -155,7 +169,6 @@ function TicketCreator({
               ></input>
             </label>
           </label>
-          <button type="submit">Submit</button>
         </form>
       </div>
     </div>
