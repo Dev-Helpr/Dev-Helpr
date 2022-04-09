@@ -1,26 +1,66 @@
 .ticket {
-  display: flex;
-  /* flex-direction: row; */
-  background-color: aqua;
-  /* margin-top: 20px; */
-  margin-bottom: 20px;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  position: relative;
+  top: 4;
+  font-size: 13px;
+  background-color: rgb(65, 65, 66);
+  margin-bottom: 5px;
+  padding-bottom: 65px;
   padding-left: 10px;
   padding-right: 10px;
-  justify-content: space-between;
+  justify-content: space-center;
   height: 10%;
+  font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
+  border-radius: 3%;
 }
 
 .ticket:hover {
   cursor: pointer;
 }
 
-.ticket__heading {
+.ticket__programming_language {
   padding-left: 10px;
   padding-right: 10px;
-  padding-top: 10px;
+  padding-top: 0px;
   padding-bottom: 10px;
-  background-color: antiquewhite;
-  border-radius: 50%;
+  color: rgb(255, 245, 195);
+  /* text-decoration: underline; */
+}
+
+.ticket__programming_language__subject {
+  position: relative;
+  top: 20px;
+  padding-left: 200px;
+  color: rgb(255, 255, 255);
+  /* text-decoration: underline; */
+}
+
+.ticket__topic {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  font-weight: 400;
+  color: rgb(6, 250, 250);
+}
+
+.ticket__topic__subject {
+
+  padding-right: 10px;
+  padding-bottom: 10px;
+  font-weight: 400;
+  color: rgb(255, 255, 255);
+}
+
+.ticket__brief {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  font-weight: 400;
+  color: rgb(0, 255, 213);
+}
+
+.ticket__brief__subject {
+  padding-right: 10px;
+  padding-bottom: 10px;
+  font-weight: 400;
+  color: rgb(255, 255, 255);
 }
