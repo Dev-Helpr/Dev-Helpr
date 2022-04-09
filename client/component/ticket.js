@@ -27,3 +27,6 @@ function Ticket({ heading, brief, handleClick, id }) {
 }
 
 export default Ticket;
+
+
+//mik

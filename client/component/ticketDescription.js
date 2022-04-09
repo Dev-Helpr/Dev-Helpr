@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import TicketEditor from "./ticketEditor.js";
 import "./../stylesheets/ticketDescription.css";
 import axios from 'axios';
+import click1 from "../audioclips/click1.mp3";
+
+
 //How it looks like inside ticketDisplay
 // {
 //   problem: '',
@@ -41,6 +44,8 @@ function ticketDescription({
     })
   };
 
+  const clickAudio = () => new Audio(click1).play();
+
   return (
     <div className="ticketDescription">
       <h2 className="ticketDescription_heading_PL">Programming Language:</h2>
@@ -57,8 +62,8 @@ function ticketDescription({
 
       {userId === +ticketDisplay.user_id ? (
         <div>
-          <button onClick={() => setIsEdit((prev) => !prev)}>edit</button>
-          <button onClick={resolveOnClick}>resolve</button>
+          <button className="ticket_Edit_Button" onClick={() => {setIsEdit((prev) => !prev); clickAudio()}}>edit</button>
+          <button className="ticket_Resolve_Button" onClick={resolveOnClick}>resolve</button>
         </div>
       ) : null}
       {isEdit ? (

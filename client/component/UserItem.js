@@ -53,18 +53,19 @@ function UserItem({ id, username, online, status, setUpdateStatus }) {
       {/* <h3>Online: {online.toString()} </h3>
         <p>Status: {status}</p> */}
       <div className="btn-container">
+      {/* <div className="glowing-circle"> */}
         <button
           onClick={() => handleStatusClick(status, id)}
           className={`status_button_2 ${online ? "" : "hide_status"}`}
           style={
             status === "seekingHelp"
-              ? { backgroundColor: "#FFD900" }
+              ? { backgroundColor: "red" }
               : status === "helper"
-              ? { backgroundColor: "#16a318" }
-              : { backgroundColor: "#5353f3" }
+              ? { backgroundColor: "yellow" }
+              : { backgroundColor: "blue" }
           }
         ></button>
-     
+        {/* </div> */}
       </div>
       {/* <div className="ticket__brief">
         <h3>Brief</h3>
