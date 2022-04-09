@@ -123,7 +123,7 @@ function Home({
         </div>
 
       </div>
-      
+
       <div className="boxBackground"></div>
 
       <div className="clock">
