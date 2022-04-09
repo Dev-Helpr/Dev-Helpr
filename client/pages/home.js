@@ -113,6 +113,7 @@ function Home({
         <box className="ticketBody"></box>
         <box className="usersList-Box1"></box>
         <box className="chatBox"></box>
+        <Chatbox/>
         <box className="usersContainer-box">
           <p className="usersContainer-box-text1 ">Online Users:</p>
           <p className="usersContainer-box-text2 ">Online Status:</p>
