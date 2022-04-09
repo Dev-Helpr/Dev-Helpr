@@ -35,6 +35,12 @@ function Home({
   const [updateStatus, setUpdateStatus] = useState(true);
   const [ticketDisplay, setTicketDisplay] = useState({});
   const clickAudio = () => new Audio(click1).play();
+  const filterOnlineUserNames = (userFromList) => {
+    if (userFromList.props.online === true) {
+      return true 
+    } 
+    return false
+  };
   const handleClick = (id) => {
     const config = {
       headers: {
