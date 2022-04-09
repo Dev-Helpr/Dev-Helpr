@@ -129,7 +129,7 @@ function Home({
         <box className="ticketBody"></box>
         <box className="usersList-Box1"></box>
         <box className="chatBox">
-          <Chatbox user={user} onlineUsers={arrOfUsers.filter(filterOnlineUserNames)}/>
+          <Chatbox socket={socket} user={user} onlineUsers={arrOfUsers.filter(filterOnlineUserNames)}/>
         </box>
         <box className="usersContainer-box">
           <p className="usersContainer-box-text1 ">Online Users:</p>

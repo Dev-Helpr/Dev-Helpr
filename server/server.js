@@ -38,7 +38,7 @@ app.use(
 app.use("/api/users/", usersRouter);
 //create a (GET) refresh route here or in usersRouter ?
 app.use("/api/refresh", refreshAccess);
-app.use(protect); //user will need to be logged in to access any route below this point
+// app.use(protect); //user will need to be logged in to access any route below this point
 app.use("/api/tickets/", ticketsRouter);
 
 /** ROUTE HANDLER TO RESPOND WITH MAIN APP */
@@ -65,9 +65,12 @@ app.use((error, request, response, next) => {
 // SOCKET.IO
 
 io.on("conncetion", (socket) => {
-  console.log(socket.id)
-})
+  console.log(`User ID: ${socket.id} is connected...`);
 
+  socket.on("send_message", (data) => {
+    console.log(data.message)
+  })
+});
 /** START SERVER */
 
 app.listen(PORT, () => {

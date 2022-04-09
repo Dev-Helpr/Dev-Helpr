@@ -3,7 +3,11 @@ import React from 'react'
 function Chatbox({
   onlineUsers,
   user,
+  socket,
 }) {
+  const sendMessage = () => {
+    socket.emit("send_message", {message: 'HELLO'})
+  }
   return (
       <>
     <box className="chat-users">
@@ -18,6 +22,7 @@ function Chatbox({
       </box>
       <box className="message-input">
       <p>test k;adsjasds</p>
+      <button onClick={sendMessage}>Send Message</button>
       </box>
   </box>   
       </>
