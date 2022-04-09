@@ -1,17 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const { protect } = require('../controllers/authControllers');
 const { handleNewTicket, handleGetTicketList, handleGetTicket, handleDeleteTicket, handleUpdateTicket } = require('../controllers/ticketController')
 
 //inside @ '/api/tickets/'
 
-router.post('/', handleNewTicket);
+router.post('/', protect, handleNewTicket);
 
-router.get('/list', handleGetTicketList);
+router.get('/list', protect, handleGetTicketList);
 
 router.route('/:id')
-    .get(handleGetTicket)
-    .put(handleUpdateTicket)
-    .delete(handleDeleteTicket)
+    .get(protect, handleGetTicket)
+    .put(protect, handleUpdateTicket)
+    .delete(protect, handleDeleteTicket)
 
 // router.get('/ticket', handleGetTicket);
 

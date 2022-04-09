@@ -17,7 +17,7 @@ const io = new Server(server, {
 
 const PORT = 3030;
 
-
+console.log('io: ',io)
 const { protect } = require("./controllers/authControllers");
 /** REQUIRE ROUTERS */
 const usersRouter = require(path.resolve(__dirname, "./routes/users"));
@@ -80,3 +80,27 @@ app.listen(PORT, () => {
 
 
 module.exports = app;
+
+
+
+// async function isValidJwt(token){
+//   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
+//       if (err){
+//           console.log(err);
+//           return false;
+//       }else{
+//           //console.log(decoded);
+//           return true;
+//       }
+//   });
+// }
+
+// io.use((socket, next) => {
+//    token = socket.handshake.auth.token;
+//   if (isValidJwt(token)){
+//       return next();
+//   }else{
+//       return next(new Error("Socket authentication error"));
+//   }
+// });
+

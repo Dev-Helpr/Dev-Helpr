@@ -22,11 +22,7 @@ function Home({
   updateTicketUrgency,
   getTicketStateWhenClickEdit,
 }) {
-  const socket = io.connect('http://localhost:3030', {
-    extraHeaders: {
-      Authorization: `Bearer ${user.accessToken}`,
-    }
-  })
+  const socket = io.connect('http://localhost:3030')
   
   const [ticketIsClick, setTicketIsClick] = useState(false);
   const [createTicketIsClick, setCreateTicketIsClick] = useState(false);

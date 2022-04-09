@@ -7,6 +7,7 @@ const protect = async (req, res, next) => {
     let token;
     const text = 'SELECT users._id, users.username, users.email FROM users WHERE users._id = $1;';
 
+    
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     
         try {
