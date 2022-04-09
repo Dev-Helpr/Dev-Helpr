@@ -30,7 +30,7 @@ function UserItem({ id, username, online, status, setUpdateStatus }) {
   };
 
   return (
-    
+    <div className="scroller-container">
     <div className={`user ${online ? "" : "offline"}`}>
       {/* <div className='ghost'></div> */}
       <div className="userName">
@@ -70,6 +70,7 @@ function UserItem({ id, username, online, status, setUpdateStatus }) {
         <h3>Brief</h3>
         <p>{brief}</p>
       </div> */}
+    </div>
     </div>
   );
 }

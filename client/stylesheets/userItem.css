@@ -1,18 +1,22 @@
-.user {
+.scroller-container {
+
+  overflow-y: visible;
+  max-height: 20;
+
+
+  .user {
     position: relative;
     /* grid-template-columns: 3fr 3fr; */
-    color: white;
     display: flex;
     align-items: left;
     justify-content: left;
-    margin-left: 1630px;
+    margin-left: 1620px;
     top: 150px;
     height: 20px;
     font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
-    font-size: 10px;
-    font-weight: lighter;
+    font-size: 9px;
     cursor: pointer;
-    /* background-color: white; */
+    font-weight: 100;
   }
 
 
@@ -36,11 +40,9 @@
 ​
   .offline {
       color: #595151;
-
       background-color: #5A79AF;
   }
 
-​
   .status_button {
     background-color: #04AA6D;
     border: none;
@@ -58,7 +60,7 @@
   position: absolute;
   top: 7px;
   border: none;
-  color: white;
+  color: #5353f3;
   padding: 7px;
   text-align: center;
   text-decoration: none;
@@ -67,20 +69,26 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 50%;
-  margin-left: 180px;
+  margin-left: 150px;
   }
-​
 
   .hide_status {
     background-color: grey;
+    position: absolute;
+    top: 7px;
     border: none;
-    color: white;
-    padding: 20px;
+    /* color: #5353f3; */
+    padding: 7px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-left: 150px;
     opacity: 40%;
   }
+
+};
 

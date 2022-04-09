@@ -9,6 +9,8 @@ import Datetime from "../component/datetime.js";
 import Clock from "react-live-clock";
 import click1 from "../audioclips/click1.mp3";
 import signupBackground from "../images/signupBackground19.jpg";
+
+
 function Home({
   user,
   tickets,
@@ -100,6 +102,8 @@ function Home({
       .catch((err) => console.log(err));
     fetchUserList();
   }, [arrOfTicket.length, updateStatus]);
+
+  
   return (
     <div className="home">
       <img className="signupPhoto" src={signupBackground} />
@@ -107,9 +111,11 @@ function Home({
         <box className="box1"></box>
         <box className="box2"></box>
         <box className="ticketBody"></box>
+        <box className="usersList-Box1"></box>
         <box className="chatBox"></box>
         <box className="usersContainer-box">
-          <p className="usersContainer-box-text ">Online Users:</p>
+          <p className="usersContainer-box-text1 ">Online Users:</p>
+          <p className="usersContainer-box-text2 ">Online Status:</p>
         </box>
         <p className="text1">Dev-helpr</p>
       </div>

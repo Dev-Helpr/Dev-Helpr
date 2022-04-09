@@ -51,7 +51,7 @@ grid-row-gap: 10px; */
 }
 
 .box2 {
-  position: absolute;
+  position: fixed;
   width: 1859px;
   height: 6.3%;
   background-color: rgb(51, 51, 237);
@@ -69,8 +69,17 @@ grid-row-gap: 10px; */
   border: 2px solid rgb(67, 69, 67);
 }
 
+.usersList-Box1 {
+  position: fixed;
+  width: 290px;
+  height: 55;
+  top: 62px;
+  border: 2px solid rgb(67, 69, 67);
+  margin-left: 1610px;
+}
+
 .ticketBody {
-  position: absolute;
+  position: fixed;
   width: 1055px;
   height: 45.5%;
   margin-left: 545px;
@@ -79,7 +88,7 @@ grid-row-gap: 10px; */
 }
 
 .chatBox {
-  position: absolute;
+  position: fixed;
   width: 1055px;
   height: 46%;
   margin-left: 545px;
@@ -88,15 +97,15 @@ grid-row-gap: 10px; */
 }
 
 .usersContainer-box{
-  position: absolute;
+  position: fixed;
   width: 300px;
-  height: 92.5%;
+  height: 90%;
   margin-left: 1610px;
-  top: 62px;
+  top: 125px;
   border: 2px solid rgb(67, 69, 67);
 }
 
-.usersContainer-box-text {
+/* .usersContainer-box-text {
   font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
   position: absolute;
   color: rgb(255, 255, 255);
@@ -112,10 +121,46 @@ grid-row-gap: 10px; */
   margin-left: 95;
   font-weight: 400;
   border-radius: 5%;
+} */
+
+.usersContainer-box-text1 {
+  font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
+  position: fixed;
+  color: rgb(255, 255, 255);
+  /* background-color: rgb(83, 88, 225); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 80px;
+  /* padding-top: 10px;
+  padding-bottom: 10px; */
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 7;
+  font-weight: 400;
+  /* border-radius: 5%; */
+}
+
+.usersContainer-box-text2 {
+  font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
+  position: fixed;
+  color: rgb(255, 255, 255);
+  /* background-color: rgb(83, 88, 225); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 80px;
+  /* padding-top: 10px;
+  padding-bottom: 10px; */
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 145;
+  font-weight: 400;
+  /* border-radius: 5%; */
 }
 
 .text1 {
-  position: absolute;
+  position: fixed;
   font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
   font-size: 40px;
   font-weight: bold;
@@ -137,7 +182,7 @@ grid-row-gap: 10px; */
 }
 
 .clock {
-  position: absolute;
+  position: fixed;
   padding-top: 21.5px;
   padding-left: 1790px;
   color: rgb(255, 75, 147);
@@ -146,7 +191,7 @@ grid-row-gap: 10px; */
 }
 
 .signupPhoto {
-  position: absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   margin-left: 1610px;

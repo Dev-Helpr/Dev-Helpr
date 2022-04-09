@@ -53,7 +53,7 @@
 }
 
 .closeButton {
-  margin-left: 480px;
+  margin-left: 270px;
   color: rgb(2, 0, 0);
   font-size: 15px;
   width: 60px;
@@ -81,7 +81,7 @@
 #switch {
   visibility: hidden;
   clip: rect(0 0 0 0);
-  position: absolute;
+  position: fixed;
   left: 9999px;
 }
 
