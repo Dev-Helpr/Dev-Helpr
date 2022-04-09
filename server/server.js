@@ -67,9 +67,20 @@ app.use((error, request, response, next) => {
 io.on("connection", (socket) => {
   console.log(`User ID: ${socket.id} is connected...`);
 
-  socket.on("send_message", (data) => {
-    socket.broadcast.emit("receive_message", data)
+  socket.on("join_room", (data) => {
+    //join room of param
+    socket.join(data);
+    console.log(`User ID: ${socket.id} joined room: ${data}`)
   })
+
+  socket.on("send_message", (data) => {
+    socket.to(data.room).emit("receive_message", data)
+  })
+
+  socket.on("disconnect", (data) => {
+    console.log("User Disconnected: ", socket.id)
+  })
+
 });
 /** START SERVER */
 server.listen(3031, () => {

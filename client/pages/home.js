@@ -10,7 +10,7 @@ import Clock from "react-live-clock";
 import click1 from "../audioclips/click1.mp3";
 import signupBackground from "../images/signupBackground19.jpg";
 import Chatbox from "../component/Chatbox.js";
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
 
 
