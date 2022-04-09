@@ -150,6 +150,7 @@ const handleLogOut = async (req, res) => {
   res.sendStatus(204);
 };
 
+//get list of users
 const handleGetUserList = async (req, res) => {
     
 
@@ -162,6 +163,7 @@ const handleGetUserList = async (req, res) => {
     }
 }
 
+//user can click on their status button in user list to make this call and update status from helper, seekinghelp, or neutral
 const handleChangeUserStatus = async (req, res) => {
     //check if user id on req.user matches id in params, if does you are authorized to change status
     // console.log('REQ.PARAMS:  ', req.params.id)
