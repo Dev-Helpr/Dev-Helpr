@@ -9,6 +9,7 @@ import Home from "./pages/home";
 
 
 
+
 const mapStateToProps = (state) => ({
   //user is the whole users object
   user: state.users,

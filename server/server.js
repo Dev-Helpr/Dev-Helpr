@@ -2,8 +2,22 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const http = require("http");
 const app = express();
+app.use(cors());
+
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:8084",
+    methods: ["GET", "POST"],
+  }
+});
+
 const PORT = 3030;
+
+
 const { protect } = require("./controllers/authControllers");
 /** REQUIRE ROUTERS */
 const usersRouter = require(path.resolve(__dirname, "./routes/users"));
@@ -11,7 +25,6 @@ const ticketsRouter = require(path.resolve(__dirname, "./routes/tickets"));
 const refreshAccess = require("./routes/refresh");
 /** HANDLE PARSING REQUEST BODY FOR JSON AND URL */
 //can create a cors function later to only allow certain origins (domains) to access our apps backend
-app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -54,5 +67,7 @@ app.use((error, request, response, next) => {
 app.listen(PORT, () => {
   console.log(`Server connected -- listening on port ${PORT}`);
 });
+
+
 
 module.exports = app;

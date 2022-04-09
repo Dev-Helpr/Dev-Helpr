@@ -88,6 +88,8 @@ grid-row-gap: 10px; */
 }
 
 .chatBox {
+  display: grid;
+  grid-template-rows: 1fr 3f;
   position: fixed;
   width: 1055px;
   height: 46%;
@@ -200,3 +202,7 @@ grid-row-gap: 10px; */
   top: 712px;
 }
 
+.chat-display {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}

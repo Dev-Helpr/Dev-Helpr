@@ -9,6 +9,10 @@ import Datetime from "../component/datetime.js";
 import Clock from "react-live-clock";
 import click1 from "../audioclips/click1.mp3";
 import signupBackground from "../images/signupBackground19.jpg";
+import Chatbox from "../component/Chatbox.js";
+import io from 'socket.io-client';
+
+
 
 
 function Home({
@@ -18,6 +22,12 @@ function Home({
   updateTicketUrgency,
   getTicketStateWhenClickEdit,
 }) {
+  const socket = io.connect('http://localhost:3030', {
+    extraHeaders: {
+      Authorization: `Bearer ${user.accessToken}`,
+    }
+  })
+  
   const [ticketIsClick, setTicketIsClick] = useState(false);
   const [createTicketIsClick, setCreateTicketIsClick] = useState(false);
   const [arrOfTicket, setArrOfTicket] = useState([]);
@@ -112,7 +122,9 @@ function Home({
         <box className="box2"></box>
         <box className="ticketBody"></box>
         <box className="usersList-Box1"></box>
-        <box className="chatBox"></box>
+        <box className="chatBox">
+          <Chatbox />
+        </box>
         <box className="usersContainer-box">
           <p className="usersContainer-box-text1 ">Online Users:</p>
           <p className="usersContainer-box-text2 ">Online Status:</p>
