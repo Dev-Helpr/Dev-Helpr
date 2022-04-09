@@ -140,6 +140,7 @@ function Home({
       ) : null}
        userFeed
       <div className="home__users">{arrOfUsers}</div>
+      <Chatbox/>
     </div>
   );
 }

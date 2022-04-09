@@ -3,8 +3,8 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const path = require('path');
-const Server = require('socket.io').Server
-const io = new Server(server);
+const socketServer = require('socket.io').Server
+const io = new socketServer(server);
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { protect } = require('./controllers/authControllers');
@@ -68,11 +68,10 @@ app.use((error, request, response, next) => {
 /** RUN WEBSOCKET WHEN CLIENT CONNECTS TO CHATBOX **/
 io.on('connection', (socket) => {
   /* RUNS WHEN CLIENT CONNECTS */
-  console.log('user has connected...');
-  socket.emit('connection', () => 'returned statement');
-
-  socket.on('client response', () => {
-    console.log('client has established connection...');
+  console.log('user has connected to server...');
+  socket.emit('connection', 'this is a message from the server...');
+  socket.on('client response', (socket) => {
+    console.log(socket);
   })
 
   /* RUNS WHEN CLIENT DISCONNECTS */
@@ -84,7 +83,9 @@ io.on('connection', (socket) => {
   socket.on('joinRoom', ({ username, room }) => {
     console.log(`${username} has joined room ${room}...`);
 
-    const user = userJoin(socket.id, 'bob', 5);
+    /* user PARAMS WILL BE (socket.id, username, room) */
+    const user = userJoin(socket.id, username, room);
+
     socket.join(user.room);
 
     /* WELCOME CURRENT USER */
@@ -121,7 +122,7 @@ io.on('connection', (socket) => {
         formatMessage(botName, `${user.username} has left the chat.`)
       );
 
-      /* SEND USERS AND ROOM INFO */
+      /* SEND USERS AND ROOM INFO  --> TWO ARGUMENTS ARE EMITTED, LISTEN FOR AN OBJECT WITH 2, NOT 3! */
       io.to(user.room).emit('roomUsers', {
         room: user.room,
         users: getRoomUsers(user.room)

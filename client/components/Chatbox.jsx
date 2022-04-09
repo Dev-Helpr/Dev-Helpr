@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import * as io from '../../node_modules/socket.io/client-dist/socket.io.js';
 
-const userForm = document.getElementById('username');
-const roomForm = document.getElementById('room');
-const chatForm = document.getElementById('chat-form');
-const chatMessages = document.querySelector('.chat-messages');
-const roomName = document.getElementById('room-name');
-const userList = document.getElementById('users');
+// const userForm = document.getElementById('username');
+// const roomForm = document.getElementById('room');
+// const chatForm = document.getElementById('chat-form');
+// const chatMessages = document.getElementsByClassName('chat-messages');
+// const roomName = document.getElementById('room-name');
+// const userList = document.getElementById('users');
 const ioSocket = io();
 
 
@@ -14,40 +14,42 @@ function Chatbox() {
   /** INITIALIZE STATE OF CHATBOX COMPONENT **/
   const [username, setUsername] = useState(undefined);
   const [room, setRoom] = useState(undefined);
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState(undefined);
   const [ticketResolved, setTicketResolved] = useState(false);
-  const [messages, addMessages] = useState([]);
+  const [messages, setMessages] = useState([]);
 
   /** BEGIN CHAT SESSION ONCE CHATBOX COMPONENT MOUNTS **/
-  /* DO WE USE useEffect() HERE? */
-  ioSocket.on('connection', () => {
+  ioSocket.on('connection', (socket) => {
 
     /* CONFIRM DUPLEX COMMUNICATION WITH SERVER */
-    ioSocket.emit('client response');
-    console.log('client has responded...');
+    console.log(socket);
+    ioSocket.emit('client response', 'this is a response from the client...');
 
     /* JOIN CHATROOM */
-    ioSocket.emit('joinRoom', {username, room});
+    /*** SET DUMMY USER. MUST CONNECT WITH TICKET SUBMITTER ***/
+    const username = `dummy-user-${Math.floor(Math.random() * 10)}`;
+    const room = 'dummy-room';
+    ioSocket.emit('joinRoom', { username, room });
 
     /* GET ROOM AND USERS */
     ioSocket.on('roomUsers', (socket) => {
+      const currentUsers = [];
+      for (let i = 0; i < socket.users.length; i++) {
+        currentUsers.push(<div>{socket.users[i].username}</div>);
+      }
+      setUserList(currentUsers);
       setRoom(socket.room);
-      // setUserList(socket.users)
-    });
-    ioSocket.on('roomUsers', ({room, users}) => {
-      outputRoomName('special room');
-      outputUsers(['bob', 'david']);
     });
 
-    /* MESSAGE FROM SERVER */
+    /* MESSAGE FROM SERVER --- THIS NEEDS REWORKING, STATE IS MANIPULATED DIRECTLY */
     ioSocket.on('message', (message) => {
-      addMessages([...messages, outputMessage(message)]);
+      setMessages([...messages, outputMessage(message)]);
       messages.push(outputMessage(message));
-    })
 
-    /* SCROLL DOWN */
-    // chatMessages.scrollTop = chatMessages.scrollHeight;
-    // });
+      /* AUTO-SCROLL DOWN */
+      const el = document.getElementById('chat-messages')
+      if (el) el.scrollTop = el.scrollHeight
+    })
   });
 
   /* MESSAGE SUBMIT */
@@ -70,7 +72,7 @@ function Chatbox() {
     e.target.elements.msg.focus();
   });
 
-  /* OUTPUT MESSAGE TO DOM */
+  /* OUTPUT MESSAGE TO COMPONENT */
   const outputMessage = (message) => {
     return (
       <div className='message'>
@@ -85,35 +87,20 @@ function Chatbox() {
     );
   };
 
-  // TODO: LIST USERNAMES IN ROOM
-  // TODO: ROUTE USERS IN THEIR OWN ROOMS BASED ON SOCKET ID OR HASHED VALUE
+  // TODO: ROUTE USERS IN THEIR OWN ROOMS BASED ON SOCKET ID, HASHED VALUE OR CLIENT ID
   /** ADD ROOM NAME AND USERS TO CHATBOX COMPONENT **/
   const outputRoomName = (room) => {
-    return setRoom(room);
-  }
-
-  // /** ADD USERS TO DOM **/
-  const outputUsers = ({username, users = [...userList]}) => {
-    users.push(<div>{username}</div>);
-    setUserList([<div>user</div>, <div>user</div>])
+    setRoom(room);
   };
-  // userList.innerHTML = '';
-  // users.forEach((user) => {
-  //   const li = document.createElement('li');
-  //   li.innerText = user.username;
-  //   userList.appendChild(li);
-  // });
-
 
   /** PROMPT THE USER BEFORE LEAVING THE CHATROOM **/
-  // document.getElementById('leave-btn').addEventListener('click', () => {
+  // button.addEventListener('click', () => {
   //   const leaveRoom = confirm('Are you sure you want to leave the chatroom?');
-  //   if (leaveRoom) {
-  //     window.location = '../index.html';
-  //   } else {
-  //   }
+    // if (leaveRoom) {
+    //   window.location = '../index.html';
+    // } else {
+    // }
   // });
-
 
 
   return(
@@ -141,7 +128,7 @@ function Chatbox() {
             <h2><i className="fas fa-users"/> Users:<br/><ul id="users">{userList}</ul></h2>
             {/*<ul id="users"> </ul>*/}
           </div>
-          <div className="chat-messages">
+          <div id='chat-messages' className="chat-messages">
             {messages}
           </div>
         </main>
