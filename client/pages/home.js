@@ -9,6 +9,7 @@ import Datetime from "../component/datetime.js";
 import Clock from "react-live-clock";
 import click1 from "../audioclips/click1.mp3";
 import signupBackground from "../images/signupBackground19.jpg";
+// import Chatbox from "../component/Chatbox";
 
 
 function Home({
@@ -113,7 +114,7 @@ function Home({
         <box className="ticketBody"></box>
         <box className="usersList-Box1"></box>
         <box className="chatBox"></box>
-        <Chatbox/>
+        {/*<Chatbox />*/}
         <box className="usersContainer-box">
           <p className="usersContainer-box-text1 ">Online Users:</p>
           <p className="usersContainer-box-text2 ">Online Status:</p>
