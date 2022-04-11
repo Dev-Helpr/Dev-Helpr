@@ -5,7 +5,7 @@ import axios from 'axios';
 import click1 from "../audioclips/click1.mp3";
 
 
-//How it looks like inside ticketDisplay
+//How it looks like inside ticketDisplay props.
 // {
 //   problem: '',
 //   tried: '',
@@ -37,7 +37,7 @@ function ticketDescription({
         Authorization: `Bearer ${user.accessToken}`,
       },
     };
-    
+
     axios.delete(`api/tickets/${ticketDisplay._id}`, config).then(res => {
       setArrOfTicket([]);
       setTicketIsClick(false);
@@ -58,7 +58,7 @@ function ticketDescription({
       <p className="ticketDescription_subject_Tried">{ticketDisplay.tried}</p>
 
       <h2 className="ticketDescription_heading_Expect">What did you expect to happen:</h2>
-      <p className="icketDescription_subject_Expect">{ticketDisplay.expect}</p> 
+      <p className="icketDescription_subject_Expect">{ticketDisplay.expect}</p>
 
       {userId === +ticketDisplay.user_id ? (
         <div>

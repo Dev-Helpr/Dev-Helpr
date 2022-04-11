@@ -17,14 +17,14 @@ Once you've confirmed the branch was successfully created, to go into that branc
 
 --------------------------------------------------
 
-Once you want to save any coding progress 
+Once you want to save any coding progress
 
     -view modified files
 
         git status
 
     -Move files that you want to commit to the staging area
-    -You can add individual files 
+    -You can add individual files
 
         git add <file name> <file name> <file name>
 
@@ -32,7 +32,7 @@ Once you want to save any coding progress
 
         git add -A
 
-    -if you need to remove individual files from staging area, you can 
+    -if you need to remove individual files from staging area, you can
 
         git reset <file name> <file name>
 
@@ -46,11 +46,11 @@ Once you want to save any coding progress
         git status
 
     - After you've double checked your staged files, commit the files with a descriptive
-    - message of that changes you are committing 
+    - message of that changes you are committing
 
         git commit -m "this is a descriptive message of this commit"
 
-    -commit is only to a LOCAL BRANCH. This commit DOES NOT affect our local master/main branch nor 
+    -commit is only to a LOCAL BRANCH. This commit DOES NOT affect our local master/main branch nor
     - the remote repository.
 
     - After commit, you can push your feature/branch to the remote repository for the first time.
@@ -58,13 +58,13 @@ Once you want to save any coding progress
 
         git push -u origin <name of branch>
 
-    - The '-u' option tells git that we want to associate our local <feature branch> with the remote <feature branch> 
+    - The '-u' option tells git that we want to associate our local <feature branch> with the remote <feature branch>
     - that we are creating/pushing to. You can do this once with the initial push of the new branch and in the future, instead of
     - doing 'git push -u origin <feature branch> we can just do 'git pull' and 'git push'
 
         ** YOUT ONLY HAVE TO DO THE ABOVE CODE ONCE WHEN PUSHING LOCAL FEATURE BRANCH TO REMOTE REPO FOR FIRST TIME **
 
-    -Once you've done that step once and are working inside that same feature branch, you can just 
+    -Once you've done that step once and are working inside that same feature branch, you can just
 
         git pull
         git push
@@ -87,7 +87,7 @@ Once you want to save any coding progress
 
     - switch back to your branch locally now that developer branch is updated
 
-        git checkout <your branch> 
+        git checkout <your branch>
 
 
     - bring the latest updates you just pulled to developer branch into your local feature branch
@@ -100,9 +100,9 @@ Once you want to save any coding progress
 
         git push origin <your branch>
 
-    
+
     - Now that you have saved your progress of your branch to the remote
-    - version of your branch, you can continue to work on your branch and 
+    - version of your branch, you can continue to work on your branch and
     - repeat these steps when ever you want to save to the remote repository.
 
 
@@ -112,12 +112,12 @@ Once you want to save any coding progress
 Merging a finish branch to Developer Branch
 
     - Follow the above steps to have a fully updated and complete version of
-    - your feature/branch with the most recent version of the developer branch 
+    - your feature/branch with the most recent version of the developer branch
     - within it. After you push that branch to origin, you will want to:
 
         - Create a pull request in GitHub from <your branch> ==> developer
-        - slack team members that you just did a PR so that they are aware 
-        - can review the PR, resolve any issues or delegate any issues to be 
+        - slack team members that you just did a PR so that they are aware
+        - can review the PR, resolve any issues or delegate any issues to be
         - resolved, and then merge your feature branch into the developer branch.
 
 
@@ -136,7 +136,7 @@ Deleting a completed feature/branch
 
             git branch -d <your branch>
 
-        - view all branches to verify that local branch was deleted but that 
+        - view all branches to verify that local branch was deleted but that
         - the remote branch still exists
 
             git branch -a
@@ -148,6 +148,7 @@ Deleting a completed feature/branch
         - again, verify that both local and remote branches have been deleted.
 
             git branch -a
+
 
 
 

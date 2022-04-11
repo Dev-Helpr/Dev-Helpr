@@ -34,6 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
   clearInput: () => dispatch(actions.clearUserInput()),
   //update ticket input
   ticketCreator: (e) => dispatch(actions.ticketCreator(e)),
+  //update how urgent the message is
   updateTicketUrgency: (e) => dispatch(actions.updateTicketUrgency(e)),
   getTicketStateWhenClickEdit: (obj) =>
     dispatch(actions.getTicketStateWhenClickEdit(obj)),
