@@ -30,6 +30,7 @@ function Home({
   const [arrOfTicket, setArrOfTicket] = useState([]);
   const [arrOfUsers, setArrOfUsers] = useState([]);
   //User can click their username on the right siide to change status from online, to helper, to seeking help
+  //blue = neutral, yellow = helper, red = seekingHelp
   const [updateStatus, setUpdateStatus] = useState(true);
   //This will grab all data from the ticket that is clicked and props drill into TicketDescription.js to show the whoe ticket in the middle of the screen
   const [ticketDisplay, setTicketDisplay] = useState({});
@@ -41,7 +42,7 @@ function Home({
     return false
   };
   const handleClick = (id) => {
-    //config is used
+
     const config = {
       headers: {
         Authorization: `Bearer ${user.accessToken}`,

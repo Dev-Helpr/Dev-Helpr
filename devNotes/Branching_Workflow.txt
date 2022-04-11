@@ -150,12 +150,6 @@ Deleting a completed feature/branch
             git branch -a
 
 
-Things to fix
-- Change styling to dynamic styling.
-- Add private chat room between helper and the person who creates ticket.
-- Sort tickets by id. Newly created ticket should appear on top of the screen.
-- Database doesn't has brief column. Everything that put inside brief when creating ticket will be ignored.
-- Creating ticket - using dropdown list for programming language instead of input textbox.
-- Too much props drilling. Maybe use Useselector??
+
 
 
