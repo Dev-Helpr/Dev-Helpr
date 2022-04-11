@@ -63,7 +63,7 @@ const handleNewUser = async (req, res) => {
     db.query(
       `UPDATE users SET refreshtoken = '${refreshToken}' WHERE users._id = ${userID.rows[0]._id};`
     );
-
+      //return back user info with new accessToken to be saved in state, to be sent as Auth Headers for protected routes
     return res.status(201).json({
       id: userID.rows[0]._id,
       userName,
@@ -150,18 +150,20 @@ const handleLogOut = async (req, res) => {
   res.sendStatus(204);
 };
 
+//get list of users
 const handleGetUserList = async (req, res) => {
     
 
     try {
         const userList =  await db.query('SELECT Users._id, Users.userName, Users.online, Users.status FROM Users');
-        console.log('USER LIST:  ', userList.rows)
+        // console.log('USER LIST:  ', userList.rows)
         return res.status(200).json(userList.rows)
     } catch (error) {
         return res.status(500).json({ 'message': err.message })
     }
 }
 
+//user can click on their status button in user list to make this call and update status from helper, seekinghelp, or neutral
 const handleChangeUserStatus = async (req, res) => {
     //check if user id on req.user matches id in params, if does you are authorized to change status
     // console.log('REQ.PARAMS:  ', req.params.id)

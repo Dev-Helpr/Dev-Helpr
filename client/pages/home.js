@@ -5,6 +5,15 @@ import TicketCreator from "./../component/ticketCreator.js";
 import UserItem from "../component/userItem.js";
 import axios from "axios";
 import "./../stylesheets/home.css";
+import Datetime from "../component/datetime.js";
+import Clock from "react-live-clock";
+import click1 from "../audioclips/click1.mp3";
+import signupBackground from "../images/signupBackground19.jpg";
+import Chatbox from "../component/Chatbox.js";
+// import io from 'socket.io-client';
+
+
+
 
 function Home({
   user,
@@ -13,15 +22,21 @@ function Home({
   updateTicketUrgency,
   getTicketStateWhenClickEdit,
 }) {
+  ;
+  
   const [ticketIsClick, setTicketIsClick] = useState(false);
   const [createTicketIsClick, setCreateTicketIsClick] = useState(false);
   const [arrOfTicket, setArrOfTicket] = useState([]);
-  //these 2 lines
   const [arrOfUsers, setArrOfUsers] = useState([]);
   const [updateStatus, setUpdateStatus] = useState(true);
-
   const [ticketDisplay, setTicketDisplay] = useState({});
-
+  const clickAudio = () => new Audio(click1).play();
+  const filterOnlineUserNames = (userFromList) => {
+    if (userFromList.props.online === true) {
+      return true 
+    } 
+    return false
+  };
   const handleClick = (id) => {
     const config = {
       headers: {
@@ -48,7 +63,7 @@ function Home({
       .get("/api/users/", config)
       .then((res) => {
         //expected this to be an array of object, if not ticket then it will be an empty array
-        console.log("USER LIST:  ", res.data);
+        // console.log("USER LIST:  ", res.data);
         const array = [];
         // setArrOfTicket(res.data);
         for (let i = 0; i < res.data.length; i++) {
@@ -68,7 +83,6 @@ function Home({
       })
       .catch((err) => console.log(err));
   };
-
   useEffect(() => {
     //fetch for tickets
     const config = {
@@ -80,7 +94,7 @@ function Home({
       .get("/api/tickets/list?_sort=id&_order=DESC", config)
       .then((res) => {
         //expected this to be an array of object, if not ticket then it will be an empty array
-        console.log("data: ", res.data);
+        // console.log("data: ", res.data);
         const array = [];
         // setArrOfTicket(res.data);
         for (let i = res.data.length - 1; i > 0; i--) {
@@ -98,14 +112,47 @@ function Home({
         setArrOfTicket(array);
       })
       .catch((err) => console.log(err));
-      fetchUserList();
+    fetchUserList();
   }, [arrOfTicket.length, updateStatus]);
 
+  
   return (
     <div className="home">
-      <button onClick={() => setCreateTicketIsClick((prev) => !prev)}>
-        +Create Ticket
-      </button>
+      <img className="signupPhoto" src={signupBackground} />
+      <div class="container">
+        <box className="box1"></box>
+        <box className="box2"></box>
+        <box className="ticketBody"></box>
+        <box className="usersList-Box1"></box>
+        <box className="chatBox">
+          <Chatbox 
+          // socket={socket}
+           user={user} 
+           onlineUsers={arrOfUsers.filter(filterOnlineUserNames)}/>
+        </box>
+        <box className="usersContainer-box">
+          <p className="usersContainer-box-text1 ">Online Users:</p>
+          <p className="usersContainer-box-text2 ">Online Status:</p>
+        </box>
+
+        <div className="login-fade-in-image1">
+            <p className="text1">Dev-helpr</p>
+        </div>
+
+      </div>
+
+      <div className="boxBackground"></div>
+
+      <div className="clock">
+        <Clock
+          format={"h:mm:ssa"}
+          style={{ fontSize: "1.5em" }}
+          ticking={true}
+        />
+      </div>
+      <div className="clockTime">
+        <Datetime />
+      </div>
       <div className="home__tickets">{arrOfTicket}</div>
       {ticketIsClick ? (
         <TicketDescription
@@ -120,9 +167,8 @@ function Home({
           userId={user.id}
         />
       ) : (
-        <div className="ticketDescription">hi</div>
+        <div className="ticketDescription"></div>
       )}
-
       {createTicketIsClick ? (
         <TicketCreator
           user={user}
@@ -136,9 +182,21 @@ function Home({
         />
       ) : null}
       {/* userFeed */}
+      <div className="switchContainer">
+        <input type="checkbox" id="switch" name="switch" />
+        <label
+          for="switch"
+          class="switch"
+          onClick={() => {
+            clickAudio();
+            setCreateTicketIsClick((prev) => !prev);
+          }}
+        >
+          Create Ticket
+        </label>
+      </div>
       <div className="home__users">{arrOfUsers}</div>
     </div>
   );
 }
-
 export default Home;
