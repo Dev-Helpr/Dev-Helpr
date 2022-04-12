@@ -26,6 +26,10 @@ module.exports = {
     open: true,
     hot: true,
     proxy: {
+      '/**': {
+        target: 'http://localhost:3030',
+        secure: false,
+      },
       '/api/**': {
         target: 'http://localhost:3030',
         secure: false,
