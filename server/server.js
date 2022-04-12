@@ -29,11 +29,11 @@ app.use(express.static(path.resolve(__dirname, '../client')));
 const apiRouter = require(path.resolve(__dirname, './routes/api.js'));
 const usersRouter = require(path.resolve(__dirname, './routes/users'));
 const ticketsRouter = require(path.resolve(__dirname, './routes/tickets'));
-const refreshAccess = require('./routes/refresh')
+const refreshAccess = require('./routes/refresh');
 
 /** HANDLE PARSING REQUEST BODY FOR JSON AND URL **/
 //can create a cors function later to only allow certain origins (domains) to access our apps backend
-app.use(cors())
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());

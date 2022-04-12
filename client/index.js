@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import App from "./App.jsx";
 import Home from './pages/home'; // NOT USING ON INDEX.JS
-import Login from './pages/login'; // NOT USING ON INDEX.JS
+// import Login from '. /pages/login'; // NOT USING ON INDEX.JS
 import Chatbox from "./components/Chatbox.jsx";
 import 'bootstrap';
 import 'react-bootstrap/dist/react-bootstrap'
@@ -18,9 +18,9 @@ import './stylesheets/login.css';
 render(
   <BrowserRouter>
     <Provider store={store}>
-      {/*<Chatbox/>*/}
+      <Chatbox/>
       {/*<App />*/}
-      <Home/>
+      {/*<Home/>*/}
       {/*<Login/>*/}
     </Provider>
   </BrowserRouter>,
