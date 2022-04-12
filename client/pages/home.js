@@ -5,11 +5,12 @@ import TicketCreator from "./../component/ticketCreator.js";
 import UserItem from "../component/userItem.js";
 import axios from "axios";
 import "./../stylesheets/home.css";
+import "./../stylesheets/chatbox.css";
 import Datetime from "../component/datetime.js";
 import Clock from "react-live-clock";
 import click1 from "../audioclips/click1.mp3";
 import signupBackground from "../images/signupBackground19.jpg";
-// import Chatbox from "../component/Chatbox";
+import Chatbox from '../component/Chatbox.jsx'
 
 
 function Home({
@@ -109,12 +110,11 @@ function Home({
     <div className="home">
       <img className="signupPhoto" src={signupBackground} />
       <div class="container">
-        <box className="box1"></box>
-        <box className="box2"></box>
-        <box className="ticketBody"></box>
-        <box className="usersList-Box1"></box>
-        <box className="chatBox"></box>
-        {/*<Chatbox />*/}
+        <box className="box1"/>
+        <box className="box2"/>
+        <box className="ticketBody"/>
+        <box className="usersList-Box1"/>
+        <box className="chatBox"><Chatbox/></box>
         <box className="usersContainer-box">
           <p className="usersContainer-box-text1 ">Online Users:</p>
           <p className="usersContainer-box-text2 ">Online Status:</p>
@@ -126,7 +126,7 @@ function Home({
 
       </div>
 
-      <div className="boxBackground"></div>
+      <div className="boxBackground"/>
 
       <div className="clock">
         <Clock
@@ -152,7 +152,7 @@ function Home({
           userId={user.id}
         />
       ) : (
-        <div className="ticketDescription"></div>
+        <div className="ticketDescription"/>
       )}
       {createTicketIsClick ? (
         <TicketCreator
